@@ -7,14 +7,17 @@
 //
 
 import Foundation
+import SpriteKit
 
-class Square: Equatable {
+class Tile: Equatable {
     let board: Board
     var x, y: Int
     var isMine: Bool
     var isRevealed: Bool
     var isMarked: Bool
     var nbMineAround: Int
+    
+    var sprite: SKNode!
     
     init(board: Board, x: Int, y: Int) {
         self.board = board
@@ -38,6 +41,6 @@ class Square: Equatable {
     
 }
 
-func ==(lhs: Square, rhs: Square) -> Bool {
+func ==(lhs: Tile, rhs: Tile) -> Bool {
     return lhs.x == rhs.x && lhs.y == rhs.y
 }

@@ -16,11 +16,11 @@ class Board {
     var minesInitialized: Bool
     var gameOver: Bool
     
-    var board: [Square]
+    var tiles: [Tile]
     
     var isGameWon: Bool {
-        for s in board {
-            if !s.isRevealed && !s.isMine {
+        for t in tiles {
+            if !t.isRevealed && !t.isMine {
                 return false
             }
         }
@@ -38,19 +38,19 @@ class Board {
         minesInitialized = false
         gameOver = false
         
-        board = [Square]()
+        tiles = [Tile]()
         for y in 0..<height {
             for x in 0..<width {
-                self.board.append(Square(board: self, x: x, y: y))
+                self.tiles.append(Tile(board: self, x: x, y: y))
             }
         }
     }
     
-    func initMines(playedSquare: Square) {
-        var possibilities = [Square]()
-        for square in board {
-            if square != playedSquare {
-                possibilities.append(square)
+    func initMines(playedSquare: Tile) {
+        var possibilities = [Tile]()
+        for tile in tiles {
+            if tile != playedSquare {
+                possibilities.append(tile)
             }
         }
         
@@ -71,22 +71,22 @@ class Board {
         return y * width + x
     }
     
-    func getSquare(x: Int, y: Int) -> Square? {
+    func getTile(x: Int, y: Int) -> Tile? {
         if isInBoard(x, y: y) {
-            return board[getIndex(x, y: y)]
+            return tiles[getIndex(x, y: y)]
         }
         
         return nil
     }
     
-    func getNeighbors(square: Square) -> [Square] {
-        var neighbors = [Square]()
+    func getNeighbors(square: Tile) -> [Tile] {
+        var neighbors = [Tile]()
         
         let dx: [Int] = [-1, 0, 1, -1, 1, -1, 0, 1]
         let dy: [Int] = [-1, -1, -1, 0, 0, 1, 1, 1]
         
         for i in 0..<dx.count {
-            if let adj = getSquare(square.x + dx[i], y: square.y + dy[i]) {
+            if let adj = getTile(square.x + dx[i], y: square.y + dy[i]) {
                 neighbors.append(adj)
             }
         }
@@ -95,31 +95,31 @@ class Board {
     }
     
     func play(x: Int, y: Int) -> Bool {
-        if let s = getSquare(x, y: y) {
+        if let s = getTile(x, y: y) {
             return play(s)
         }
         
         return false
     }
     
-    func play(square: Square) -> Bool {
+    func play(tile: Tile) -> Bool {
         if !minesInitialized {
-            initMines(square)
+            initMines(tile)
         }
         
-        if !square.isMarked && !gameOver {
-            if !square.isRevealed {
-                square.isRevealed = true
+        if !tile.isMarked && !gameOver {
+            if !tile.isRevealed {
+                tile.isRevealed = true
                 
                 if isGameWon {
                     gameOver = true
                     return true
                 }
                 
-                if square.isMine {
+                if tile.isMine {
                     gameOver = true
-                } else if square.nbMineAround == 0 {
-                    for neighbor in getNeighbors(square) {
+                } else if tile.nbMineAround == 0 {
+                    for neighbor in getNeighbors(tile) {
                         play(neighbor)
                     }
                 }
@@ -127,16 +127,16 @@ class Board {
                 return true
             } else {
                 var nbMarked = 0
-                var neighbors = getNeighbors(square)
+                var neighbors = getNeighbors(tile)
                 for neighbor in neighbors {
                     if neighbor.isMarked {
                         nbMarked++
                     }
                 }
-                if nbMarked == square.nbMineAround {
+                if nbMarked == tile.nbMineAround {
                     for neighbor in neighbors {
                         if !neighbor.isRevealed && !neighbor.isMarked {
-                            play(square)
+                            play(tile)
                         }
                     }
                 }
@@ -147,26 +147,26 @@ class Board {
     }
     
     func mark(x: Int, y: Int) {
-        if let s = getSquare(x, y: y) {
+        if let s = getTile(x, y: y) {
             mark(s)
         }
     }
     
-    func mark(square: Square) {
-        if !square.isRevealed {
-            square.isMarked = !square.isMarked
+    func mark(tile: Tile) {
+        if !tile.isRevealed {
+            tile.isMarked = !tile.isMarked
         } else {
             var nbUnrevealed = 0
-            var neighbors = getNeighbors(square)
+            var neighbors = getNeighbors(tile)
             for neighbor in neighbors {
                 if !neighbor.isRevealed {
                     nbUnrevealed++
                 }
             }
-            if nbUnrevealed == square.nbMineAround {
+            if nbUnrevealed == tile.nbMineAround {
                 for neighbor in neighbors {
                     if !neighbor.isRevealed && !neighbor.isMarked {
-                        mark(square)
+                        mark(tile)
                     }
                 }
             }
