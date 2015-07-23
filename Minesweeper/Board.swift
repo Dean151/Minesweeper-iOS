@@ -47,7 +47,20 @@ class Board {
     }
     
     func initMines(playedSquare: Square) {
+        var possibilities = [Square]()
+        for square in board {
+            if square != playedSquare {
+                possibilities.append(square)
+            }
+        }
         
+        for i in 0..<nbMines {
+            let index = Int(arc4random_uniform(UInt32(possibilities.count)))
+            possibilities[index].setMine()
+            possibilities.removeAtIndex(index)
+        }
+        
+        minesInitialized = true
     }
     
     func isInBoard(x: Int, y: Int) -> Bool {

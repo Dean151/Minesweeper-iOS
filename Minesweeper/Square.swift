@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Square {
+class Square: Equatable {
     let board: Board
     var x, y: Int
     var isMine: Bool
@@ -35,4 +35,9 @@ class Square {
             }
         }
     }
+    
+}
+
+func ==(lhs: Square, rhs: Square) -> Bool {
+    return lhs.x == rhs.x && lhs.y == rhs.y
 }
