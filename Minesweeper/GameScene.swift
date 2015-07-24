@@ -29,7 +29,7 @@ class GameScene: SKScene {
         
         // Setting up the scene
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        backgroundColor = UIColor(hexString: "#ECF0F1")
+        backgroundColor = Theme.backgroundColor
         addChild(gameLayer)
         
         gameLayer.addChild(tileLayer)
@@ -48,6 +48,7 @@ class GameScene: SKScene {
             
             tileLayer.removeAllChildren()
             addSpritesForTiles(board.tiles)
+            updateBoard()
         }
     }
     
@@ -55,7 +56,7 @@ class GameScene: SKScene {
         for tile in tiles {
             let size = tileSize-5
             let sprite = SKShapeNode(rectOfSize: CGSizeMake(size, size))
-            sprite.fillColor = UIColor(hexString: "#337ab7")
+            sprite.fillColor = Theme.unrevealedTileColor
             sprite.lineWidth = 0
             sprite.position = pointForColumn(tile.x, row: tile.y)
             tileLayer.addChild(sprite)
@@ -68,26 +69,29 @@ class GameScene: SKScene {
             if tile.isMine && (tile.isRevealed || board.gameOver) {
                 if board.isGameWon {
                     if tile.isMarked {
-                        (tile.sprite as! SKShapeNode).fillColor = UIColor(hexString: "#5cb85c")
+                        (tile.sprite as! SKShapeNode).fillColor = Theme.solvedMineTileColor
                     } else {
-                        (tile.sprite as! SKShapeNode).fillColor = UIColor(hexString: "#5bc0de")
+                        (tile.sprite as! SKShapeNode).fillColor = Theme.unsolvedMineTileColor
                     }
                 } else {
-                    (tile.sprite as! SKShapeNode).fillColor = UIColor(hexString: "#d9534f")
+                    (tile.sprite as! SKShapeNode).fillColor = Theme.explodedMineTileColor
                 }
             } else if tile.isRevealed {
-                (tile.sprite as! SKShapeNode).fillColor = UIColor.whiteColor()
+                (tile.sprite as! SKShapeNode).fillColor = Theme.revealedTileColor
                 
                 if tile.nbMineAround != 0 {
-                    let detail = SKLabelNode(text: "\(tile.nbMineAround)")
-                    detail.fontColor = UIColor.blackColor()
-                    detail.position = CGPointZero
-                    tile.sprite.addChild(detail)
+                    if tile.sprite.children.count == 0 {
+                        let detail = SKLabelNode(text: "\(tile.nbMineAround)")
+                        detail.fontColor = Theme.fontColorWithMines(tile.nbMineAround)
+                        detail.fontSize = tileSize*2/3
+                        detail.position = CGPointMake(0, -tileSize/4)
+                        tile.sprite.addChild(detail)
+                    }
                 }
             } else if tile.isMarked {
-                (tile.sprite as! SKShapeNode).fillColor = UIColor(hexString: "#f0ad4e")
+                (tile.sprite as! SKShapeNode).fillColor = Theme.markedTileColor
             } else {
-                (tile.sprite as! SKShapeNode).fillColor = UIColor(hexString: "#337ab7")
+                (tile.sprite as! SKShapeNode).fillColor = Theme.unrevealedTileColor
             }
         }
     }

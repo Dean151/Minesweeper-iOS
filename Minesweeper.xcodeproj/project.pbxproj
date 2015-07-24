@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B818D3C81F835249B40D012C /* Pods_Minesweeper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40909C24C87FFE2ECA8FD606 /* Pods_Minesweeper.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		E914F8F21B62ADEE001AFB80 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E914F8F11B62ADEE001AFB80 /* Theme.swift */; };
 		E9D3DEB11B6143A700C562E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D3DEB01B6143A700C562E3 /* AppDelegate.swift */; };
 		E9D3DEB61B6143A700C562E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9D3DEB41B6143A700C562E3 /* Main.storyboard */; };
 		E9D3DEB81B6143A700C562E3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9D3DEB71B6143A700C562E3 /* Images.xcassets */; };
@@ -51,6 +52,7 @@
 		40909C24C87FFE2ECA8FD606 /* Pods_Minesweeper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Minesweeper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8598DCF7A94965A8CAEAF2F6 /* Pods-Minesweeper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minesweeper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Minesweeper/Pods-Minesweeper.debug.xcconfig"; sourceTree = "<group>"; };
 		D4619E491D1F49A0C83C20CB /* Pods-Minesweeper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minesweeper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Minesweeper/Pods-Minesweeper.release.xcconfig"; sourceTree = "<group>"; };
+		E914F8F11B62ADEE001AFB80 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		E926F1E81B62806B003AF8A8 /* libPods-Minesweeper-HexColors.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Minesweeper-HexColors.a"; path = "Pods/../build/Debug-iphoneos/libPods-Minesweeper-HexColors.a"; sourceTree = "<group>"; };
 		E9D3DEAB1B6143A700C562E3 /* Minesweeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minesweeper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9D3DEAF1B6143A700C562E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 		E9D3DED51B61627700C562E3 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				E914F8F11B62ADEE001AFB80 /* Theme.swift */,
 				E9D3DEDB1B616EFE00C562E3 /* GameScene.swift */,
 			);
 			name = Scenes;
@@ -353,6 +356,7 @@
 				E9D3DEDC1B616EFE00C562E3 /* GameScene.swift in Sources */,
 				E9D3DED41B61448900C562E3 /* Tile.swift in Sources */,
 				E9D3DEB11B6143A700C562E3 /* AppDelegate.swift in Sources */,
+				E914F8F21B62ADEE001AFB80 /* Theme.swift in Sources */,
 				E9D3DEDE1B61785100C562E3 /* GameViewController.swift in Sources */,
 				E9D3DED21B6143BD00C562E3 /* Board.swift in Sources */,
 			);

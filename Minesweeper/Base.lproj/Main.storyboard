@@ -19,7 +19,11 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems>
-                        <barButtonItem title="Item" id="2Qg-sh-igM"/>
+                        <barButtonItem title="Game" id="2Qg-sh-igM">
+                            <connections>
+                                <action selector="GameButtonPressed:" destination="vXZ-lx-hvc" id="IDa-bF-FNt"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="9ER-Nd-UOH"/>
                         <barButtonItem style="plain" id="Trz-xm-McN">
                             <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="AKO-yU-XO8">
