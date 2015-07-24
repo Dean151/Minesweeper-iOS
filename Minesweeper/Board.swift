@@ -198,20 +198,22 @@ class Board {
     }
     
     func mark(tile: Tile) {
-        if !tile.isRevealed {
-            tile.isMarked = !tile.isMarked
-        } else {
-            var nbUnrevealed = 0
-            var neighbors = getNeighbors(tile)
-            for neighbor in neighbors {
-                if !neighbor.isRevealed {
-                    nbUnrevealed++
-                }
-            }
-            if nbUnrevealed == tile.nbMineAround {
+        if  !gameOver {
+            if !tile.isRevealed {
+                tile.isMarked = !tile.isMarked
+            } else {
+                var nbUnrevealed = 0
+                var neighbors = getNeighbors(tile)
                 for neighbor in neighbors {
-                    if !neighbor.isRevealed && !neighbor.isMarked {
-                        mark(neighbor)
+                    if !neighbor.isRevealed {
+                        nbUnrevealed++
+                    }
+                }
+                if nbUnrevealed == tile.nbMineAround {
+                    for neighbor in neighbors {
+                        if !neighbor.isRevealed && !neighbor.isMarked {
+                            mark(neighbor)
+                        }
                     }
                 }
             }

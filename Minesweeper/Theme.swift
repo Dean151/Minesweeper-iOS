@@ -58,4 +58,12 @@ class Theme {
             return UIColor.blackColor()
         }
     }
+    
+    static var scaleForOveredTile: CGFloat {
+        return 1.5
+    }
+    
+    static var alphaForOveredTile: CGFloat {
+        return 0.5
+    }
 }

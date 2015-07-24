@@ -17,6 +17,25 @@ class GameScene: SKScene {
     let gameLayer = SKNode()
     let tileLayer = SKNode()
     
+    var _selectedTile: Tile?
+    var selectedTile: Tile? {
+        get {
+            return _selectedTile
+        }
+        set {
+            if newValue != nil {
+                newValue!.sprite.runAction(SKAction.group([SKAction.scaleTo(Theme.scaleForOveredTile, duration: 0.1), SKAction.fadeAlphaTo(Theme.alphaForOveredTile, duration: 0.1)]))
+                
+            }
+            
+            if _selectedTile != nil {
+                _selectedTile!.sprite.runAction(SKAction.group([SKAction.scaleTo(1.0, duration: 0.1), SKAction.fadeAlphaTo(1, duration: 0.1)]))
+            }
+            
+            _selectedTile = newValue
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -129,6 +148,36 @@ class GameScene: SKScene {
         }
     }
     
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        let touch = touches.first as! UITouch
+        let location = touch.locationInNode(tileLayer)
+        
+        let (success, column, row) = convertPoint(location)
+        if success {
+            if let tile = board.getTile(column, y: row) {
+                selectedTile = tile
+            }
+        }
+    }
+    
+    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+        let touch = touches.first as! UITouch
+        let location = touch.locationInNode(tileLayer)
+        
+        let (success, column, row) = convertPoint(location)
+        if success {
+            if selectedTile != nil {
+                if let tile = board.getTile(column, y: row) {
+                    if tile != selectedTile {
+                        selectedTile = tile
+                    }
+                } else {
+                    selectedTile = nil
+                }
+            }
+        }
+    }
+    
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         let touch = touches.first as! UITouch
         let location = touch.locationInNode(tileLayer)
@@ -141,8 +190,13 @@ class GameScene: SKScene {
                 } else {
                     board.mark(tile)
                 }
-                updateBoard()
+                
+                tile.sprite.runAction(SKAction.group([SKAction.scaleTo(1.0, duration: 0.1), SKAction.fadeAlphaTo(1, duration: 0.1)])) {
+                    self.updateBoard()
+                }
             }
         }
+        
+        selectedTile = nil
     }
 }
