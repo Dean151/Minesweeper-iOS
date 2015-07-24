@@ -8,6 +8,47 @@
 
 import Foundation
 
+enum GameDifficulty {
+    case Easy, Medium, Hard
+    
+    var description: String {
+        switch self {
+        case .Easy:
+            return "Easy"
+        case .Medium:
+            return "Medium"
+        case .Hard:
+            return "Hard"
+        }
+    }
+    
+    var size: (width: Int, height: Int) {
+        switch self {
+        case .Easy:
+            return (8, 8)
+        case .Medium:
+            return (8, 12)
+        case .Hard:
+            return (10, 14)
+        }
+    }
+    
+    var nbMines: Int {
+        switch self {
+        case .Easy:
+            return 10
+        case .Medium:
+            return 25
+        case .Hard:
+            return 40
+        }
+    }
+    
+    static var allValues: [GameDifficulty] {
+        return [.Easy, .Medium, .Hard]
+    }
+}
+
 class Board {
     let height: Int
     let width: Int

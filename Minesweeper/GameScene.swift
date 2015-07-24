@@ -21,9 +21,10 @@ class GameScene: SKScene {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(size: CGSize, controller: GameViewController) {
+    init(size: CGSize, controller: GameViewController, difficulty: GameDifficulty) {
+        self.board = Board(width: difficulty.size.width, height: difficulty.size.height, nbMines: difficulty.nbMines)
+        
         self.controller = controller
-        self.board = controller.board
         self.tileSize = 10
         super.init(size: size)
         
@@ -33,8 +34,11 @@ class GameScene: SKScene {
         addChild(gameLayer)
         
         gameLayer.addChild(tileLayer)
-        
-        resizeBoard()
+    }
+    
+    override func didMoveToView(view: SKView) {
+        super.didMoveToView(view)
+        self.resizeBoard()
     }
     
     func resizeBoard() {

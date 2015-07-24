@@ -9,50 +9,8 @@
 import Foundation
 import SpriteKit
 
-enum GameDifficulty {
-    case Easy, Medium, Hard
-    
-    var description: String {
-        switch self {
-        case .Easy:
-            return "Easy"
-        case .Medium:
-            return "Medium"
-        case .Hard:
-            return "Hard"
-        }
-    }
-
-    var size: (width: Int, height: Int) {
-        switch self {
-        case .Easy:
-            return (8, 8)
-        case .Medium:
-            return (8, 12)
-        case .Hard:
-            return (10, 14)
-        }
-    }
-    
-    var nbMines: Int {
-        switch self {
-        case .Easy:
-            return 10
-        case .Medium:
-            return 25
-        case .Hard:
-            return 40
-        }
-    }
-    
-    static var allValues: [GameDifficulty] {
-        return [.Easy, .Medium, .Hard]
-    }
-}
-
 class GameViewController: UIViewController {
     var scene: GameScene!
-    var board: Board!
     
     @IBOutlet weak var playOrFlagControl: UISegmentedControl!
     
@@ -63,18 +21,17 @@ class GameViewController: UIViewController {
     }
     
     func newGame(difficulty: GameDifficulty) {
-        board = Board(width: difficulty.size.width, height: difficulty.size.height, nbMines: difficulty.nbMines)
-        
         // Configure the view.
         let skView = view as! SKView
         skView.multipleTouchEnabled = false
         
         // Create and configure the scene.
-        scene = GameScene(size: skView.frame.size, controller: self)
-        scene.scaleMode = .AspectFill
+        let newScene = GameScene(size: skView.frame.size, controller: self, difficulty: difficulty)
+        newScene.scaleMode = .AspectFill
         
         // Present the scene.
-        skView.presentScene(scene, transition: SKTransition.pushWithDirection(.Left, duration: 1))
+        skView.presentScene(newScene)
+        scene = newScene
     }
     
     @IBAction func GameButtonPressed(sender: AnyObject) {
