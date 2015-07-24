@@ -38,7 +38,7 @@ enum GameDifficulty {
         case .Easy:
             return 10
         case .Medium:
-            return 25
+            return 20
         case .Hard:
             return 40
         }
@@ -89,8 +89,12 @@ class Board {
     
     func initMines(playedSquare: Tile) {
         var possibilities = [Tile]()
+        
+        var protectedTiles = self.getNeighbors(playedSquare)
+        protectedTiles.append(playedSquare)
+        
         for tile in tiles {
-            if tile != playedSquare {
+            if !contains(protectedTiles, tile) {
                 possibilities.append(tile)
             }
         }

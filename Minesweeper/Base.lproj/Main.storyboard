@@ -19,15 +19,10 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems>
-                        <barButtonItem title="Game" id="2Qg-sh-igM">
-                            <connections>
-                                <action selector="GameButtonPressed:" destination="vXZ-lx-hvc" id="IDa-bF-FNt"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="9ER-Nd-UOH"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="r8f-jp-ruK"/>
                         <barButtonItem style="plain" id="Trz-xm-McN">
                             <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="AKO-yU-XO8">
-                                <rect key="frame" x="-61" y="-14" width="133" height="30"/>
+                                <rect key="frame" x="250" y="7" width="250" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Dig"/>
@@ -35,8 +30,15 @@
                                 </segments>
                             </segmentedControl>
                         </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="0zj-fy-5uk"/>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="Minesweeper" id="5V0-XA-6NC"/>
+                    <navigationItem key="navigationItem" title="Minesweeper" id="5V0-XA-6NC">
+                        <barButtonItem key="leftBarButtonItem" title="Game" id="2Qg-sh-igM">
+                            <connections>
+                                <action selector="GameButtonPressed:" destination="vXZ-lx-hvc" id="IDa-bF-FNt"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="playOrFlagControl" destination="AKO-yU-XO8" id="lMI-G7-L1F"/>
                     </connections>

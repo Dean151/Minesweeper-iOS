@@ -60,25 +60,39 @@ class GameScene: SKScene {
         for tile in tiles {
             let size = tileSize-5
             let sprite = SKShapeNode(rectOfSize: CGSizeMake(size, size))
+            tile.sprite = sprite
+            
             sprite.fillColor = Theme.unrevealedTileColor
             sprite.lineWidth = 0
             sprite.position = pointForColumn(tile.x, row: tile.y)
+            
+            // Give each cookie sprite a small, random delay. Then fade them in.
+            sprite.alpha = 0
+            sprite.xScale = 0.5
+            sprite.yScale = 0.5
+            
+            sprite.runAction(
+                SKAction.sequence([
+                    SKAction.waitForDuration(0.25, withRange: 0.5),
+                    SKAction.group([
+                        SKAction.fadeInWithDuration(0.25),
+                        SKAction.scaleTo(1.0, duration: 0.25)
+                        ])
+                    ]))
+            
             tileLayer.addChild(sprite)
-            tile.sprite = sprite
         }
     }
     
     func updateBoard() {
         for tile in board.tiles {
             if tile.isMine && (tile.isRevealed || board.gameOver) {
-                if board.isGameWon {
-                    if tile.isMarked {
-                        (tile.sprite as! SKShapeNode).fillColor = Theme.solvedMineTileColor
-                    } else {
-                        (tile.sprite as! SKShapeNode).fillColor = Theme.unsolvedMineTileColor
-                    }
-                } else {
+                if tile.isMarked {
+                    (tile.sprite as! SKShapeNode).fillColor = Theme.solvedMineTileColor
+                } else if tile.isRevealed {
                     (tile.sprite as! SKShapeNode).fillColor = Theme.explodedMineTileColor
+                } else {
+                    (tile.sprite as! SKShapeNode).fillColor = Theme.unsolvedMineTileColor
                 }
             } else if tile.isRevealed {
                 (tile.sprite as! SKShapeNode).fillColor = Theme.revealedTileColor
