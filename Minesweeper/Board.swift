@@ -136,7 +136,7 @@ class Board {
                 if nbMarked == tile.nbMineAround {
                     for neighbor in neighbors {
                         if !neighbor.isRevealed && !neighbor.isMarked {
-                            play(tile)
+                            play(neighbor)
                         }
                     }
                 }
@@ -166,7 +166,7 @@ class Board {
             if nbUnrevealed == tile.nbMineAround {
                 for neighbor in neighbors {
                     if !neighbor.isRevealed && !neighbor.isMarked {
-                        mark(tile)
+                        mark(neighbor)
                     }
                 }
             }
