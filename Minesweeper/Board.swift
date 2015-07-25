@@ -139,15 +139,17 @@ class Board {
         return neighbors
     }
     
-    func play(x: Int, y: Int) -> Bool {
+    func play(x: Int, y: Int) -> [Tile] {
         if let s = getTile(x, y: y) {
             return play(s)
         }
         
-        return false
+        return [Tile]()
     }
     
-    func play(tile: Tile) -> Bool {
+    func play(tile: Tile) -> [Tile] {
+        var playedTiles = [Tile]()
+        
         if !minesInitialized {
             initMines(tile)
         }
@@ -155,21 +157,21 @@ class Board {
         if !tile.isMarked && !gameOver {
             if !tile.isRevealed {
                 tile.isRevealed = true
+                playedTiles.append(tile)
                 
                 if isGameWon {
                     gameOver = true
-                    return true
+                    return playedTiles
                 }
                 
                 if tile.isMine {
                     gameOver = true
                 } else if tile.nbMineAround == 0 {
                     for neighbor in getNeighbors(tile) {
-                        play(neighbor)
+                        let tiles = play(neighbor)
+                        playedTiles += tiles
                     }
                 }
-                
-                return true
             } else {
                 var nbMarked = 0
                 var neighbors = getNeighbors(tile)
@@ -181,26 +183,32 @@ class Board {
                 if nbMarked == tile.nbMineAround {
                     for neighbor in neighbors {
                         if !neighbor.isRevealed && !neighbor.isMarked {
-                            play(neighbor)
+                            let tiles = play(neighbor)
+                            playedTiles += tiles
                         }
                     }
                 }
             }
         }
         
-        return false
+        return playedTiles
     }
     
-    func mark(x: Int, y: Int) {
+    func mark(x: Int, y: Int) -> [Tile] {
         if let s = getTile(x, y: y) {
-            mark(s)
+            return mark(s)
         }
+        
+        return [Tile]()
     }
     
-    func mark(tile: Tile) {
+    func mark(tile: Tile) -> [Tile] {
+        var markedTiles = [Tile]()
+        
         if  !gameOver {
             if !tile.isRevealed {
                 tile.isMarked = !tile.isMarked
+                markedTiles.append(tile)
             } else {
                 var nbUnrevealed = 0
                 var neighbors = getNeighbors(tile)
@@ -212,11 +220,13 @@ class Board {
                 if nbUnrevealed == tile.nbMineAround {
                     for neighbor in neighbors {
                         if !neighbor.isRevealed && !neighbor.isMarked {
-                            mark(neighbor)
+                            let tiles = mark(neighbor)
+                            markedTiles += tiles
                         }
                     }
                 }
             }
         }
+        return markedTiles
     }
 }

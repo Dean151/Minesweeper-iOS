@@ -15,7 +15,7 @@ class Theme {
     }
     
     static var unrevealedTileColor: UIColor {
-        return UIColor(hexString: "#337ab7")
+        return UIColor(hexString: "#337AB7")
     }
     
     static var revealedTileColor: UIColor {
@@ -23,19 +23,19 @@ class Theme {
     }
     
     static var solvedMineTileColor: UIColor {
-        return UIColor(hexString: "#5cb85c")
+        return UIColor(hexString: "#5CB85C")
     }
     
     static var unsolvedMineTileColor: UIColor {
-        return UIColor(hexString: "#5bc0de")
+        return UIColor(hexString: "#5BC0dE")
     }
     
     static var explodedMineTileColor: UIColor {
-        return UIColor(hexString: "#d9534f")
+        return UIColor(hexString: "#D9534F")
     }
     
     static var markedTileColor: UIColor {
-        return UIColor(hexString: "#f0ad4e")
+        return UIColor(hexString: "#f0AD4E")
     }
     
     static func fontColorWithMines(nbMines: Int) -> UIColor {

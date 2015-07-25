@@ -24,11 +24,13 @@ class GameScene: SKScene {
         }
         set {
             if newValue != nil {
+                newValue!.sprite.zPosition = 10
                 newValue!.sprite.runAction(SKAction.group([SKAction.scaleTo(Theme.scaleForOveredTile, duration: 0.1), SKAction.fadeAlphaTo(Theme.alphaForOveredTile, duration: 0.1)]))
                 
             }
             
             if _selectedTile != nil {
+                _selectedTile!.sprite.zPosition = 0
                 _selectedTile!.sprite.runAction(SKAction.group([SKAction.scaleTo(1.0, duration: 0.1), SKAction.fadeAlphaTo(1, duration: 0.1)]))
             }
             
@@ -85,7 +87,6 @@ class GameScene: SKScene {
             sprite.lineWidth = 0
             sprite.position = pointForColumn(tile.x, row: tile.y)
             
-            // Give each cookie sprite a small, random delay. Then fade them in.
             sprite.alpha = 0
             sprite.xScale = 0.5
             sprite.yScale = 0.5
