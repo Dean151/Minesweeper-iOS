@@ -271,15 +271,15 @@ class GameScene: SKScene {
         sprite.lineWidth = 0
         
         switch (mineType) {
-        case 0,1,2,3,4,5,6,7,8:
+        case 0:
             sprite.fillColor = Theme.revealedTileColor
-            if mineType != 0 {
-                let detail = SKLabelNode(text: "\(tile.nbMineAround)")
-                detail.fontColor = Theme.fontColorWithMines(tile.nbMineAround)
-                detail.fontSize = size*2/3
-                detail.position = CGPointMake(0, -size/4)
-                sprite.addChild(detail)
-            }
+        case 1,2,3,4,5,6,7,8:
+            sprite.fillColor = Theme.revealedTileColor
+            let detail = SKLabelNode(text: "\(tile.nbMineAround)")
+            detail.fontColor = Theme.fontColorWithMines(tile.nbMineAround)
+            detail.fontSize = size*2/3
+            detail.position = CGPointMake(0, -size/4)
+            sprite.addChild(detail)
         case 9:
             sprite.fillColor = Theme.markedTileColor
         case 10:

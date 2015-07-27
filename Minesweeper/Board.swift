@@ -8,8 +8,8 @@
 
 import Foundation
 
-enum GameDifficulty {
-    case Easy, Medium, Hard
+enum GameDifficulty: String {
+    case Easy = "easy", Medium = "medium", Hard = "hard"
     
     var description: String {
         switch self {
