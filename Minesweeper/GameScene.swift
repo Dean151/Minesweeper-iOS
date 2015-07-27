@@ -85,6 +85,7 @@ class GameScene: SKScene {
     func addSpritesForTiles(tiles: [Tile]) {
         for tile in tiles {
             let sprite = SKSpriteNode(texture: textureForTile(tile))
+            sprite.size = CGSizeMake(tileSize*0.9, tileSize*0.9)
             tile.sprite = sprite
             sprite.position = pointForColumn(tile.x, row: tile.y)
             
@@ -105,27 +106,34 @@ class GameScene: SKScene {
         }
     }
     
-    func changeTilesWithAnimation(tiles: [Tile]) {
+    func changeTilesWithAnimation(tiles: [Tile], completion: (() -> ())?) {
         for tile in tiles {
             let actions = SKAction.sequence([
                 SKAction.customActionWithDuration(0, actionBlock: { (node, time) in node.zPosition = 10}),
                 SKAction.scaleTo(Theme.scaleForModifyingTile, duration: 0.05),
                 SKAction.customActionWithDuration(0, actionBlock: {
                     (node, time) in
-                    
                     (tile.sprite as! SKSpriteNode).texture = self.textureForTile(tile)
                 }),
                 SKAction.scaleTo(1, duration: 0.05),
                 SKAction.customActionWithDuration(0, actionBlock: { (node, time) in node.zPosition = 0 })
                 ])
             
-            tile.sprite.runAction(actions)
+            tile.sprite.runAction(actions) {
+                void in
+                if completion != nil {
+                    completion!()
+                }
+            }
         }
     }
     
     func presentMinesWithAnimation() {
         let minesTiles = board.tiles.filter({ (tile: Tile) in return tile.isMine })
-        changeTilesWithAnimation(minesTiles)
+        
+        if board.isGameWon {
+            changeTilesWithAnimation(minesTiles, completion: nil)
+        }
     }
     
     func pointForColumn(column: Int, row: Int) -> CGPoint {
@@ -189,10 +197,11 @@ class GameScene: SKScene {
                 
                 tile.sprite.runAction(SKAction.group([SKAction.scaleTo(1.0, duration: 0.1), SKAction.fadeAlphaTo(1, duration: 0.1)])) {
                     if self.board.gameOver {
-                        self.changeTilesWithAnimation(tiles)
-                        self.presentMinesWithAnimation()
+                        self.changeTilesWithAnimation(tiles) {
+                            Void in self.presentMinesWithAnimation()
+                        }
                     } else {
-                        self.changeTilesWithAnimation(tiles)
+                        self.changeTilesWithAnimation(tiles, completion: nil)
                     }
                     
                 }
@@ -226,7 +235,8 @@ class GameScene: SKScene {
         }
         
         // Generating texture otherwise
-        let sprite = SKShapeNode(rectOfSize: CGSizeMake(tileSize-5, tileSize-5))
+        let size = tileSize * UIScreen.mainScreen().scale
+        let sprite = SKShapeNode(rectOfSize: CGSizeMake(size*0.9, size*0.9))
         sprite.lineWidth = 0
         
         switch (mineType) {
@@ -235,8 +245,8 @@ class GameScene: SKScene {
             if mineType != 0 {
                 let detail = SKLabelNode(text: "\(tile.nbMineAround)")
                 detail.fontColor = Theme.fontColorWithMines(tile.nbMineAround)
-                detail.fontSize = tileSize*2/3
-                detail.position = CGPointMake(0, -tileSize/4)
+                detail.fontSize = size*2/3
+                detail.position = CGPointMake(0, -size/4)
                 sprite.addChild(detail)
             }
         case 9:
