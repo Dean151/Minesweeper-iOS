@@ -17,6 +17,8 @@ class GameScene: SKScene {
     let gameLayer = SKNode()
     let tileLayer = SKNode()
     
+    var textures = [SKTexture?](count: 14, repeatedValue: nil)
+    
     var _selectedTile: Tile?
     var selectedTile: Tile? {
         get {
@@ -82,12 +84,8 @@ class GameScene: SKScene {
     
     func addSpritesForTiles(tiles: [Tile]) {
         for tile in tiles {
-            let size = tileSize-5
-            let sprite = SKShapeNode(rectOfSize: CGSizeMake(size, size))
+            let sprite = SKSpriteNode(texture: textureForTile(tile))
             tile.sprite = sprite
-            
-            sprite.fillColor = Theme.unrevealedTileColor
-            sprite.lineWidth = 0
             sprite.position = pointForColumn(tile.x, row: tile.y)
             
             sprite.alpha = 0
@@ -115,31 +113,8 @@ class GameScene: SKScene {
                 SKAction.scaleTo(Theme.scaleForModifyingTile, duration: 0.05),
                 SKAction.customActionWithDuration(0, actionBlock: {
                     (node, time) in
-                    if tile.isMine && (tile.isRevealed || self.board.gameOver) {
-                        if tile.isMarked {
-                            (tile.sprite as! SKShapeNode).fillColor = Theme.solvedMineTileColor
-                        } else if tile.isRevealed {
-                            (tile.sprite as! SKShapeNode).fillColor = Theme.explodedMineTileColor
-                        } else {
-                            (tile.sprite as! SKShapeNode).fillColor = Theme.unsolvedMineTileColor
-                        }
-                    } else if tile.isRevealed {
-                        (tile.sprite as! SKShapeNode).fillColor = Theme.revealedTileColor
-                        
-                        if tile.nbMineAround != 0 {
-                            if tile.sprite.children.count == 0 {
-                                let detail = SKLabelNode(text: "\(tile.nbMineAround)")
-                                detail.fontColor = Theme.fontColorWithMines(tile.nbMineAround)
-                                detail.fontSize = self.tileSize*2/3
-                                detail.position = CGPointMake(0, -self.tileSize/4)
-                                tile.sprite.addChild(detail)
-                            }
-                        }
-                    } else if tile.isMarked {
-                        (tile.sprite as! SKShapeNode).fillColor = Theme.markedTileColor
-                    } else {
-                        (tile.sprite as! SKShapeNode).fillColor = Theme.unrevealedTileColor
-                    }
+                    
+                    (tile.sprite as! SKSpriteNode).texture = self.textureForTile(tile)
                 }),
                 SKAction.scaleTo(1, duration: 0.05),
                 SKAction.customActionWithDuration(0, actionBlock: { (node, time) in node.zPosition = 0 })
@@ -226,5 +201,62 @@ class GameScene: SKScene {
         }
         
         selectedTile = nil
+    }
+    
+    func textureForTile(tile: Tile) -> SKTexture {
+        var mineType = 13
+        
+        // Finding witch texture we need
+        if tile.isMine && (tile.isRevealed || tile.board.gameOver) {
+            if tile.isMarked {
+                mineType = 10
+            } else if tile.isRevealed {
+                mineType = 11
+            } else {
+                mineType = 12
+            }
+        } else if tile.isRevealed {
+            mineType = tile.nbMineAround
+        } else if tile.isMarked {
+            mineType = 9
+        }
+        
+        // Returning the texture if already generated
+        if textures[mineType] != nil {
+            return textures[mineType]!
+        }
+        
+        // Generating texture otherwise
+        let sprite = SKShapeNode(rectOfSize: CGSizeMake(tileSize-5, tileSize-5))
+        sprite.lineWidth = 0
+        
+        switch (mineType) {
+        case 0,1,2,3,4,5,6,7,8:
+            sprite.fillColor = Theme.revealedTileColor
+            if mineType != 0 {
+                let detail = SKLabelNode(text: "\(tile.nbMineAround)")
+                detail.fontColor = Theme.fontColorWithMines(tile.nbMineAround)
+                detail.fontSize = tileSize*2/3
+                detail.position = CGPointMake(0, -tileSize/4)
+                sprite.addChild(detail)
+            }
+        case 9:
+            sprite.fillColor = Theme.markedTileColor
+        case 10:
+            sprite.fillColor = Theme.solvedMineTileColor
+        case 11:
+            sprite.fillColor = Theme.explodedMineTileColor
+        case 12:
+            sprite.fillColor = Theme.unsolvedMineTileColor
+        default:
+            sprite.fillColor = Theme.unrevealedTileColor
+        }
+        
+        // Saving the texture
+        let texture = self.view!.textureFromNode(sprite)
+        textures[mineType] = texture
+        
+        // Returning the texture
+        return texture
     }
 }
