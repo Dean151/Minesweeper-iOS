@@ -59,11 +59,15 @@ class Theme {
         }
     }
     
-    static var scaleForOveredTile: CGFloat {
+    static var scaleForModifyingTile: CGFloat {
         return 1.5
     }
     
+    static var scaleForOveredTile: CGFloat {
+        return 2
+    }
+    
     static var alphaForOveredTile: CGFloat {
-        return 0.5
+        return 0.8
     }
 }

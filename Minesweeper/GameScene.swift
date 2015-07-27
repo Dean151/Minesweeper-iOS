@@ -24,14 +24,18 @@ class GameScene: SKScene {
         }
         set {
             if newValue != nil {
-                newValue!.sprite.zPosition = 10
-                newValue!.sprite.runAction(SKAction.group([SKAction.scaleTo(Theme.scaleForOveredTile, duration: 0.1), SKAction.fadeAlphaTo(Theme.alphaForOveredTile, duration: 0.1)]))
+                newValue!.sprite.runAction(SKAction.sequence([
+                SKAction.customActionWithDuration(0, actionBlock: { (node, time) in node.zPosition = 10 }),
+                SKAction.group([SKAction.scaleTo(Theme.scaleForOveredTile, duration: 0.1), SKAction.fadeAlphaTo(Theme.alphaForOveredTile, duration: 0.1)])
+                ]))
                 
             }
             
             if _selectedTile != nil {
-                _selectedTile!.sprite.zPosition = 0
-                _selectedTile!.sprite.runAction(SKAction.group([SKAction.scaleTo(1.0, duration: 0.1), SKAction.fadeAlphaTo(1, duration: 0.1)]))
+                _selectedTile!.sprite.runAction(SKAction.sequence([
+                    SKAction.group([SKAction.scaleTo(1, duration: 0.1), SKAction.fadeAlphaTo(1, duration: 0.1)]),
+                    SKAction.customActionWithDuration(0, actionBlock: { (node, time) in node.zPosition = 0 })
+                    ]))
             }
             
             _selectedTile = newValue
@@ -73,7 +77,6 @@ class GameScene: SKScene {
             
             tileLayer.removeAllChildren()
             addSpritesForTiles(board.tiles)
-            updateBoard()
         }
     }
     
@@ -104,34 +107,51 @@ class GameScene: SKScene {
         }
     }
     
-    func updateBoard() {
-        for tile in board.tiles {
-            if tile.isMine && (tile.isRevealed || board.gameOver) {
-                if tile.isMarked {
-                    (tile.sprite as! SKShapeNode).fillColor = Theme.solvedMineTileColor
-                } else if tile.isRevealed {
-                    (tile.sprite as! SKShapeNode).fillColor = Theme.explodedMineTileColor
-                } else {
-                    (tile.sprite as! SKShapeNode).fillColor = Theme.unsolvedMineTileColor
-                }
-            } else if tile.isRevealed {
-                (tile.sprite as! SKShapeNode).fillColor = Theme.revealedTileColor
-                
-                if tile.nbMineAround != 0 {
-                    if tile.sprite.children.count == 0 {
-                        let detail = SKLabelNode(text: "\(tile.nbMineAround)")
-                        detail.fontColor = Theme.fontColorWithMines(tile.nbMineAround)
-                        detail.fontSize = tileSize*2/3
-                        detail.position = CGPointMake(0, -tileSize/4)
-                        tile.sprite.addChild(detail)
+    func changeTilesWithAnimation(tiles: [Tile]) {
+        
+        for tile in tiles {
+            let actions = SKAction.sequence([
+                SKAction.customActionWithDuration(0, actionBlock: { (node, time) in node.zPosition = 10}),
+                SKAction.scaleTo(Theme.scaleForModifyingTile, duration: 0.05),
+                SKAction.customActionWithDuration(0, actionBlock: {
+                    (node, time) in
+                    if tile.isMine && (tile.isRevealed || self.board.gameOver) {
+                        if tile.isMarked {
+                            (tile.sprite as! SKShapeNode).fillColor = Theme.solvedMineTileColor
+                        } else if tile.isRevealed {
+                            (tile.sprite as! SKShapeNode).fillColor = Theme.explodedMineTileColor
+                        } else {
+                            (tile.sprite as! SKShapeNode).fillColor = Theme.unsolvedMineTileColor
+                        }
+                    } else if tile.isRevealed {
+                        (tile.sprite as! SKShapeNode).fillColor = Theme.revealedTileColor
+                        
+                        if tile.nbMineAround != 0 {
+                            if tile.sprite.children.count == 0 {
+                                let detail = SKLabelNode(text: "\(tile.nbMineAround)")
+                                detail.fontColor = Theme.fontColorWithMines(tile.nbMineAround)
+                                detail.fontSize = self.tileSize*2/3
+                                detail.position = CGPointMake(0, -self.tileSize/4)
+                                tile.sprite.addChild(detail)
+                            }
+                        }
+                    } else if tile.isMarked {
+                        (tile.sprite as! SKShapeNode).fillColor = Theme.markedTileColor
+                    } else {
+                        (tile.sprite as! SKShapeNode).fillColor = Theme.unrevealedTileColor
                     }
-                }
-            } else if tile.isMarked {
-                (tile.sprite as! SKShapeNode).fillColor = Theme.markedTileColor
-            } else {
-                (tile.sprite as! SKShapeNode).fillColor = Theme.unrevealedTileColor
-            }
+                }),
+                SKAction.scaleTo(1, duration: 0.05),
+                SKAction.customActionWithDuration(0, actionBlock: { (node, time) in node.zPosition = 0 })
+                ])
+            
+            tile.sprite.runAction(actions)
         }
+    }
+    
+    func presentMinesWithAnimation() {
+        let minesTiles = board.tiles.filter({ (tile: Tile) in return tile.isMine })
+        changeTilesWithAnimation(minesTiles)
     }
     
     func pointForColumn(column: Int, row: Int) -> CGPoint {
@@ -184,16 +204,23 @@ class GameScene: SKScene {
         let location = touch.locationInNode(tileLayer)
         
         let (success, column, row) = convertPoint(location)
-        if success {
+        if success && !board.gameOver {
             if let tile = board.getTile(column, y: row) {
+                let tiles: [Tile]
                 if controller.playOrFlagControl.selectedSegmentIndex == 0 {
-                    board.play(tile)
+                    tiles = board.play(tile)
                 } else {
-                    board.mark(tile)
+                    tiles = board.mark(tile)
                 }
                 
                 tile.sprite.runAction(SKAction.group([SKAction.scaleTo(1.0, duration: 0.1), SKAction.fadeAlphaTo(1, duration: 0.1)])) {
-                    self.updateBoard()
+                    if self.board.gameOver {
+                        self.changeTilesWithAnimation(tiles)
+                        self.presentMinesWithAnimation()
+                    } else {
+                        self.changeTilesWithAnimation(tiles)
+                    }
+                    
                 }
             }
         }
