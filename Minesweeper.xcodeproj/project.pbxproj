@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		B818D3C81F835249B40D012C /* Pods_Minesweeper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40909C24C87FFE2ECA8FD606 /* Pods_Minesweeper.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E914F8F21B62ADEE001AFB80 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E914F8F11B62ADEE001AFB80 /* Theme.swift */; };
+		E949E1801B66CD30002E154A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */; };
 		E9D3DEB11B6143A700C562E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D3DEB01B6143A700C562E3 /* AppDelegate.swift */; };
 		E9D3DEB61B6143A700C562E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9D3DEB41B6143A700C562E3 /* Main.storyboard */; };
 		E9D3DEB81B6143A700C562E3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9D3DEB71B6143A700C562E3 /* Images.xcassets */; };
-		E9D3DEBB1B6143A700C562E3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9D3DEB91B6143A700C562E3 /* LaunchScreen.xib */; };
 		E9D3DEC71B6143A700C562E3 /* MinesweeperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D3DEC61B6143A700C562E3 /* MinesweeperTests.swift */; };
 		E9D3DED21B6143BD00C562E3 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D3DED11B6143BD00C562E3 /* Board.swift */; };
 		E9D3DED41B61448900C562E3 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D3DED31B61448900C562E3 /* Tile.swift */; };
@@ -53,12 +53,12 @@
 		8598DCF7A94965A8CAEAF2F6 /* Pods-Minesweeper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minesweeper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Minesweeper/Pods-Minesweeper.debug.xcconfig"; sourceTree = "<group>"; };
 		D4619E491D1F49A0C83C20CB /* Pods-Minesweeper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minesweeper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Minesweeper/Pods-Minesweeper.release.xcconfig"; sourceTree = "<group>"; };
 		E914F8F11B62ADEE001AFB80 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E9D3DEAB1B6143A700C562E3 /* Minesweeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minesweeper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9D3DEAF1B6143A700C562E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9D3DEB01B6143A700C562E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9D3DEB51B6143A700C562E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E9D3DEB71B6143A700C562E3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		E9D3DEBA1B6143A700C562E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E9D3DEC01B6143A700C562E3 /* MinesweeperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MinesweeperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9D3DEC51B6143A700C562E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9D3DEC61B6143A700C562E3 /* MinesweeperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinesweeperTests.swift; sourceTree = "<group>"; };
@@ -95,6 +95,8 @@
 		6DEB5DB17F8F23D9EBA57C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E9D3DED91B6162C200C562E3 /* iAd.framework */,
+				E9D3DED71B6162B900C562E3 /* SpriteKit.framework */,
 				40909C24C87FFE2ECA8FD606 /* Pods_Minesweeper.framework */,
 			);
 			name = Frameworks;
@@ -115,8 +117,6 @@
 				E9D3DEAD1B6143A700C562E3 /* Minesweeper */,
 				E9D3DEC31B6143A700C562E3 /* MinesweeperTests */,
 				E9D3DEAC1B6143A700C562E3 /* Products */,
-				E9D3DED71B6162B900C562E3 /* SpriteKit.framework */,
-				E9D3DED91B6162C200C562E3 /* iAd.framework */,
 				9028EBA1CE5BC9E84F82168C /* Pods */,
 				6DEB5DB17F8F23D9EBA57C8A /* Frameworks */,
 			);
@@ -139,8 +139,8 @@
 				E9D3DED01B6143B100C562E3 /* Core */,
 				E9D3DED51B61627700C562E3 /* Scenes */,
 				E9D3DEB41B6143A700C562E3 /* Main.storyboard */,
+				E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */,
 				E9D3DEB71B6143A700C562E3 /* Images.xcassets */,
-				E9D3DEB91B6143A700C562E3 /* LaunchScreen.xib */,
 				E9D3DEAE1B6143A700C562E3 /* Supporting Files */,
 			);
 			path = Minesweeper;
@@ -283,8 +283,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E949E1801B66CD30002E154A /* LaunchScreen.storyboard in Resources */,
 				E9D3DEB61B6143A700C562E3 /* Main.storyboard in Resources */,
-				E9D3DEBB1B6143A700C562E3 /* LaunchScreen.xib in Resources */,
 				E9D3DEB81B6143A700C562E3 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,14 +385,6 @@
 				E9D3DEB51B6143A700C562E3 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		E9D3DEB91B6143A700C562E3 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E9D3DEBA1B6143A700C562E3 /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

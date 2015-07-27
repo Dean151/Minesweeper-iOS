@@ -21,6 +21,9 @@ class GameViewController: UIViewController {
     }
     
     func newGame(difficulty: GameDifficulty) {
+        // Reinit segmented control
+        self.playOrFlagControl.selectedSegmentIndex = 0
+        
         // Configure the view.
         let skView = view as! SKView
         skView.multipleTouchEnabled = false

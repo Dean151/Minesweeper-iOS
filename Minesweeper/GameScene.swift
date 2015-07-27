@@ -106,7 +106,6 @@ class GameScene: SKScene {
     }
     
     func changeTilesWithAnimation(tiles: [Tile]) {
-        
         for tile in tiles {
             let actions = SKAction.sequence([
                 SKAction.customActionWithDuration(0, actionBlock: { (node, time) in node.zPosition = 10}),
