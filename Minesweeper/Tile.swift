@@ -39,6 +39,10 @@ class Tile: Equatable {
         }
     }
     
+    func squareDistanceFromTile(tile: Tile) -> Int {
+        return (x - tile.x)*(x - tile.x) + (y - tile.y)*(y - tile.y)
+    }
+    
 }
 
 func ==(lhs: Tile, rhs: Tile) -> Bool {

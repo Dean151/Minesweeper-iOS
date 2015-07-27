@@ -106,15 +106,39 @@ class GameScene: SKScene {
         }
     }
     
+    func changeTilesWithAnimation(tiles: [Tile]) {
+        changeTilesWithAnimation(tiles, cliquedTile: nil, randomDelay: false, completion: nil)
+    }
+    
     func changeTilesWithAnimation(tiles: [Tile], completion: (() -> ())?) {
-        for tile in tiles {
+        changeTilesWithAnimation(tiles, cliquedTile: nil, randomDelay: false) {
+            Void in
+            if completion != nil {
+                completion!()
+            }
+        }
+    }
+    
+    func changeTilesWithAnimation(tiles: [Tile], cliquedTile: Tile?, completion: (() -> ())?) {
+        changeTilesWithAnimation(tiles, cliquedTile: cliquedTile, randomDelay: false) {
+            Void in
+            if completion != nil {
+                completion!()
+            }
+        }
+    }
+    
+    func changeTilesWithAnimation(tiles: [Tile], cliquedTile: Tile?, randomDelay: Bool, completion: (() -> ())?) {
+        
+        let sortedTiles = cliquedTile != nil ? tiles.sorted({ (a: Tile, b: Tile) in
+                return a.squareDistanceFromTile(cliquedTile!) < b.squareDistanceFromTile(cliquedTile!) }) : tiles
+        
+        for (index, tile) in enumerate(sortedTiles) {
             let actions = SKAction.sequence([
-                SKAction.customActionWithDuration(0, actionBlock: { (node, time) in node.zPosition = 10}),
+                SKAction.customActionWithDuration(0, actionBlock: { (node, time) in node.zPosition = 10 }),
+                SKAction.waitForDuration((randomDelay ? NSTimeInterval(0.05 * Double(index)) : 0)) ,
                 SKAction.scaleTo(Theme.scaleForModifyingTile, duration: 0.05),
-                SKAction.customActionWithDuration(0, actionBlock: {
-                    (node, time) in
-                    (tile.sprite as! SKSpriteNode).texture = self.textureForTile(tile)
-                }),
+                SKAction.runBlock({ (tile.sprite as! SKSpriteNode).texture = self.textureForTile(tile) }),
                 SKAction.scaleTo(1, duration: 0.05),
                 SKAction.customActionWithDuration(0, actionBlock: { (node, time) in node.zPosition = 0 })
                 ])
@@ -122,18 +146,25 @@ class GameScene: SKScene {
             tile.sprite.runAction(actions) {
                 void in
                 if completion != nil {
-                    completion!()
+                    if tile == sortedTiles.last {
+                        completion!()
+                    }
                 }
             }
         }
     }
     
-    func presentMinesWithAnimation() {
+    func presentMinesWithAnimation(cliquedTile: Tile) {
         let minesTiles = board.tiles.filter({ (tile: Tile) in return tile.isMine })
         
-        if board.isGameWon {
-            changeTilesWithAnimation(minesTiles, completion: nil)
-        }
+        changeTilesWithAnimation(minesTiles, cliquedTile: cliquedTile, randomDelay: !board.isGameWon) { Void in self.showGameOverScreen() }
+    }
+    
+    func showGameOverScreen() {
+        runAction(SKAction.sequence([
+            SKAction.waitForDuration(0.5),
+            SKAction.runBlock({ println("test") })
+            ]))
     }
     
     func pointForColumn(column: Int, row: Int) -> CGPoint {
@@ -197,11 +228,11 @@ class GameScene: SKScene {
                 
                 tile.sprite.runAction(SKAction.group([SKAction.scaleTo(1.0, duration: 0.1), SKAction.fadeAlphaTo(1, duration: 0.1)])) {
                     if self.board.gameOver {
-                        self.changeTilesWithAnimation(tiles) {
-                            Void in self.presentMinesWithAnimation()
+                        self.changeTilesWithAnimation(tiles, cliquedTile: tile) {
+                            Void in self.presentMinesWithAnimation(tile)
                         }
                     } else {
-                        self.changeTilesWithAnimation(tiles, completion: nil)
+                        self.changeTilesWithAnimation(tiles)
                     }
                     
                 }
