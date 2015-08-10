@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Thomas Durand. All rights reserved.
 //
 
+import AudioToolbox
 import SpriteKit
 import HexColors
 
@@ -19,18 +20,23 @@ class GameScene: SKScene {
     
     var textures = [SKTexture?](count: 14, repeatedValue: nil)
     
+    var timerForMarking: NSTimer!
+    
     var _selectedTile: Tile?
     var selectedTile: Tile? {
         get {
             return _selectedTile
         }
         set {
+            if timerForMarking != nil {
+                timerForMarking.invalidate()
+            }
+            
             if newValue != nil {
                 newValue!.sprite.runAction(SKAction.sequence([
                 SKAction.customActionWithDuration(0, actionBlock: { (node, time) in node.zPosition = 10 }),
                 SKAction.group([SKAction.scaleTo(Theme.scaleForOveredTile, duration: 0.1), SKAction.fadeAlphaTo(Theme.alphaForOveredTile, duration: 0.1)])
                 ]))
-                
             }
             
             if _selectedTile != nil {
@@ -129,14 +135,16 @@ class GameScene: SKScene {
     }
     
     func changeTilesWithAnimation(tiles: [Tile], cliquedTile: Tile?, randomDelay: Bool, completion: (() -> ())?) {
-        
         let sortedTiles = cliquedTile != nil ? tiles.sorted({ (a: Tile, b: Tile) in
                 return a.squareDistanceFromTile(cliquedTile!) < b.squareDistanceFromTile(cliquedTile!) }) : tiles
         
         for (index, tile) in enumerate(sortedTiles) {
+            
+            let timeByMine: NSTimeInterval = 0.8/NSTimeInterval(board.nbMines)
+            
             let actions = SKAction.sequence([
                 SKAction.customActionWithDuration(0, actionBlock: { (node, time) in node.zPosition = 10 }),
-                SKAction.waitForDuration((randomDelay ? NSTimeInterval(0.05 * Double(index)) : 0)) ,
+                SKAction.waitForDuration((randomDelay ? NSTimeInterval(timeByMine * Double(index)) : 0)) ,
                 SKAction.scaleTo(Theme.scaleForModifyingTile, duration: 0.05),
                 SKAction.runBlock({ (tile.sprite as! SKSpriteNode).texture = self.textureForTile(tile) }),
                 SKAction.scaleTo(1, duration: 0.05),
@@ -154,6 +162,20 @@ class GameScene: SKScene {
         }
     }
     
+    func markTileWithAnimation(tile: Tile) {
+        if (!tile.isRevealed) {
+            let tiles = board.mark(tile)
+            selectedTile = nil
+            
+            for tile in tiles {
+                let actions = SKAction.sequence([
+                    SKAction.runBlock({ (tile.sprite as SKNode).setScale(Theme.scaleForMarkingTile) }),
+                    SKAction.scaleTo(1, duration: 0.7)
+                    ])
+            }
+        }
+    }
+    
     func presentMinesWithAnimation(cliquedTile: Tile) {
         let minesTiles = board.tiles.filter({ (tile: Tile) in return tile.isMine })
         
@@ -161,10 +183,14 @@ class GameScene: SKScene {
     }
     
     func showGameOverScreen() {
-        runAction(SKAction.sequence([
-            SKAction.waitForDuration(0.5),
-            SKAction.runBlock({ println("test") })
-            ]))
+        runAction(SKAction.waitForDuration(0.5)) {
+            Void in
+            if self.board.isGameWon {
+                
+            } else {
+                
+            }
+        }
     }
     
     func pointForColumn(column: Int, row: Int) -> CGPoint {
@@ -228,6 +254,11 @@ class GameScene: SKScene {
                 
                 tile.sprite.runAction(SKAction.group([SKAction.scaleTo(1.0, duration: 0.1), SKAction.fadeAlphaTo(1, duration: 0.1)])) {
                     if self.board.gameOver {
+                        if !self.board.isGameWon {
+                            if false {
+                                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                            }
+                        }
                         self.changeTilesWithAnimation(tiles, cliquedTile: tile) {
                             Void in self.presentMinesWithAnimation(tile)
                         }

@@ -9,7 +9,7 @@
 import Foundation
 
 enum GameDifficulty: String {
-    case Easy = "easy", Medium = "medium", Hard = "hard"
+    case Easy = "easy", Medium = "medium", Hard = "hard", Insane = "insane"
     
     var description: String {
         switch self {
@@ -19,6 +19,8 @@ enum GameDifficulty: String {
             return "Medium"
         case .Hard:
             return "Hard"
+        case .Insane:
+            return "Insane"
         }
     }
     
@@ -30,6 +32,8 @@ enum GameDifficulty: String {
             return (8, 12)
         case .Hard:
             return (10, 14)
+        case .Insane:
+            return (12, 16)
         }
     }
     
@@ -40,12 +44,14 @@ enum GameDifficulty: String {
         case .Medium:
             return 20
         case .Hard:
-            return 40
+            return 35
+        case .Insane:
+            return 50
         }
     }
     
     static var allValues: [GameDifficulty] {
-        return [.Easy, .Medium, .Hard]
+        return [.Easy, .Medium, .Hard, .Insane]
     }
 }
 

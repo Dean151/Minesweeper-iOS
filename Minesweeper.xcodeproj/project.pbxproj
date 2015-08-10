@@ -20,6 +20,7 @@
 		E9D3DEDA1B6162C200C562E3 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9D3DED91B6162C200C562E3 /* iAd.framework */; };
 		E9D3DEDC1B616EFE00C562E3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D3DEDB1B616EFE00C562E3 /* GameScene.swift */; };
 		E9D3DEDE1B61785100C562E3 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D3DEDD1B61785100C562E3 /* GameViewController.swift */; };
+		E9E693521B680E0600FBB719 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9E693511B680E0600FBB719 /* AudioToolbox.framework */; };
 		E9EBE86A1B6280AE00EEF1BA /* Pods_Minesweeper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40909C24C87FFE2ECA8FD606 /* Pods_Minesweeper.framework */; };
 		E9EBE86B1B6280AE00EEF1BA /* Pods_Minesweeper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40909C24C87FFE2ECA8FD606 /* Pods_Minesweeper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -68,6 +69,7 @@
 		E9D3DED91B6162C200C562E3 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		E9D3DEDB1B616EFE00C562E3 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		E9D3DEDD1B61785100C562E3 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		E9E693511B680E0600FBB719 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9E693521B680E0600FBB719 /* AudioToolbox.framework in Frameworks */,
 				E9D3DEDA1B6162C200C562E3 /* iAd.framework in Frameworks */,
 				E9D3DED81B6162B900C562E3 /* SpriteKit.framework in Frameworks */,
 				B818D3C81F835249B40D012C /* Pods_Minesweeper.framework in Frameworks */,
@@ -95,6 +98,7 @@
 		6DEB5DB17F8F23D9EBA57C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E9E693511B680E0600FBB719 /* AudioToolbox.framework */,
 				E9D3DED91B6162C200C562E3 /* iAd.framework */,
 				E9D3DED71B6162B900C562E3 /* SpriteKit.framework */,
 				40909C24C87FFE2ECA8FD606 /* Pods_Minesweeper.framework */,
@@ -135,11 +139,8 @@
 			isa = PBXGroup;
 			children = (
 				E9D3DEB01B6143A700C562E3 /* AppDelegate.swift */,
-				E9D3DED61B61629000C562E3 /* Controllers */,
 				E9D3DED01B6143B100C562E3 /* Core */,
-				E9D3DED51B61627700C562E3 /* Scenes */,
-				E9D3DEB41B6143A700C562E3 /* Main.storyboard */,
-				E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */,
+				E9D3DED51B61627700C562E3 /* UI */,
 				E9D3DEB71B6143A700C562E3 /* Images.xcassets */,
 				E9D3DEAE1B6143A700C562E3 /* Supporting Files */,
 			);
@@ -180,21 +181,16 @@
 			name = Core;
 			sourceTree = "<group>";
 		};
-		E9D3DED51B61627700C562E3 /* Scenes */ = {
+		E9D3DED51B61627700C562E3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E9D3DEB41B6143A700C562E3 /* Main.storyboard */,
+				E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */,
 				E914F8F11B62ADEE001AFB80 /* Theme.swift */,
 				E9D3DEDB1B616EFE00C562E3 /* GameScene.swift */,
-			);
-			name = Scenes;
-			sourceTree = "<group>";
-		};
-		E9D3DED61B61629000C562E3 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
 				E9D3DEDD1B61785100C562E3 /* GameViewController.swift */,
 			);
-			name = Controllers;
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

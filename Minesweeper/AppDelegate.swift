@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import iAd
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
