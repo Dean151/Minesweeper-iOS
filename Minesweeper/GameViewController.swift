@@ -11,12 +11,19 @@ import SpriteKit
 
 class GameViewController: UIViewController {
     var scene: GameScene!
+    @IBOutlet weak var skView: SKView!
     
     @IBOutlet weak var playOrFlagControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        canDisplayBannerAds = true
+        
+        startGame()
+    }
+    
+    func startGame() {
         let userDefault = NSUserDefaults.standardUserDefaults()
         if let difficulty = userDefault.stringForKey("difficulty") {
             if let gameDifficulty = GameDifficulty(rawValue: difficulty) {
@@ -34,7 +41,6 @@ class GameViewController: UIViewController {
         self.playOrFlagControl.selectedSegmentIndex = 0
         
         // Configure the view.
-        let skView = view as! SKView
         skView.multipleTouchEnabled = false
         
         // Create and configure the scene.
@@ -46,7 +52,7 @@ class GameViewController: UIViewController {
         scene = newScene
     }
     
-    @IBAction func GameButtonPressed(sender: AnyObject) {
+    func chooseDifficulty() {
         let alert = UIAlertController(title: "New game", message: nil, preferredStyle: .ActionSheet)
         
         for difficulty in GameDifficulty.allValues {
@@ -67,6 +73,10 @@ class GameViewController: UIViewController {
         
         alert.addAction(cancel)
         presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func GameButtonPressed(sender: AnyObject) {
+        chooseDifficulty()
     }
     
     override func viewWillLayoutSubviews() {
