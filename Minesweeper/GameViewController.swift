@@ -24,16 +24,7 @@ class GameViewController: UIViewController {
     }
     
     func startGame() {
-        let userDefault = NSUserDefaults.standardUserDefaults()
-        if let difficulty = userDefault.stringForKey("difficulty") {
-            if let gameDifficulty = GameDifficulty(rawValue: difficulty) {
-                newGame(gameDifficulty)
-            } else {
-                newGame(.Easy)
-            }
-        } else {
-            newGame(.Easy)
-        }
+        newGame( Settings.getDifficulty )
     }
     
     func newGame(difficulty: GameDifficulty) {
@@ -58,9 +49,7 @@ class GameViewController: UIViewController {
         for difficulty in GameDifficulty.allValues {
             let opt = UIAlertAction(title: difficulty.description, style: .Default) {
                 Void in
-                // Saving difficulty
-                let userDefault = NSUserDefaults.standardUserDefaults()
-                userDefault.setObject(difficulty.rawValue, forKey: "difficulty")
+                Settings.saveDifficulty(difficulty)
                 // Loading new game
                 self.newGame(difficulty)
             }

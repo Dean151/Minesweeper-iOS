@@ -255,7 +255,7 @@ class GameScene: SKScene {
                 tile.sprite.runAction(SKAction.group([SKAction.scaleTo(1.0, duration: 0.1), SKAction.fadeAlphaTo(1, duration: 0.1)])) {
                     if self.board.gameOver {
                         if !self.board.isGameWon {
-                            if false {
+                            if Settings.isVibrationEnabled {
                                 AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                             }
                         }

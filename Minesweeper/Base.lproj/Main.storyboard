@@ -67,7 +67,7 @@
         <!--Settings-->
         <scene sceneID="oym-pr-uQu">
             <objects>
-                <viewController id="Ddy-W9-ChN" sceneMemberID="viewController">
+                <viewController id="Ddy-W9-ChN" customClass="SettingsViewController" customModule="Minesweeper" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sb7-bY-NCg"/>
                         <viewControllerLayoutGuide type="bottom" id="7LJ-CP-u02"/>
