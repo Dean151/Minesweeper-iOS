@@ -51,7 +51,9 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="settings" id="Hj9-ke-9W5">
                             <connections>
-                                <segue destination="k2R-TQ-d9O" kind="presentation" id="MZy-Wi-Kri"/>
+                                <segue destination="k2R-TQ-d9O" kind="popoverPresentation" popoverAnchorBarButtonItem="Hj9-ke-9W5" id="MZy-Wi-Kri">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
