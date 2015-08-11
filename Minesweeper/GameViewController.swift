@@ -10,37 +10,36 @@ import Foundation
 import SpriteKit
 
 class GameViewController: UIViewController {
-    var scene: GameScene!
+    var scene: GameScene?
     @IBOutlet weak var skView: SKView!
     
     @IBOutlet weak var playOrFlagControl: UISegmentedControl!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        startGame()
-    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         if Settings.isMarkWithLongPressEnabled && Settings.isBottomBarHidden {
+            self.playOrFlagControl.selectedSegmentIndex = 0
             self.navigationController!.toolbarHidden = true
         } else {
             self.navigationController!.toolbarHidden = false
         }
         
-        if (Settings.difficulty != self.scene.board.difficulty) {
-            startGame()
-        }
-        
         canDisplayBannerAds = !Settings.isAdsBannerHidden
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
-        //scene.resizeBoard(animated: false)
+        if (scene != nil) {
+            if (Settings.difficulty != self.scene!.board.difficulty) {
+                startGame()
+            } else {
+                scene!.resizeBoard(animated: false)
+            }
+        } else {
+            startGame()
+        }
     }
     
     func startGame() {

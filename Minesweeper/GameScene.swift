@@ -35,6 +35,7 @@ class GameScene: SKScene {
             if newValue != nil {
                 if Settings.isMarkWithLongPressEnabled {
                     // TODO set timer to make long press mark tiles
+                    timerForMarking = NSTimer.scheduledTimerWithTimeInterval(0.7, target: self, selector: Selector("markSelectedTileWithAnimation"), userInfo: nil, repeats: false)
                 }
                 
                 newValue!.sprite.runAction(SKAction.sequence([
@@ -169,17 +170,31 @@ class GameScene: SKScene {
         }
     }
     
-    func markTileWithAnimation(tile: Tile) {
-        if (!tile.isRevealed) {
-            let tiles = board.mark(tile)
+    func markSelectedTileWithAnimation() {
+        if selectedTile != nil {
+            let tiles = board.mark(selectedTile!)
             selectedTile = nil
             
             for tile in tiles {
                 let actions = SKAction.sequence([
-                    SKAction.runBlock({ (tile.sprite as SKNode).setScale(Theme.scaleForMarkingTile) }),
-                    SKAction.scaleTo(1, duration: 0.7)
-                    ])
+                    SKAction.runBlock({
+                        (tile.sprite as! SKSpriteNode).texture = self.textureForTile(tile)
+                        tile.sprite.zPosition = 10
+                        tile.sprite.setScale(Theme.scaleForMarkingTile)
+                        tile.sprite.alpha = Theme.alphaForOveredTile
+                    }),
+                    SKAction.group([
+                        SKAction.scaleTo(1, duration: 0.2),
+                        SKAction.fadeAlphaTo(1, duration: 0.2)
+                    ]),
+                    SKAction.runBlock({
+                        tile.sprite.zPosition = 0
+                    })
+                ])
+                    
+                tile.sprite.runAction(actions)
             }
+            
         }
     }
     
@@ -251,7 +266,7 @@ class GameScene: SKScene {
         
         let (success, column, row) = convertPoint(location)
         if success && !board.gameOver {
-            if let tile = board.getTile(column, y: row) {
+            if let tile = selectedTile {
                 let tiles: [Tile]
                 if controller.playOrFlagControl.selectedSegmentIndex == 0 {
                     tiles = board.play(tile)
