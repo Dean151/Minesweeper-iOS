@@ -4,6 +4,7 @@ use_frameworks!
 
 target 'Minesweeper' do
     pod "HexColors"
+    pod "XLForm"
 end
 
 target 'MinesweeperTests' do

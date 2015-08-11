@@ -7,21 +7,13 @@
 //
 
 import Foundation
+import XLForm
 
 enum GameDifficulty: String {
-    case Easy = "easy", Medium = "medium", Hard = "hard", Insane = "insane"
+    case Easy = "Easy", Medium = "Medium", Hard = "Hard", Insane = "Insane"
     
     var description: String {
-        switch self {
-        case .Easy:
-            return "Easy"
-        case .Medium:
-            return "Medium"
-        case .Hard:
-            return "Hard"
-        case .Insane:
-            return "Insane"
-        }
+        return self.rawValue
     }
     
     var size: (width: Int, height: Int) {
@@ -53,17 +45,31 @@ enum GameDifficulty: String {
     static var allValues: [GameDifficulty] {
         return [.Easy, .Medium, .Hard, .Insane]
     }
+    
+    static var allRawValues: [String] {
+        return allValues.map({ $0.rawValue })
+    }
 }
 
 class Board {
-    let height: Int
-    let width: Int
-    let nbMines: Int
+    let difficulty: GameDifficulty
     
     var minesInitialized: Bool
     var gameOver: Bool
     
     var tiles: [Tile]
+    
+    var height: Int {
+        return difficulty.size.height
+    }
+    
+    var width: Int {
+        return difficulty.size.width
+    }
+    
+    var nbMines: Int {
+        return difficulty.nbMines
+    }
     
     var isGameWon: Bool {
         for t in tiles {
@@ -75,12 +81,8 @@ class Board {
         return true
     }
     
-    init(width: Int, height: Int, nbMines: Int) {
-        self.width = width
-        self.height = height
-        self.nbMines = nbMines
-        
-        assert(nbMines < width * height, "Impossible to have more mines than available cases")
+    init(difficulty: GameDifficulty) {
+        self.difficulty = difficulty
         
         minesInitialized = false
         gameOver = false
@@ -91,6 +93,8 @@ class Board {
                 self.tiles.append(Tile(board: self, x: x, y: y))
             }
         }
+        
+        assert(nbMines < width * height - 9, "Impossible to have more mines than available cases")
     }
     
     func initMines(playedSquare: Tile) {

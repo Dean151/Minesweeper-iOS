@@ -18,13 +18,33 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        canDisplayBannerAds = true
-        
         startGame()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if Settings.isMarkWithLongPressEnabled && Settings.isBottomBarHidden {
+            self.navigationController!.toolbarHidden = true
+        } else {
+            self.navigationController!.toolbarHidden = false
+        }
+        
+        if (Settings.difficulty != self.scene.board.difficulty) {
+            startGame()
+        }
+        
+        canDisplayBannerAds = !Settings.isAdsBannerHidden
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        //scene.resizeBoard(animated: false)
+    }
+    
     func startGame() {
-        newGame( Settings.getDifficulty )
+        newGame( Settings.difficulty )
     }
     
     func newGame(difficulty: GameDifficulty) {
@@ -65,10 +85,6 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func GameButtonPressed(sender: AnyObject) {
-        chooseDifficulty()
-    }
-    
-    override func viewWillLayoutSubviews() {
-        scene.resizeBoard()
+        startGame()
     }
 }

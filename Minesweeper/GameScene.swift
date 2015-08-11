@@ -33,6 +33,10 @@ class GameScene: SKScene {
             }
             
             if newValue != nil {
+                if Settings.isMarkWithLongPressEnabled {
+                    // TODO set timer to make long press mark tiles
+                }
+                
                 newValue!.sprite.runAction(SKAction.sequence([
                 SKAction.customActionWithDuration(0, actionBlock: { (node, time) in node.zPosition = 10 }),
                 SKAction.group([SKAction.scaleTo(Theme.scaleForOveredTile, duration: 0.1), SKAction.fadeAlphaTo(Theme.alphaForOveredTile, duration: 0.1)])
@@ -55,7 +59,7 @@ class GameScene: SKScene {
     }
     
     init(size: CGSize, controller: GameViewController, difficulty: GameDifficulty) {
-        self.board = Board(width: difficulty.size.width, height: difficulty.size.height, nbMines: difficulty.nbMines)
+        self.board = Board(difficulty: difficulty)
         
         self.controller = controller
         self.tileSize = 10
@@ -71,10 +75,10 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         super.didMoveToView(view)
-        self.resizeBoard()
+        self.resizeBoard(animated: true)
     }
     
-    func resizeBoard() {
+    func resizeBoard(#animated: Bool) {
         if let view = self.view {
             let size = view.frame.size
             
@@ -82,19 +86,21 @@ class GameScene: SKScene {
             tileLayer.position = CGPoint(
                 x: -tileSize * CGFloat(board.width) / 2,
                 y: -tileSize * CGFloat(board.height) / 2)
-            
-            tileLayer.removeAllChildren()
-            addSpritesForTiles(board.tiles)
+
+            addSpritesForTiles(board.tiles, animated: animated)
         }
     }
     
-    func addSpritesForTiles(tiles: [Tile]) {
+    func addSpritesForTiles(tiles: [Tile], animated: Bool) {
+        tileLayer.removeAllChildren()
+        
         for tile in tiles {
             let sprite = SKSpriteNode(texture: textureForTile(tile))
             sprite.size = CGSizeMake(tileSize*0.9, tileSize*0.9)
             tile.sprite = sprite
             sprite.position = pointForColumn(tile.x, row: tile.y)
             
+            if animated {
             sprite.alpha = 0
             sprite.xScale = 0.5
             sprite.yScale = 0.5
@@ -107,6 +113,7 @@ class GameScene: SKScene {
                         SKAction.scaleTo(1.0, duration: 0.25)
                         ])
                     ]))
+            }
             
             tileLayer.addChild(sprite)
         }

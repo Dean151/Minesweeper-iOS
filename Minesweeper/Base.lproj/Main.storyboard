@@ -44,7 +44,7 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="0zj-fy-5uk"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Minesweeper" id="5V0-XA-6NC">
-                        <barButtonItem key="leftBarButtonItem" title="Game" id="2Qg-sh-igM">
+                        <barButtonItem key="leftBarButtonItem" title="New Game" id="2Qg-sh-igM">
                             <connections>
                                 <action selector="GameButtonPressed:" destination="vXZ-lx-hvc" id="IDa-bF-FNt"/>
                             </connections>
@@ -78,7 +78,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="jGg-dQ-8PX">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="bB4-0x-QNh"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="bB4-0x-QNh">
+                            <connections>
+                                <action selector="donePressed:" destination="Ddy-W9-ChN" id="mvb-nt-7LK"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p2S-63-CGK" userLabel="First Responder" sceneMemberID="firstResponder"/>
