@@ -24,8 +24,6 @@ class GameViewController: UIViewController {
         } else {
             self.navigationController!.toolbarHidden = false
         }
-        
-        canDisplayBannerAds = !Settings.isAdsBannerHidden
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -43,6 +41,9 @@ class GameViewController: UIViewController {
     }
     
     func startGame() {
+        if (!Settings.difficulty.difficultyAvailable) {
+            Settings.setDifficulty(.Easy)
+        }
         newGame( Settings.difficulty )
     }
     
@@ -60,27 +61,6 @@ class GameViewController: UIViewController {
         // Present the scene.
         skView.presentScene(newScene)
         scene = newScene
-    }
-    
-    func chooseDifficulty() {
-        let alert = UIAlertController(title: "New game", message: nil, preferredStyle: .ActionSheet)
-        
-        for difficulty in GameDifficulty.allValues {
-            let opt = UIAlertAction(title: difficulty.description, style: .Default) {
-                Void in
-                Settings.saveDifficulty(difficulty)
-                // Loading new game
-                self.newGame(difficulty)
-            }
-            alert.addAction(opt)
-        }
-        
-        let cancel = UIAlertAction(title: "Cancel", style: .Cancel) {
-            Void in
-        }
-        
-        alert.addAction(cancel)
-        presentViewController(alert, animated: true, completion: nil)
     }
     
     @IBAction func GameButtonPressed(sender: AnyObject) {

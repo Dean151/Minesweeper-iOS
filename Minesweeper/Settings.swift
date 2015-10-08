@@ -13,7 +13,7 @@ class Settings {
     private static let vibrationString = "vibration"
     private static let markWithLongPressString = "markWithLongPress"
     private static let bottomBarHiddenString = "bottomBarHidden"
-    private static let adsHiddenString = "adsHidden"
+    private static let completeVersionString = "completeVersion"
     
     class var difficulty: GameDifficulty {
         let userDefault = NSUserDefaults.standardUserDefaults()
@@ -21,7 +21,7 @@ class Settings {
             if let gameDifficulty = GameDifficulty(rawValue: difficulty) {
                 return gameDifficulty
             } else {
-                self.saveDifficulty(.Easy)
+                self.setDifficulty(.Easy)
                 return .Easy
             }
         } else {
@@ -29,9 +29,11 @@ class Settings {
         }
     }
     
-    class func saveDifficulty(difficulty: GameDifficulty) {
-        let userDefault = NSUserDefaults.standardUserDefaults()
-        userDefault.setObject(difficulty.rawValue, forKey: difficultyString)
+    class func setDifficulty(difficulty: GameDifficulty) {
+        if (difficulty.difficultyAvailable) {
+            let userDefault = NSUserDefaults.standardUserDefaults()
+            userDefault.setObject(difficulty.rawValue, forKey: difficultyString)
+        }
     }
     
     // Vibrations
@@ -68,13 +70,13 @@ class Settings {
     }
     
     // Ads
-    class var isAdsBannerHidden: Bool {
+    class var isCompleteVersionPurchased: Bool {
         let userDefault = NSUserDefaults.standardUserDefaults()
-        return userDefault.boolForKey(adsHiddenString)
+        return userDefault.boolForKey(completeVersionString)
     }
     
-    class func setAdsBannerHidden(hidden: Bool) {
+    class func setCompletVersionPurchased(purchased: Bool) {
         let userDefault = NSUserDefaults.standardUserDefaults()
-        userDefault.setBool(hidden, forKey: adsHiddenString)
+        userDefault.setBool(purchased, forKey: completeVersionString)
     }
 }

@@ -42,6 +42,15 @@ enum GameDifficulty: String {
         }
     }
     
+    var difficultyAvailable: Bool {
+        switch self {
+        case .Easy, .Medium:
+            return true
+        case .Hard, .Insane:
+            return Settings.isCompleteVersionPurchased
+        }
+    }
+    
     static var allValues: [GameDifficulty] {
         return [.Easy, .Medium, .Hard, .Insane]
     }

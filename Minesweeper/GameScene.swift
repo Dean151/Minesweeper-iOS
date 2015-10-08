@@ -331,6 +331,7 @@ class GameScene: SKScene {
             let detail = SKLabelNode(text: "\(tile.nbMineAround)")
             detail.fontColor = Theme.fontColorWithMines(tile.nbMineAround)
             detail.fontSize = size*2/3
+            // detail.fontName = detail.fontName + "-Bold" // Why is this line make it very low
             detail.position = CGPointMake(0, -size/4)
             sprite.addChild(detail)
         case 9:
