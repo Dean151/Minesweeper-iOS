@@ -78,6 +78,8 @@ class GameScene: SKScene {
         self.resizeBoard(animated: true)
     }
     
+    // FIXME: Should have a max size for tiles, for very big layouts (iPad)
+    
     func resizeBoard(animated animated: Bool) {
         if let view = self.view {
             let size = view.frame.size

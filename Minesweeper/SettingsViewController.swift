@@ -17,6 +17,8 @@ class SettingsViewController: FormViewController {
          self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "donePressed:")
         
         setupForm()
+        
+        // FIXME: Should handle IAP
     }
     
     func setupForm() {
@@ -51,6 +53,7 @@ class SettingsViewController: FormViewController {
                 Settings.setMarkForLongPress(longPress)
             }
             
+            // FIXME: should be hidden when longPress is disabled
             <<< SwitchRow("hiddenToolbar") {
                 $0.title = "Hide toolbar"
                 $0.value = Settings.isBottomBarHidden

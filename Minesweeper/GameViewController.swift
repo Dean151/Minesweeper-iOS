@@ -15,6 +15,10 @@ class GameViewController: UIViewController {
     var skView: SKView!
     var playOrFlagControl: UISegmentedControl!
     
+    
+    
+    // FIXME: should layout subview to change sizes
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +37,8 @@ class GameViewController: UIViewController {
         
         self.toolbarItems = [space, segmItem, space]
     }
+    
+    // FIXME: On iPad, these two functions are not triggered
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
