@@ -48,16 +48,15 @@ class BannerViewController: UIViewController, ADBannerViewDelegate {
     
     override func viewDidLayoutSubviews() {
         var contentFrame = self.view.bounds, bannerFrame = CGRectZero
-        contentFrame.size.height += (self.parentViewController as! UITabBarController).tabBar.frame.size.height
         let bannerView = BannerViewManager.sharedInstance.bannerView
         
         bannerFrame.size = bannerView.sizeThatFits(contentFrame.size)
         
         if bannerView.bannerLoaded && !Settings.isCompleteVersionPurchased {
             contentFrame.size.height -= bannerFrame.size.height
-            bannerFrame.origin.y = contentFrame.size.height - (self.parentViewController as! UITabBarController).tabBar.frame.size.height
+            bannerFrame.origin.y = contentFrame.size.height
         } else {
-            bannerFrame.origin.y = contentFrame.size.height - (self.parentViewController as! UITabBarController).tabBar.frame.size.height
+            bannerFrame.origin.y = contentFrame.size.height
         }
         
         contentController.view.frame = contentFrame

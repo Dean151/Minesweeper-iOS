@@ -13,7 +13,6 @@
 		E949E1801B66CD30002E154A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */; };
 		E9B5BACC1BC8293C007C2C78 /* BannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B5BACB1BC8293C007C2C78 /* BannerViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		E9D3DEB11B6143A700C562E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D3DEB01B6143A700C562E3 /* AppDelegate.swift */; };
-		E9D3DEB61B6143A700C562E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9D3DEB41B6143A700C562E3 /* Main.storyboard */; };
 		E9D3DEB81B6143A700C562E3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9D3DEB71B6143A700C562E3 /* Images.xcassets */; };
 		E9D3DEC71B6143A700C562E3 /* MinesweeperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D3DEC61B6143A700C562E3 /* MinesweeperTests.swift */; };
 		E9D3DED21B6143BD00C562E3 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D3DED11B6143BD00C562E3 /* Board.swift */; };
@@ -62,7 +61,6 @@
 		E9D3DEAB1B6143A700C562E3 /* Minesweeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minesweeper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9D3DEAF1B6143A700C562E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9D3DEB01B6143A700C562E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E9D3DEB51B6143A700C562E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E9D3DEB71B6143A700C562E3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E9D3DEC01B6143A700C562E3 /* MinesweeperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MinesweeperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9D3DEC51B6143A700C562E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -191,7 +189,6 @@
 		E9D3DED51B61627700C562E3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				E9D3DEB41B6143A700C562E3 /* Main.storyboard */,
 				E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */,
 				E914F8F11B62ADEE001AFB80 /* Theme.swift */,
 				E9B5BACB1BC8293C007C2C78 /* BannerViewController.swift */,
@@ -289,7 +286,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E949E1801B66CD30002E154A /* LaunchScreen.storyboard in Resources */,
-				E9D3DEB61B6143A700C562E3 /* Main.storyboard in Resources */,
 				E9D3DEB81B6143A700C562E3 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,17 +381,6 @@
 			targetProxy = E9D3DEC11B6143A700C562E3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		E9D3DEB41B6143A700C562E3 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E9D3DEB51B6143A700C562E3 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		E9D3DEC81B6143A700C562E3 /* Debug */ = {

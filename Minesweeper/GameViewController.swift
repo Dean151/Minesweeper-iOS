@@ -12,14 +12,26 @@ import SpriteKit
 class GameViewController: UIViewController {
     var scene: GameScene?
     
-    @IBOutlet weak var skView: SKView!
-    @IBOutlet weak var playOrFlagControl: UISegmentedControl!
+    var skView: SKView!
+    var playOrFlagControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Creating SKView
+        skView = SKView(frame: self.view.frame)
+        self.view.addSubview(skView)
+        
+        // Creating Top bar buttons
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "New Game", style: .Plain, target: self, action: "gameButtonPressed:")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "showSettings:")
+        
+        // Creating segmented toolbar
+        playOrFlagControl = UISegmentedControl(items: ["Dig", "Flag"])
+        let space = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
+        let segmItem = UIBarButtonItem(customView: playOrFlagControl)
+        
+        self.toolbarItems = [space, segmItem, space]
     }
     
     override func viewWillAppear(animated: Bool) {

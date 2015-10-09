@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import StoreKit
 import Eureka
 
 class SettingsViewController: FormViewController {
