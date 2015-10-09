@@ -11,6 +11,7 @@
 		E914F8F21B62ADEE001AFB80 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E914F8F11B62ADEE001AFB80 /* Theme.swift */; };
 		E9307D571B7BC97D006BBEFA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9307D561B7BC97D006BBEFA /* StoreKit.framework */; };
 		E949E1801B66CD30002E154A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */; };
+		E9B5BACC1BC8293C007C2C78 /* BannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B5BACB1BC8293C007C2C78 /* BannerViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		E9D3DEB11B6143A700C562E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D3DEB01B6143A700C562E3 /* AppDelegate.swift */; };
 		E9D3DEB61B6143A700C562E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9D3DEB41B6143A700C562E3 /* Main.storyboard */; };
 		E9D3DEB81B6143A700C562E3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9D3DEB71B6143A700C562E3 /* Images.xcassets */; };
@@ -23,7 +24,6 @@
 		E9DF513E1B79299500C32997 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF513D1B79299500C32997 /* SettingsViewController.swift */; };
 		E9DF51401B792B5D00C32997 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF513F1B792B5D00C32997 /* Settings.swift */; };
 		E9E693521B680E0600FBB719 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9E693511B680E0600FBB719 /* AudioToolbox.framework */; };
-		E9EBE86A1B6280AE00EEF1BA /* Pods_Minesweeper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40909C24C87FFE2ECA8FD606 /* Pods_Minesweeper.framework */; };
 		E9EBE86B1B6280AE00EEF1BA /* Pods_Minesweeper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40909C24C87FFE2ECA8FD606 /* Pods_Minesweeper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -58,6 +58,7 @@
 		E914F8F11B62ADEE001AFB80 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		E9307D561B7BC97D006BBEFA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E9B5BACB1BC8293C007C2C78 /* BannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerViewController.swift; sourceTree = "<group>"; };
 		E9D3DEAB1B6143A700C562E3 /* Minesweeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minesweeper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9D3DEAF1B6143A700C562E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9D3DEB01B6143A700C562E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,7 +87,6 @@
 				E9E693521B680E0600FBB719 /* AudioToolbox.framework in Frameworks */,
 				E9D3DED81B6162B900C562E3 /* SpriteKit.framework in Frameworks */,
 				B818D3C81F835249B40D012C /* Pods_Minesweeper.framework in Frameworks */,
-				E9EBE86A1B6280AE00EEF1BA /* Pods_Minesweeper.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,6 +194,7 @@
 				E9D3DEB41B6143A700C562E3 /* Main.storyboard */,
 				E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */,
 				E914F8F11B62ADEE001AFB80 /* Theme.swift */,
+				E9B5BACB1BC8293C007C2C78 /* BannerViewController.swift */,
 				E9D3DEDB1B616EFE00C562E3 /* GameScene.swift */,
 				E9D3DEDD1B61785100C562E3 /* GameViewController.swift */,
 				E9DF513D1B79299500C32997 /* SettingsViewController.swift */,
@@ -250,7 +251,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Thomas Durand";
 				TargetAttributes = {
 					E9D3DEAA1B6143A700C562E3 = {
@@ -355,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9B5BACC1BC8293C007C2C78 /* BannerViewController.swift in Sources */,
 				E9D3DEDC1B616EFE00C562E3 /* GameScene.swift in Sources */,
 				E9D3DED41B61448900C562E3 /* Tile.swift in Sources */,
 				E9DF51401B792B5D00C32997 /* Settings.swift in Sources */,
@@ -417,6 +419,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -490,6 +493,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.Dean.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -508,6 +512,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.Dean.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -527,6 +532,7 @@
 				);
 				INFOPLIST_FILE = MinesweeperTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.Dean.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Minesweeper.app/Minesweeper";
 			};
@@ -542,6 +548,7 @@
 				);
 				INFOPLIST_FILE = MinesweeperTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.Dean.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Minesweeper.app/Minesweeper";
 			};

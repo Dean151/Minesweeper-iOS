@@ -8,55 +8,58 @@
 
 import UIKit
 import StoreKit
-import XLForm
+import Eureka
 
-class SettingsViewController: XLFormViewController, SKProductsRequestDelegate, SKPaymentTransactionObserver {
-    
-    var hideAdsRow: XLFormRowDescriptor?
-    var restoreRow: XLFormRowDescriptor?
+class SettingsViewController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "donePressed:")
+        
         setupForm()
-        
-        SKPaymentQueue.defaultQueue().addTransactionObserver(self)
-        
-        if !Settings.isCompleteVersionPurchased {
-            requestProductData()
-        }
     }
     
     func setupForm() {
-        let form = XLFormDescriptor(title: "Settings")
+        form.removeAll()
         
-        var section = XLFormSectionDescriptor()
-        section.title = "Difficulty"
-        form.addFormSection(section)
-        
-        var row = XLFormRowDescriptor(tag: "difficulty", rowType: XLFormRowDescriptorTypeSelectorPush, title: "Difficulty")
-        row.selectorTitle = "Difficulty"
-        row.selectorOptions = GameDifficulty.allRawValues
-        row.value = Settings.difficulty.rawValue
-        section.addFormRow(row)
-        
-        section = XLFormSectionDescriptor()
-        section.title = "Gameplay"
-        form.addFormSection(section)
-        
-        row = XLFormRowDescriptor(tag: "vibrate", rowType: XLFormRowDescriptorTypeBooleanSwitch, title: "Vibrations")
-        row.value = Settings.isVibrationEnabled
-        section.addFormRow(row)
-        
-        row = XLFormRowDescriptor(tag: "longPress", rowType: XLFormRowDescriptorTypeBooleanSwitch, title: "Mark with long press")
-        row.value = Settings.isMarkWithLongPressEnabled
-        section.addFormRow(row)
-        
-        row = XLFormRowDescriptor(tag: "hiddenToolbar", rowType: XLFormRowDescriptorTypeBooleanSwitch, title: "Hide Toolbar")
-        row.value = Settings.isBottomBarHidden
-        row.hidden = "$longPress==0"
-        section.addFormRow(row)
-        
+        form +++
+            Section("Difficulty")
+            <<< PushRow<String>("difficulty") {
+                $0.title = "Difficulty"
+                $0.options = GameDifficulty.allRawValues
+                $0.value = Settings.difficulty.rawValue
+            }.onChange { row in
+                guard let rawVal = row.value else { return }
+                guard let difficulty = GameDifficulty(rawValue: rawVal) else { return }
+                Settings.setDifficulty(difficulty)
+            }
+            
+            +++ Section("Gameplay")
+            <<< SwitchRow("vibrate") {
+                $0.title = "Vibrations"
+                $0.value = Settings.isVibrationEnabled
+            }.onChange{ row in
+                guard let vibrate = row.value else { return }
+                Settings.setVibration(vibrate)
+            }
+            
+            <<< SwitchRow("longPress") {
+                $0.title = "Mark with long press"
+                $0.value = Settings.isMarkWithLongPressEnabled
+            }.onChange{ row in
+                guard let longPress = row.value else { return }
+                Settings.setMarkForLongPress(longPress)
+            }
+            
+            <<< SwitchRow("hiddenToolbar") {
+                $0.title = "Hide toolbar"
+                $0.value = Settings.isBottomBarHidden
+            }.onChange{ row in
+                guard let hideToolbar = row.value else { return }
+                Settings.setBottomBarHidden(hideToolbar)
+            }
+        /*
         if !Settings.isCompleteVersionPurchased {
             section = XLFormSectionDescriptor()
             section.title = "Purchase complete version"
@@ -75,166 +78,10 @@ class SettingsViewController: XLFormViewController, SKProductsRequestDelegate, S
         }
         
         self.form = form
+        */
     }
     
-    func saveForm() {
-        let dict = self.formValues()
-        
-        if let raw = dict["difficulty"] as? String {
-            if let difficulty = GameDifficulty(rawValue: raw) {
-                Settings.setDifficulty(difficulty)
-            }
-        }
-        
-        if let vibrate = dict["vibrate"] as? Bool {
-            Settings.setVibration(vibrate)
-        }
-        
-        if let longPress = dict["longPress"] as? Bool {
-            Settings.setMarkForLongPress(longPress)
-        }
-        
-        if let hiddenToolbar = dict["hiddenToolbar"] as? Bool {
-            Settings.setBottomBarHidden(hiddenToolbar)
-        }
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        saveForm()
-    }
-    
-    @IBAction func donePressed(sender: AnyObject) {
+    func donePressed(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    // In App Purchase
-    let productIdentifiers = Set(["fr.Dean.Minesweeper.hideAds"])
-    var removeAdProduct: SKProduct?
-    
-    func purchaseFullVersion(sender: XLFormRowDescriptor) {
-        // handle the in app purchase
-        if !Settings.isCompleteVersionPurchased {
-            let payment = SKPayment(product: removeAdProduct)
-            SKPaymentQueue.defaultQueue().addPayment(payment)
-        }
-    }
-    
-    func restoreInAppPurchase(sender: XLFormRowDescriptor) {
-        // handle in app purchase restoration
-        if !Settings.isCompleteVersionPurchased {
-            SKPaymentQueue.defaultQueue().addTransactionObserver(self)
-            SKPaymentQueue.defaultQueue().restoreCompletedTransactions()
-        }
-    }
-    
-    func requestProductData()
-    {
-        if SKPaymentQueue.canMakePayments() {
-            let request = SKProductsRequest(productIdentifiers: self.productIdentifiers as Set<NSObject>)
-            request.delegate = self
-            request.start()
-            if restoreRow != nil {
-                restoreRow!.disabled = false
-            }
-        } else {
-            var alert = UIAlertController(title: NSLocalizedString("IAP_NOT_ENABLED", comment: ""), message: NSLocalizedString("IAP_NOT_ENABLED_DESC", comment: ""), preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("SETTINGS", comment: ""), style: UIAlertActionStyle.Default, handler: {
-                alertAction in
-                alert.dismissViewControllerAnimated(true, completion: nil)
-                
-                let url: NSURL? = NSURL(string: UIApplicationOpenSettingsURLString)
-                if url != nil
-                {
-                    UIApplication.sharedApplication().openURL(url!)
-                }
-                
-            }))
-            alert.addAction(UIAlertAction(title: NSLocalizedString("DISMISS", comment: ""), style: UIAlertActionStyle.Default, handler: { alertAction in
-                alert.dismissViewControllerAnimated(true, completion: nil)
-            }))
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
-    }
-    
-    func productsRequest(request: SKProductsRequest!, didReceiveResponse response: SKProductsResponse!) {
-        
-        var products = response.products
-        
-        if (products.count == 1) {
-            self.removeAdProduct = products[0] as? SKProduct
-            
-            let formatter = NSNumberFormatter()
-            formatter.formatterBehavior = .Behavior10_4
-            formatter.numberStyle = .CurrencyStyle
-            formatter.locale = removeAdProduct!.priceLocale
-            
-            if hideAdsRow != nil {
-                hideAdsRow!.title = "Purchase complete version (\(formatter.stringFromNumber(self.removeAdProduct!.price)!)))"
-                hideAdsRow!.disabled = false
-            }
-        } else {
-            println("No products found")
-        }
-        
-        products = response.invalidProductIdentifiers
-        
-        for product in products
-        {
-            println("Product not found: \(product)")
-        }
-    }
-    
-    func paymentQueue(queue: SKPaymentQueue!, updatedTransactions transactions: [AnyObject]!) {
-        
-        for transaction in transactions as! [SKPaymentTransaction] {
-            
-            switch transaction.transactionState {
-                
-            case SKPaymentTransactionState.Restored:
-                println("Transaction Restored")
-                println("Product Identifier: \(transaction.payment.productIdentifier)")
-                self.deliverProduct(transaction)
-                SKPaymentQueue.defaultQueue().finishTransaction(transaction)
-                
-            case SKPaymentTransactionState.Purchased:
-                println("Transaction Approved")
-                println("Product Identifier: \(transaction.payment.productIdentifier)")
-                self.deliverProduct(transaction)
-                SKPaymentQueue.defaultQueue().finishTransaction(transaction)
-                
-            case SKPaymentTransactionState.Failed:
-                println("Transaction Failed")
-                SKPaymentQueue.defaultQueue().finishTransaction(transaction)
-                
-            default:
-                break
-            }
-        }
-    }
-    
-    func deliverProduct(transaction:SKPaymentTransaction) {
-        if transaction.payment.productIdentifier == "fr.Dean.Minesweeper.hideAds"
-        {
-            println("Remove adds Purchased")
-            Settings.setCompletVersionPurchased(true)
-            if hideAdsRow != nil {
-                hideAdsRow!.disabled = true
-            }
-            if restoreRow != nil {
-                restoreRow!.disabled = true
-            }
-        }
-    }
-    
-    func paymentQueueRestoreCompletedTransactionsFinished(queue: SKPaymentQueue!) {
-        println("Transactions Restored")
-        var purchasedItemIDS = []
-        for transaction:SKPaymentTransaction in queue.transactions as! [SKPaymentTransaction] {
-            
-            deliverProduct(transaction)
-        }
-        
-        var alert = UIAlertView(title: NSLocalizedString("THANK_YOU", comment: ""), message: NSLocalizedString("IAP_RESTORED", comment: ""), delegate: nil, cancelButtonTitle: NSLocalizedString("DISMISS", comment: ""))
-        alert.show()
     }
 }

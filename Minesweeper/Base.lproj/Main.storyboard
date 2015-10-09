@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="WKH-ya-8CH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="WKH-ya-8CH">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
         <!--Minesweeper-->
@@ -13,13 +14,15 @@
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="492"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="492"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="29G-yE-PYV" customClass="SKView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="492"/>
+                                <animations/>
                             </view>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" red="0.92549019607843142" green="0.94117647058823528" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="29G-yE-PYV" secondAttribute="bottom" id="CA5-0C-nxu"/>
@@ -33,8 +36,9 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="r8f-jp-ruK"/>
                         <barButtonItem style="plain" id="Trz-xm-McN">
                             <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="AKO-yU-XO8">
-                                <rect key="frame" x="250" y="7" width="250" height="30"/>
+                                <rect key="frame" x="175" y="7" width="250" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <segments>
                                     <segment title="Dig"/>
                                     <segment title="Flag"/>
@@ -43,20 +47,7 @@
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="0zj-fy-5uk"/>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="Minesweeper" id="5V0-XA-6NC">
-                        <barButtonItem key="leftBarButtonItem" title="New Game" id="2Qg-sh-igM">
-                            <connections>
-                                <action selector="GameButtonPressed:" destination="vXZ-lx-hvc" id="IDa-bF-FNt"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="Hj9-ke-9W5">
-                            <connections>
-                                <segue destination="k2R-TQ-d9O" kind="popoverPresentation" popoverAnchorBarButtonItem="Hj9-ke-9W5" id="MZy-Wi-Kri">
-                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                </segue>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Minesweeper" id="5V0-XA-6NC"/>
                     <connections>
                         <outlet property="playOrFlagControl" destination="AKO-yU-XO8" id="lMI-G7-L1F"/>
                         <outlet property="skView" destination="29G-yE-PYV" id="e3k-GO-Ot9"/>
@@ -65,31 +56,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1211" y="1016"/>
-        </scene>
-        <!--Settings-->
-        <scene sceneID="oym-pr-uQu">
-            <objects>
-                <viewController id="Ddy-W9-ChN" customClass="SettingsViewController" customModule="Minesweeper" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="sb7-bY-NCg"/>
-                        <viewControllerLayoutGuide type="bottom" id="7LJ-CP-u02"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="1Yr-aT-ZD6">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Settings" id="jGg-dQ-8PX">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="bB4-0x-QNh">
-                            <connections>
-                                <action selector="donePressed:" destination="Ddy-W9-ChN" id="mvb-nt-7LK"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="p2S-63-CGK" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1211" y="1776"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qey-gg-7Sv">
@@ -102,10 +68,13 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="By5-A6-WOu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" id="f0N-hg-q27">
+                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
                     </toolbar>
                     <connections>
                         <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="03R-3i-TZe"/>
@@ -115,26 +84,5 @@
             </objects>
             <point key="canvasLocation" x="405" y="1016"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="p0V-ob-x3C">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="k2R-TQ-d9O" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RMh-Fq-HWb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Ddy-W9-ChN" kind="relationship" relationship="rootViewController" id="VsG-t8-vAW"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LEF-lp-4jI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="405" y="1776"/>
-        </scene>
     </scenes>
-    <resources>
-        <image name="settings" width="22" height="22"/>
-    </resources>
 </document>

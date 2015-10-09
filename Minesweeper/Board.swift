@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import XLForm
 
 enum GameDifficulty: String {
     case Easy = "Easy", Medium = "Medium", Hard = "Hard", Insane = "Insane"
@@ -113,12 +112,12 @@ class Board {
         protectedTiles.append(playedSquare)
         
         for tile in tiles {
-            if !contains(protectedTiles, tile) {
+            if !protectedTiles.contains(tile) {
                 possibilities.append(tile)
             }
         }
         
-        for i in 0..<nbMines {
+        for _ in 0..<nbMines {
             let index = Int(arc4random_uniform(UInt32(possibilities.count)))
             possibilities[index].setMine()
             possibilities.removeAtIndex(index)
@@ -193,7 +192,7 @@ class Board {
                 }
             } else {
                 var nbMarked = 0
-                var neighbors = getNeighbors(tile)
+                let neighbors = getNeighbors(tile)
                 for neighbor in neighbors {
                     if neighbor.isMarked {
                         nbMarked++
@@ -230,7 +229,7 @@ class Board {
                 markedTiles.append(tile)
             } else {
                 var nbUnrevealed = 0
-                var neighbors = getNeighbors(tile)
+                let neighbors = getNeighbors(tile)
                 for neighbor in neighbors {
                     if !neighbor.isRevealed {
                         nbUnrevealed++

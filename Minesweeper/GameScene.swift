@@ -34,7 +34,6 @@ class GameScene: SKScene {
             
             if newValue != nil {
                 if Settings.isMarkWithLongPressEnabled {
-                    // TODO set timer to make long press mark tiles
                     timerForMarking = NSTimer.scheduledTimerWithTimeInterval(0.7, target: self, selector: Selector("markSelectedTileWithAnimation"), userInfo: nil, repeats: false)
                 }
                 
@@ -79,7 +78,7 @@ class GameScene: SKScene {
         self.resizeBoard(animated: true)
     }
     
-    func resizeBoard(#animated: Bool) {
+    func resizeBoard(animated animated: Bool) {
         if let view = self.view {
             let size = view.frame.size
             
@@ -143,10 +142,10 @@ class GameScene: SKScene {
     }
     
     func changeTilesWithAnimation(tiles: [Tile], cliquedTile: Tile?, randomDelay: Bool, completion: (() -> ())?) {
-        let sortedTiles = cliquedTile != nil ? tiles.sorted({ (a: Tile, b: Tile) in
+        let sortedTiles = cliquedTile != nil ? tiles.sort({ (a: Tile, b: Tile) in
                 return a.squareDistanceFromTile(cliquedTile!) < b.squareDistanceFromTile(cliquedTile!) }) : tiles
         
-        for (index, tile) in enumerate(sortedTiles) {
+        for (index, tile) in sortedTiles.enumerate() {
             
             let timeByMine: NSTimeInterval = 0.8/NSTimeInterval(board.nbMines)
             
@@ -230,8 +229,8 @@ class GameScene: SKScene {
         }
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        let touch = touches.first as! UITouch
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first!
         let location = touch.locationInNode(tileLayer)
         
         let (success, column, row) = convertPoint(location)
@@ -242,8 +241,8 @@ class GameScene: SKScene {
         }
     }
     
-    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
-        let touch = touches.first as! UITouch
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first!
         let location = touch.locationInNode(tileLayer)
         
         let (success, column, row) = convertPoint(location)
@@ -260,11 +259,11 @@ class GameScene: SKScene {
         }
     }
     
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        let touch = touches.first as! UITouch
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first!
         let location = touch.locationInNode(tileLayer)
         
-        let (success, column, row) = convertPoint(location)
+        let (success, _, _) = convertPoint(location)
         if success && !board.gameOver {
             if let tile = selectedTile {
                 let tiles: [Tile]
@@ -351,6 +350,6 @@ class GameScene: SKScene {
         textures[mineType] = texture
         
         // Returning the texture
-        return texture
+        return texture!
     }
 }

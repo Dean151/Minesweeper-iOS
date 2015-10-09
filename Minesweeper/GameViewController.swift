@@ -11,9 +11,16 @@ import SpriteKit
 
 class GameViewController: UIViewController {
     var scene: GameScene?
-    @IBOutlet weak var skView: SKView!
     
+    @IBOutlet weak var skView: SKView!
     @IBOutlet weak var playOrFlagControl: UISegmentedControl!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "New Game", style: .Plain, target: self, action: "gameButtonPressed:")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "showSettings:")
+    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -63,7 +70,19 @@ class GameViewController: UIViewController {
         scene = newScene
     }
     
-    @IBAction func GameButtonPressed(sender: AnyObject) {
+    func gameButtonPressed(sender: AnyObject) {
         startGame()
+    }
+    
+    func showSettings(sender: UIBarButtonItem) {
+        let viewController = SettingsViewController()
+        let navController = UINavigationController(rootViewController: viewController)
+        
+        if (UI_USER_INTERFACE_IDIOM() == .Pad) {
+            let popover = UIPopoverController(contentViewController: navController)
+            popover.presentPopoverFromBarButtonItem(sender, permittedArrowDirections: .Any, animated: true)
+        } else {
+            self.presentViewController(navController, animated: true, completion: nil)
+        }
     }
 }
