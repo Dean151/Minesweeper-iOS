@@ -78,13 +78,11 @@ class GameScene: SKScene {
         self.resizeBoard(animated: true)
     }
     
-    // FIXME: Should have a max size for tiles, for very big layouts (iPad)
-    
     func resizeBoard(animated animated: Bool) {
         if let view = self.view {
             let size = view.frame.size
             
-            self.tileSize = min(size.width / CGFloat(board.width), size.height / CGFloat(board.height))
+            self.tileSize = min(size.width / CGFloat(board.width), size.height / CGFloat(board.height), 50)
             tileLayer.position = CGPoint(
                 x: -tileSize * CGFloat(board.width) / 2,
                 y: -tileSize * CGFloat(board.height) / 2)

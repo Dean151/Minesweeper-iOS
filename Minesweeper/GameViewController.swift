@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SnapKit
 import SpriteKit
 
 class GameViewController: UIViewController {
@@ -14,8 +15,6 @@ class GameViewController: UIViewController {
     
     var skView: SKView!
     var playOrFlagControl: UISegmentedControl!
-    
-    
     
     // FIXME: should layout subview to change sizes
     
@@ -25,6 +24,9 @@ class GameViewController: UIViewController {
         // Creating SKView
         skView = SKView(frame: self.view.frame)
         self.view.addSubview(skView)
+        skView.snp_makeConstraints(closure: { (make) -> Void in
+            make.edges.equalTo(self.view).inset(UIEdgeInsetsMake(0, 0, 0, 0))
+        })
         
         // Creating Top bar buttons
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "New Game", style: .Plain, target: self, action: "gameButtonPressed:")
