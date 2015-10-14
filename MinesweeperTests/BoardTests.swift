@@ -90,6 +90,39 @@ class BoardTests: XCTestCase {
         XCTAssertEqual(nbMines, difficulty.nbMines)
     }
     
+    // Testing game until win !
+    func testWinTheGameByReveal() {
+        board.play(0, y: 0) // First move to assign mines
+        
+        for tile in board.tiles {
+            if !tile.isMine {
+                board.play(tile)
+            }
+        }
+        
+        XCTAssertTrue(board.gameOver)
+        XCTAssertTrue(board.isGameWon)
+    }
+    
+    func testLooseTheGame() {
+        board.play(0, y: 0) // First move to assign mines
+        
+        var tiles = [Tile]()
+        
+        for tile in board.tiles {
+            if tile.isMine {
+                tiles.append(tile)
+            }
+        }
+        
+        // Picking a random mine
+        let mineTile = tiles[Int(arc4random_uniform(UInt32(tiles.count)))]
+        board.play(mineTile)
+        
+        XCTAssertTrue(board.gameOver)
+        XCTAssertFalse(board.isGameWon)
+    }
+    
     // We have to make sure we get the neighbors tiles
     func testNeighborsGetter() {
         // Testing for random tile
