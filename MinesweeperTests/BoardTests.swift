@@ -18,11 +18,20 @@ class BoardTests: XCTestCase {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         difficulty = GameDifficulty.random
         board = Board(difficulty: difficulty)
+        
+        // To test also hard and insane difficulty modes
+        Settings.completeVersionPurchased = true
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
+    }
+    
+    var randomTile: Tile {
+        let x = Int(arc4random_uniform(UInt32(board.width)))
+        let y = Int(arc4random_uniform(UInt32(board.height)))
+        return board.getTile(x, y: y)!
     }
     
     // isInBoard should return true if in board, and false otherwise
@@ -90,6 +99,20 @@ class BoardTests: XCTestCase {
         XCTAssertEqual(nbMines, difficulty.nbMines)
     }
     
+    // Test to mark a tile
+    func testPlayingOrMarkingTile() {
+        let tile = self.randomTile
+        
+        board.mark(tile)
+        XCTAssertTrue(board.getTile(tile.x, y: tile.y)!.isMarked)
+        board.play(tile)
+        XCTAssertFalse(board.getTile(tile.x, y: tile.y)!.isRevealed)
+        board.mark(tile)
+        XCTAssertFalse(board.getTile(tile.x, y: tile.y)!.isMarked)
+        board.play(tile)
+        XCTAssertTrue(board.getTile(tile.x, y: tile.y)!.isRevealed)
+    }
+    
     // Testing game until win !
     func testWinTheGameByReveal() {
         board.play(0, y: 0) // First move to assign mines
@@ -104,6 +127,7 @@ class BoardTests: XCTestCase {
         XCTAssertTrue(board.isGameWon)
     }
     
+    // Testing if game is lost when we play on a mine !
     func testLooseTheGame() {
         board.play(0, y: 0) // First move to assign mines
         
@@ -126,13 +150,12 @@ class BoardTests: XCTestCase {
     // We have to make sure we get the neighbors tiles
     func testNeighborsGetter() {
         // Testing for random tile
-        let x = Int(arc4random_uniform(UInt32(board.width-2)))+1
-        let y = Int(arc4random_uniform(UInt32(board.height-2)))+1
+        let randomTile = self.randomTile
         
         neighborsTester(0, y: 0)
         neighborsTester(0, y: 1)
         neighborsTester(1, y: 0)
-        neighborsTester(x, y: y)
+        neighborsTester(randomTile.x, y: randomTile.y)
         neighborsTester(board.width-1, y: board.height-1)
     }
     

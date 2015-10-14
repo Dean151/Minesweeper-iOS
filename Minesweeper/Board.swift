@@ -11,10 +11,6 @@ import Foundation
 enum GameDifficulty: String {
     case Easy = "Easy", Medium = "Medium", Hard = "Hard", Insane = "Insane"
     
-    var description: String {
-        return self.rawValue
-    }
-    
     var size: (width: Int, height: Int) {
         switch self {
         case .Easy:
