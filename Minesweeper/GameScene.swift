@@ -12,7 +12,7 @@ import HexColors
 
 class GameScene: SKScene {
     let board: Board
-    let controller: GameViewController
+    unowned let controller: GameViewController
     var tileSize: CGFloat
     
     let gameLayer = SKNode()

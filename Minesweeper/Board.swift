@@ -50,6 +50,12 @@ enum GameDifficulty: String {
         }
     }
     
+    static var random: GameDifficulty {
+        let values = allValues
+        let rand = Int(arc4random_uniform(UInt32(values.count)))
+        return values[rand]
+    }
+    
     static var allValues: [GameDifficulty] {
         return [.Easy, .Medium, .Hard, .Insane]
     }
@@ -105,11 +111,14 @@ class Board {
         assert(nbMines < width * height - 9, "Impossible to have more mines than available cases")
     }
     
-    func initMines(playedSquare: Tile) {
+    func initMines(playedTile: Tile?) {
         var possibilities = [Tile]()
         
-        var protectedTiles = self.getNeighbors(playedSquare)
-        protectedTiles.append(playedSquare)
+        var protectedTiles = [Tile]()
+        if let playedTile = playedTile {
+            protectedTiles.appendContentsOf(self.getNeighbors(playedTile))
+            protectedTiles.append(playedTile)
+        }
         
         for tile in tiles {
             if !protectedTiles.contains(tile) {
@@ -169,6 +178,7 @@ class Board {
         var playedTiles = [Tile]()
         
         if !minesInitialized {
+            // Initializing the mines, avoiding placing one where we are playing
             initMines(tile)
         }
         

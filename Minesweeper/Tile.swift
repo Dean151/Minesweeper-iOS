@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 
 class Tile: Equatable {
-    let board: Board
+    unowned let board: Board
     var x, y: Int
     var isMine: Bool
     var isRevealed: Bool
