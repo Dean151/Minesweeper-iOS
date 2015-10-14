@@ -28,22 +28,22 @@ class BoardTests: XCTestCase {
     // isInBoard should return true if in board, and false otherwise
     func testIsInBoard() {
         // Corner cases
-        XCTAssert(board.isInBoard(0, y: 0))
-        XCTAssert(board.isInBoard(0, y: board.height-1))
-        XCTAssert(board.isInBoard(board.width-1, y: 0))
-        XCTAssert(board.isInBoard(board.width-1, y: board.height-1))
+        XCTAssertTrue(board.isInBoard(0, y: 0))
+        XCTAssertTrue(board.isInBoard(0, y: board.height-1))
+        XCTAssertTrue(board.isInBoard(board.width-1, y: 0))
+        XCTAssertTrue(board.isInBoard(board.width-1, y: board.height-1))
         
         // Inside board
         let x = Int(arc4random_uniform(UInt32(board.width)))
         let y = Int(arc4random_uniform(UInt32(board.height)))
-        XCTAssert(board.isInBoard(x, y: y))
+        XCTAssertTrue(board.isInBoard(x, y: y))
         
         // Out of board anyway
-        XCTAssert(!board.isInBoard(-1, y: 0))
-        XCTAssert(!board.isInBoard(0, y: -1))
-        XCTAssert(!board.isInBoard(0, y: board.height))
-        XCTAssert(!board.isInBoard(board.width, y: 0))
-        XCTAssert(!board.isInBoard(board.width, y: board.height))
+        XCTAssertFalse(board.isInBoard(-1, y: 0))
+        XCTAssertFalse(board.isInBoard(0, y: -1))
+        XCTAssertFalse(board.isInBoard(0, y: board.height))
+        XCTAssertFalse(board.isInBoard(board.width, y: 0))
+        XCTAssertFalse(board.isInBoard(board.width, y: board.height))
     }
     
     // Return nil if tile does not exist, tile otherwise

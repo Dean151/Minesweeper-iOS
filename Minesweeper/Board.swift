@@ -167,8 +167,8 @@ class Board {
     }
     
     func play(x: Int, y: Int) -> [Tile] {
-        if let s = getTile(x, y: y) {
-            return play(s)
+        if let tile = getTile(x, y: y) {
+            return play(tile)
         }
         
         return [Tile]()
@@ -223,8 +223,8 @@ class Board {
     }
     
     func mark(x: Int, y: Int) -> [Tile] {
-        if let s = getTile(x, y: y) {
-            return mark(s)
+        if let tile = getTile(x, y: y) {
+            return mark(tile)
         }
         
         return [Tile]()

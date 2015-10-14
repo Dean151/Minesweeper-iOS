@@ -15,9 +15,10 @@ class Settings {
     private static let bottomBarHiddenString = "bottomBarHidden"
     private static let completeVersionString = "completeVersion"
     
+    private static let userDefault = NSUserDefaults.standardUserDefaults()
+    
     class var difficulty: GameDifficulty {
         get {
-            let userDefault = NSUserDefaults.standardUserDefaults()
             if let difficulty = userDefault.stringForKey(difficultyString) {
                 if let gameDifficulty = GameDifficulty(rawValue: difficulty) {
                     return gameDifficulty
@@ -31,7 +32,6 @@ class Settings {
         }
         set {
             if (newValue.difficultyAvailable) {
-                let userDefault = NSUserDefaults.standardUserDefaults()
                 userDefault.setObject(newValue.rawValue, forKey: difficultyString)
             }
         }
@@ -40,11 +40,9 @@ class Settings {
     // Vibrations
     class var vibrationEnabled: Bool {
         get {
-        let userDefault = NSUserDefaults.standardUserDefaults()
-        return userDefault.boolForKey(vibrationString)
+            return userDefault.boolForKey(vibrationString)
         }
         set {
-            let userDefault = NSUserDefaults.standardUserDefaults()
             userDefault.setBool(newValue, forKey: vibrationString)
         }
     }
@@ -52,11 +50,9 @@ class Settings {
     // Mark with long press
     class var markWithLongPressEnabled: Bool {
         get {
-            let userDefault = NSUserDefaults.standardUserDefaults()
             return userDefault.boolForKey(markWithLongPressString)
         }
         set {
-            let userDefault = NSUserDefaults.standardUserDefaults()
             userDefault.setBool(newValue, forKey: markWithLongPressString)
         }
     }
@@ -64,11 +60,9 @@ class Settings {
     // Bottom Bar Hidden
     class var bottomBarHidden: Bool {
         get {
-            let userDefault = NSUserDefaults.standardUserDefaults()
             return userDefault.boolForKey(bottomBarHiddenString)
         }
         set {
-            let userDefault = NSUserDefaults.standardUserDefaults()
             userDefault.setBool(newValue, forKey: bottomBarHiddenString)
         }
     }
@@ -76,11 +70,9 @@ class Settings {
     // Complete version
     class var completeVersionPurchased: Bool {
         get {
-            let userDefault = NSUserDefaults.standardUserDefaults()
             return userDefault.boolForKey(completeVersionString)
         }
         set {
-            let userDefault = NSUserDefaults.standardUserDefaults()
             userDefault.setBool(newValue, forKey: completeVersionString)
         }
     }
