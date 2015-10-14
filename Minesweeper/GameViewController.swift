@@ -16,8 +16,6 @@ class GameViewController: UIViewController {
     var skView: SKView!
     var playOrFlagControl: UISegmentedControl!
     
-    // FIXME: should layout subview to change sizes
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,8 +57,6 @@ class GameViewController: UIViewController {
         if (scene != nil) {
             if (Settings.difficulty != self.scene!.board.difficulty) {
                 startGame()
-            } else {
-                scene!.resizeBoard(animated: false)
             }
         } else {
             startGame()
@@ -92,6 +88,14 @@ class GameViewController: UIViewController {
     
     func gameButtonPressed(sender: AnyObject) {
         startGame()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if let scene = self.scene {
+            scene.size = self.skView.frame.size
+        }
     }
     
     func showSettings(sender: UIBarButtonItem) {

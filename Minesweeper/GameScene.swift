@@ -11,6 +11,8 @@ import SpriteKit
 import HexColors
 
 class GameScene: SKScene {
+    let maxTileSize: CGFloat = 65
+    
     let board: Board
     unowned let controller: GameViewController
     var tileSize: CGFloat
@@ -75,19 +77,25 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         super.didMoveToView(view)
+        
         self.resizeBoard(animated: true)
     }
     
     func resizeBoard(animated animated: Bool) {
-        if let view = self.view {
-            let size = view.frame.size
+        let size = self.size
             
-            self.tileSize = min(size.width / CGFloat(board.width), size.height / CGFloat(board.height), 50)
-            tileLayer.position = CGPoint(
-                x: -tileSize * CGFloat(board.width) / 2,
-                y: -tileSize * CGFloat(board.height) / 2)
+        self.tileSize = min(size.width / CGFloat(board.width), size.height / CGFloat(board.height), maxTileSize)
+        tileLayer.position = CGPoint(
+            x: -tileSize * CGFloat(board.width) / 2,
+            y: -tileSize * CGFloat(board.height) / 2)
 
-            addSpritesForTiles(board.tiles, animated: animated)
+        addSpritesForTiles(board.tiles, animated: animated)
+    }
+    
+    override func didChangeSize(oldSize: CGSize) {
+        super.didChangeSize(oldSize)
+        if let _ = self.view {
+            self.resizeBoard(animated: false)
         }
     }
     
@@ -330,7 +338,6 @@ class GameScene: SKScene {
             let detail = SKLabelNode(text: "\(tile.nbMineAround)")
             detail.fontColor = Theme.fontColorWithMines(tile.nbMineAround)
             detail.fontSize = size*2/3
-            // detail.fontName = detail.fontName + "-Bold" // Why is this line make it very low
             detail.position = CGPointMake(0, -size/4)
             sprite.addChild(detail)
         case 9:
