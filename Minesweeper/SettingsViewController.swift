@@ -40,6 +40,9 @@ class SettingsViewController: FormViewController {
             <<< SwitchRow("vibrate") {
                 $0.title = "Vibrations"
                 $0.value = Settings.vibrationEnabled
+                $0.hidden = .Function(["vibrate"], { form in
+                    return UIDevice.currentDevice().model != "iPhone"
+                })
             }.onChange{ row in
                 guard let vibrate = row.value else { return }
                 Settings.vibrationEnabled = vibrate
@@ -53,10 +56,15 @@ class SettingsViewController: FormViewController {
                 Settings.markWithLongPressEnabled = longPress
             }
             
-            // FIXME: should be hidden when longPress is disabled
             <<< SwitchRow("hiddenToolbar") {
                 $0.title = "Hide toolbar"
                 $0.value = Settings.bottomBarHidden
+                $0.hidden = .Function(["longPress"], { form in
+                    if let r1 : SwitchRow = form.rowByTag("longPress") {
+                        return r1.value == false
+                    }
+                    return true
+                })
             }.onChange{ row in
                 guard let hideToolbar = row.value else { return }
                 Settings.bottomBarHidden = hideToolbar

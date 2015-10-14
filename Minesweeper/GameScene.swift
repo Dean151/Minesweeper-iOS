@@ -201,7 +201,6 @@ class GameScene: SKScene {
                     
                 tile.sprite.runAction(actions)
             }
-            
         }
     }
     
@@ -215,7 +214,7 @@ class GameScene: SKScene {
         runAction(SKAction.waitForDuration(0.5)) {
             Void in
             if self.board.isGameWon {
-                
+                // TODO Add game over screen
             } else {
                 
             }
@@ -285,7 +284,7 @@ class GameScene: SKScene {
                     if self.board.gameOver {
                         if !self.board.isGameWon {
                             if Settings.vibrationEnabled {
-                                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
                             }
                         }
                         self.changeTilesWithAnimation(tiles, cliquedTile: tile) {
