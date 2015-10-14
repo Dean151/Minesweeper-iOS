@@ -18,7 +18,7 @@ class SettingsViewController: FormViewController {
         
         setupForm()
         
-        // FIXME: Should handle IAP
+        // TODO: Should handle IAP
     }
     
     func setupForm() {
@@ -33,34 +33,36 @@ class SettingsViewController: FormViewController {
             }.onChange { row in
                 guard let rawVal = row.value else { return }
                 guard let difficulty = GameDifficulty(rawValue: rawVal) else { return }
-                Settings.setDifficulty(difficulty)
+                Settings.difficulty = difficulty
             }
             
             +++ Section("Gameplay")
             <<< SwitchRow("vibrate") {
                 $0.title = "Vibrations"
-                $0.value = Settings.isVibrationEnabled
+                $0.value = Settings.vibrationEnabled
             }.onChange{ row in
                 guard let vibrate = row.value else { return }
-                Settings.setVibration(vibrate)
+                Settings.vibrationEnabled = vibrate
             }
             
             <<< SwitchRow("longPress") {
                 $0.title = "Mark with long press"
-                $0.value = Settings.isMarkWithLongPressEnabled
+                $0.value = Settings.markWithLongPressEnabled
             }.onChange{ row in
                 guard let longPress = row.value else { return }
-                Settings.setMarkForLongPress(longPress)
+                Settings.markWithLongPressEnabled = longPress
             }
             
             // FIXME: should be hidden when longPress is disabled
             <<< SwitchRow("hiddenToolbar") {
                 $0.title = "Hide toolbar"
-                $0.value = Settings.isBottomBarHidden
+                $0.value = Settings.bottomBarHidden
             }.onChange{ row in
                 guard let hideToolbar = row.value else { return }
-                Settings.setBottomBarHidden(hideToolbar)
+                Settings.bottomBarHidden = hideToolbar
             }
+        
+            // TODO add back button to purchase the app
         /*
         if !Settings.isCompleteVersionPurchased {
             section = XLFormSectionDescriptor()

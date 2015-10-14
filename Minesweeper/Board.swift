@@ -46,7 +46,7 @@ enum GameDifficulty: String {
         case .Easy, .Medium:
             return true
         case .Hard, .Insane:
-            return Settings.isCompleteVersionPurchased
+            return Settings.completeVersionPurchased
         }
     }
     

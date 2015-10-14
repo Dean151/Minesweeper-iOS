@@ -43,7 +43,7 @@ class GameViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if Settings.isMarkWithLongPressEnabled && Settings.isBottomBarHidden {
+        if Settings.markWithLongPressEnabled && Settings.bottomBarHidden {
             self.playOrFlagControl.selectedSegmentIndex = 0
             self.navigationController!.toolbarHidden = true
         } else {
@@ -67,7 +67,7 @@ class GameViewController: UIViewController {
     
     func startGame() {
         if (!Settings.difficulty.difficultyAvailable) {
-            Settings.setDifficulty(.Easy)
+            Settings.difficulty = .Easy
         }
         newGame( Settings.difficulty )
     }

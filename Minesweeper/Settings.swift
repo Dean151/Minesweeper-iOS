@@ -16,67 +16,72 @@ class Settings {
     private static let completeVersionString = "completeVersion"
     
     class var difficulty: GameDifficulty {
-        let userDefault = NSUserDefaults.standardUserDefaults()
-        if let difficulty = userDefault.stringForKey(difficultyString) {
-            if let gameDifficulty = GameDifficulty(rawValue: difficulty) {
-                return gameDifficulty
+        get {
+            let userDefault = NSUserDefaults.standardUserDefaults()
+            if let difficulty = userDefault.stringForKey(difficultyString) {
+                if let gameDifficulty = GameDifficulty(rawValue: difficulty) {
+                    return gameDifficulty
+                } else {
+                    Settings.difficulty = .Easy
+                    return .Easy
+                }
             } else {
-                self.setDifficulty(.Easy)
                 return .Easy
             }
-        } else {
-            return .Easy
         }
-    }
-    
-    class func setDifficulty(difficulty: GameDifficulty) {
-        if (difficulty.difficultyAvailable) {
-            let userDefault = NSUserDefaults.standardUserDefaults()
-            userDefault.setObject(difficulty.rawValue, forKey: difficultyString)
+        set {
+            if (newValue.difficultyAvailable) {
+                let userDefault = NSUserDefaults.standardUserDefaults()
+                userDefault.setObject(newValue.rawValue, forKey: difficultyString)
+            }
         }
     }
     
     // Vibrations
-    class var isVibrationEnabled: Bool {
+    class var vibrationEnabled: Bool {
+        get {
         let userDefault = NSUserDefaults.standardUserDefaults()
         return userDefault.boolForKey(vibrationString)
-    }
-    
-    class func setVibration(enabled: Bool) {
-        let userDefault = NSUserDefaults.standardUserDefaults()
-        userDefault.setBool(enabled, forKey: vibrationString)
+        }
+        set {
+            let userDefault = NSUserDefaults.standardUserDefaults()
+            userDefault.setBool(newValue, forKey: vibrationString)
+        }
     }
     
     // Mark with long press
-    class var isMarkWithLongPressEnabled: Bool {
-        let userDefault = NSUserDefaults.standardUserDefaults()
-        return userDefault.boolForKey(markWithLongPressString)
-    }
-    
-    class func setMarkForLongPress(enabled: Bool) {
-        let userDefault = NSUserDefaults.standardUserDefaults()
-        userDefault.setBool(enabled, forKey: markWithLongPressString)
+    class var markWithLongPressEnabled: Bool {
+        get {
+            let userDefault = NSUserDefaults.standardUserDefaults()
+            return userDefault.boolForKey(markWithLongPressString)
+        }
+        set {
+            let userDefault = NSUserDefaults.standardUserDefaults()
+            userDefault.setBool(newValue, forKey: markWithLongPressString)
+        }
     }
     
     // Bottom Bar Hidden
-    class var isBottomBarHidden: Bool {
-        let userDefault = NSUserDefaults.standardUserDefaults()
-        return userDefault.boolForKey(bottomBarHiddenString)
+    class var bottomBarHidden: Bool {
+        get {
+            let userDefault = NSUserDefaults.standardUserDefaults()
+            return userDefault.boolForKey(bottomBarHiddenString)
+        }
+        set {
+            let userDefault = NSUserDefaults.standardUserDefaults()
+            userDefault.setBool(newValue, forKey: bottomBarHiddenString)
+        }
     }
     
-    class func setBottomBarHidden(enabled: Bool) {
-        let userDefault = NSUserDefaults.standardUserDefaults()
-        userDefault.setBool(enabled, forKey: bottomBarHiddenString)
-    }
-    
-    // Ads
-    class var isCompleteVersionPurchased: Bool {
-        let userDefault = NSUserDefaults.standardUserDefaults()
-        return userDefault.boolForKey(completeVersionString)
-    }
-    
-    class func setCompletVersionPurchased(purchased: Bool) {
-        let userDefault = NSUserDefaults.standardUserDefaults()
-        userDefault.setBool(purchased, forKey: completeVersionString)
+    // Complete version
+    class var completeVersionPurchased: Bool {
+        get {
+            let userDefault = NSUserDefaults.standardUserDefaults()
+            return userDefault.boolForKey(completeVersionString)
+        }
+        set {
+            let userDefault = NSUserDefaults.standardUserDefaults()
+            userDefault.setBool(newValue, forKey: completeVersionString)
+        }
     }
 }
