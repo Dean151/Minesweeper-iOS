@@ -38,11 +38,17 @@ class GameViewController: UIViewController {
         self.toolbarItems = [space, segmItem, space]
     }
     
-    // FIXME: On iPad, these two functions are not triggered
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.performSettingsChanges()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.performDifficultyChanges()
+    }
+    
+    func performSettingsChanges() {
         if Settings.markWithLongPressEnabled && Settings.bottomBarHidden {
             self.playOrFlagControl.selectedSegmentIndex = 0
             self.navigationController!.toolbarHidden = true
@@ -51,9 +57,7 @@ class GameViewController: UIViewController {
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
+    func performDifficultyChanges() {
         if (scene != nil) {
             if (Settings.difficulty != self.scene!.board.difficulty) {
                 startGame()
@@ -65,6 +69,7 @@ class GameViewController: UIViewController {
     
     func startGame() {
         if (!Settings.difficulty.difficultyAvailable) {
+            // TODO: should present avantages of paid version :-)
             Settings.difficulty = .Easy
         }
         newGame( Settings.difficulty )
@@ -100,6 +105,7 @@ class GameViewController: UIViewController {
     
     func showSettings(sender: UIBarButtonItem) {
         let viewController = SettingsViewController()
+        viewController.parentVC = self
         let navController = UINavigationController(rootViewController: viewController)
         
         if (UI_USER_INTERFACE_IDIOM() == .Pad) {

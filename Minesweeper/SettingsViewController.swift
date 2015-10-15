@@ -11,6 +11,8 @@ import Eureka
 
 class SettingsViewController: FormViewController {
     
+    var parentVC: GameViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -94,6 +96,11 @@ class SettingsViewController: FormViewController {
     }
     
     func donePressed(sender: AnyObject) {
+        if let parent = parentVC {
+                parent.performSettingsChanges()
+                parent.performDifficultyChanges()
+        }
+        
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
