@@ -10,6 +10,8 @@
 		B818D3C81F835249B40D012C /* Pods_Minesweeper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40909C24C87FFE2ECA8FD606 /* Pods_Minesweeper.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E914F8F21B62ADEE001AFB80 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E914F8F11B62ADEE001AFB80 /* Theme.swift */; };
 		E9307D571B7BC97D006BBEFA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9307D561B7BC97D006BBEFA /* StoreKit.framework */; };
+		E9482CCE1BD034BF00B3DAF6 /* minesweeper.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E9482CCC1BD034BF00B3DAF6 /* minesweeper.debug.xcconfig */; settings = {ASSET_TAGS = (); }; };
+		E9482CCF1BD034BF00B3DAF6 /* minesweeper.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E9482CCD1BD034BF00B3DAF6 /* minesweeper.release.xcconfig */; settings = {ASSET_TAGS = (); }; };
 		E949E1801B66CD30002E154A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */; };
 		E958B74F1BCE67560021502A /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958B74E1BCE67560021502A /* BoardTests.swift */; settings = {ASSET_TAGS = (); }; };
 		E99BA2AE1BD00B240037D562 /* IAPControllerProductIds.plist in Resources */ = {isa = PBXBuildFile; fileRef = E99BA2AD1BD00B240037D562 /* IAPControllerProductIds.plist */; settings = {ASSET_TAGS = (); }; };
@@ -57,6 +59,9 @@
 		D4619E491D1F49A0C83C20CB /* Pods-Minesweeper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minesweeper.release.xcconfig"; path = "Pods/Target Support Files/Pods-Minesweeper/Pods-Minesweeper.release.xcconfig"; sourceTree = "<group>"; };
 		E914F8F11B62ADEE001AFB80 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		E9307D561B7BC97D006BBEFA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		E9482CCC1BD034BF00B3DAF6 /* minesweeper.debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = minesweeper.debug.xcconfig; sourceTree = "<group>"; };
+		E9482CCD1BD034BF00B3DAF6 /* minesweeper.release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = minesweeper.release.xcconfig; sourceTree = "<group>"; };
+		E9482CD01BD034D900B3DAF6 /* Keys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Keys.xcconfig; sourceTree = "<group>"; };
 		E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E958B74E1BCE67560021502A /* BoardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		E99BA2AD1BD00B240037D562 /* IAPControllerProductIds.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = IAPControllerProductIds.plist; sourceTree = "<group>"; };
@@ -144,9 +149,12 @@
 		E9D3DEAD1B6143A700C562E3 /* Minesweeper */ = {
 			isa = PBXGroup;
 			children = (
-				E9D3DEB01B6143A700C562E3 /* AppDelegate.swift */,
 				E9D3DED01B6143B100C562E3 /* Core */,
 				E9D3DED51B61627700C562E3 /* UI */,
+				E9D3DEB01B6143A700C562E3 /* AppDelegate.swift */,
+				E9482CCC1BD034BF00B3DAF6 /* minesweeper.debug.xcconfig */,
+				E9482CCD1BD034BF00B3DAF6 /* minesweeper.release.xcconfig */,
+				E9482CD01BD034D900B3DAF6 /* Keys.xcconfig */,
 				E9D3DEB71B6143A700C562E3 /* Images.xcassets */,
 				E9D3DEAE1B6143A700C562E3 /* Supporting Files */,
 			);
@@ -216,6 +224,7 @@
 				E5113D96916C76DF2C20D479 /* Copy Pods Resources */,
 				096E6F5B28806DFF9F7F0C39 /* Embed Pods Frameworks */,
 				E9EBE86C1B6280AF00EEF1BA /* Embed Frameworks */,
+				E9482CCB1BD033EF00B3DAF6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -290,7 +299,9 @@
 			files = (
 				E949E1801B66CD30002E154A /* LaunchScreen.storyboard in Resources */,
 				E9D3DEB81B6143A700C562E3 /* Images.xcassets in Resources */,
+				E9482CCE1BD034BF00B3DAF6 /* minesweeper.debug.xcconfig in Resources */,
 				E99BA2AE1BD00B240037D562 /* IAPControllerProductIds.plist in Resources */,
+				E9482CCF1BD034BF00B3DAF6 /* minesweeper.release.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,6 +359,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Minesweeper/Pods-Minesweeper-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		E9482CCB1BD033EF00B3DAF6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" ${FABRIC_API_KEY} ${FABRIC_BUILD_SECRET}";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -424,7 +448,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -462,7 +486,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -471,7 +495,7 @@
 		};
 		E9D3DECB1B6143A700C562E3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8598DCF7A94965A8CAEAF2F6 /* Pods-Minesweeper.debug.xcconfig */;
+			baseConfigurationReference = E9482CCC1BD034BF00B3DAF6 /* minesweeper.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -490,7 +514,7 @@
 		};
 		E9D3DECC1B6143A700C562E3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D4619E491D1F49A0C83C20CB /* Pods-Minesweeper.release.xcconfig */;
+			baseConfigurationReference = E9482CCD1BD034BF00B3DAF6 /* minesweeper.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";

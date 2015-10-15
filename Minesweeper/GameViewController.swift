@@ -32,6 +32,8 @@ class GameViewController: UIViewController {
         
         // Creating segmented toolbar
         playOrFlagControl = UISegmentedControl(items: ["Dig", "Flag"])
+        playOrFlagControl.setWidth(100, forSegmentAtIndex: 0)
+        playOrFlagControl.setWidth(100, forSegmentAtIndex: 1)
         let space = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
         let segmItem = UIBarButtonItem(customView: playOrFlagControl)
         

@@ -35,3 +35,6 @@ xcuserdata
 #
 Podfile.lock
 Pods/
+
+## Keys
+Keys.xcconfig

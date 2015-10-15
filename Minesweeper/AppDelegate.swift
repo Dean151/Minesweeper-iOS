@@ -7,18 +7,23 @@
 //
 
 import UIKit
+import iRate
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
         UINavigationBar.appearance().translucent = false
         UIToolbar.appearance().translucent = false
+        
+        iRate.sharedInstance().appStoreID = 1029488767
+        iRate.sharedInstance().verboseLogging = false
         
         let GVC = GameViewController()
         let navC = UINavigationController(rootViewController: GVC)
@@ -27,6 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window!.rootViewController = bannerVC
         window!.makeKeyAndVisible()
+        
+        Fabric.with([Crashlytics.self()])
         
         return true
     }

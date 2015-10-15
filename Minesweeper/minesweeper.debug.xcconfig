@@ -1,0 +1,11 @@
+//
+//  minesweeper.debug.xcconfig
+//  Minesweeper
+//
+//  Created by Thomas Durand on 15/10/2015.
+//  Copyright © 2015 Thomas Durand. All rights reserved.
+//
+
+#include "Keys.xcconfig"
+#include "Pods/Target Support Files/Pods-Minesweeper/Pods-Minesweeper.debug.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited)
