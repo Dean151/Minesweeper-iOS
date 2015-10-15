@@ -23,7 +23,8 @@ class SettingsViewController: FormViewController {
         
         self.preferredContentSize = CGSizeMake(320, 400)
         
-        // TODO: Add observer and treat IAP
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchedProducts:", name: IAPControllerFetchedNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didPurchasedProduct:", name: IAPControllerPurchasedNotification, object: nil)
         
         // Fetching iAP
         IAPController.sharedInstance.fetchProducts()
@@ -32,16 +33,61 @@ class SettingsViewController: FormViewController {
     func setupForm() {
         form.removeAll()
         
-        form +++
-            Section("Difficulty")
-            <<< PushRow<String>("difficulty") {
+            form
+            +++ Section("Difficulty")
+            <<< PushRow<GameDifficulty>("difficulty") {
                 $0.title = "Difficulty"
-                $0.options = GameDifficulty.allRawValues
-                $0.value = Settings.difficulty.rawValue
+                $0.options = GameDifficulty.allValues
+                $0.value = Settings.difficulty
             }.onChange { row in
-                guard let rawVal = row.value else { return }
-                guard let difficulty = GameDifficulty(rawValue: rawVal) else { return }
-                Settings.difficulty = difficulty
+                guard let difficulty = row.value else { return }
+                if difficulty.difficultyAvailable {
+                    Settings.difficulty = difficulty
+                } else {
+                    row.value = Settings.difficulty
+                    self.presentAvantagesOfFullVersion()
+                }
+            }
+                
+            +++ Section(header: "Premium Features", footer: "") {
+                $0.hidden = .Function(["Premium Features"], { form -> Bool in
+                    return Settings.completeVersionPurchased
+                })
+            }
+            <<< ButtonRow("buy") {
+                $0.title = "Unlock all features"
+                $0.disabled = .Function([], { form -> Bool in
+                    if let _ = IAPController.sharedInstance.products?.first {
+                        return false
+                    }
+                    return true
+                })
+                }.onCellSelection { cell, row in
+                    if let indexPath = self.tableView!.indexPathForSelectedRow {
+                        self.tableView!.deselectRowAtIndexPath(indexPath, animated: true)
+                    }
+                    
+                    guard let product = IAPController.sharedInstance.products?.first else { return }
+                    product.buy()
+            }.cellUpdate { cell, row in
+                if let product = IAPController.sharedInstance.products?.first {
+                    row.title = "Unlock all features (\(product.priceFormatted!))"
+                }
+            }
+            <<< ButtonRow("restore") {
+                $0.title = "Restore previous purchase"
+                $0.disabled = .Function([], { form -> Bool in
+                    if let _ = IAPController.sharedInstance.products?.first {
+                        return false
+                    }
+                    return true
+                })
+            }.onCellSelection { cell, row in
+                    if let indexPath = self.tableView!.indexPathForSelectedRow {
+                        self.tableView!.deselectRowAtIndexPath(indexPath, animated: true)
+                    }
+                    
+                    IAPController.sharedInstance.restore()
             }
             
             +++ Section("Gameplay")
@@ -77,27 +123,14 @@ class SettingsViewController: FormViewController {
                 guard let hideToolbar = row.value else { return }
                 Settings.bottomBarHidden = hideToolbar
             }
-        
-            +++ Section("Premium Features")
-            <<< ButtonRow("buy") {
-                    $0.title = "Unlock all features"
-            }.onCellSelection { cell, row in
-                if let indexPath = self.tableView!.indexPathForSelectedRow {
-                    self.tableView!.deselectRowAtIndexPath(indexPath, animated: true)
-                }
-                
-                guard let product = IAPController.sharedInstance.products?.first else { return }
-                product.buy()
-            }
-            <<< ButtonRow("restore") {
-                $0.title = "Restore previous purchase"
-            }.onCellSelection { cell, row in
-                if let indexPath = self.tableView!.indexPathForSelectedRow {
-                    self.tableView!.deselectRowAtIndexPath(indexPath, animated: true)
-                }
-                
-                IAPController.sharedInstance.restore()
-            }
+    }
+    
+    func updateForm() {
+        self.form.allRows.forEach{ row in
+            row.evaluateDisabled()
+            row.evaluateHidden()
+            row.updateCell()
+        }
     }
     
     func donePressed(sender: AnyObject) {
@@ -107,5 +140,25 @@ class SettingsViewController: FormViewController {
         }
         
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func presentAvantagesOfFullVersion() {
+        // TODO present avantages of Full Version
+    }
+    
+    // MARK: Purchases
+    
+    func didFetchedProducts(sender: AnyObject) {
+        self.updateForm()
+    }
+    
+    func didPurchasedProduct(sender: AnyObject) {
+        self.updateForm()
+        Settings.completeVersionPurchased = true
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(BannerShouldBeHiddenByIAP, object: nil)
+        
+        let alert = UIAlertView(title: NSLocalizedString("THANK_YOU", comment: ""), message: NSLocalizedString("IAP_SUCCESS", comment: ""), delegate: nil, cancelButtonTitle: NSLocalizedString("DISMISS", comment: ""))
+        alert.show()
     }
 }

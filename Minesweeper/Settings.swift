@@ -31,9 +31,7 @@ class Settings {
             }
         }
         set {
-            if (newValue.difficultyAvailable) {
-                userDefault.setObject(newValue.rawValue, forKey: difficultyString)
-            }
+            userDefault.setObject(newValue.rawValue, forKey: difficultyString)
         }
     }
     

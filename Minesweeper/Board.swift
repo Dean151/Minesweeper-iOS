@@ -8,8 +8,16 @@
 
 import Foundation
 
-enum GameDifficulty: String {
+enum GameDifficulty: String, CustomStringConvertible {
     case Easy = "Easy", Medium = "Medium", Hard = "Hard", Insane = "Insane"
+    
+    var description: String {
+        if difficultyAvailable {
+            return rawValue
+        } else {
+            return "\(rawValue) (Premium feature)"
+        }
+    }
     
     var size: (width: Int, height: Int) {
         switch self {

@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         UINavigationBar.appearance().translucent = false
+        UIToolbar.appearance().translucent = false
         
         let GVC = GameViewController()
         let navC = UINavigationController(rootViewController: GVC)
