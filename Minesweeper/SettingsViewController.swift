@@ -8,6 +8,7 @@
 
 import UIKit
 import Eureka
+import IAPController
 
 class SettingsViewController: FormViewController {
     
@@ -21,6 +22,11 @@ class SettingsViewController: FormViewController {
         setupForm()
         
         self.preferredContentSize = CGSizeMake(320, 400)
+        
+        // TODO: Add observer and treat IAP
+        
+        // Fetching iAP
+        IAPController.sharedInstance.fetchProducts()
     }
     
     func setupForm() {
@@ -72,10 +78,25 @@ class SettingsViewController: FormViewController {
                 Settings.bottomBarHidden = hideToolbar
             }
         
-            +++ Section("Gameplay")
-            <<< ButtonRow("Unlock all features").onCellSelection { cell, row in
-                print("Button Tapped")
-                // TODO add presentation of full app
+            +++ Section("Premium Features")
+            <<< ButtonRow("buy") {
+                    $0.title = "Unlock all features"
+            }.onCellSelection { cell, row in
+                if let indexPath = self.tableView!.indexPathForSelectedRow {
+                    self.tableView!.deselectRowAtIndexPath(indexPath, animated: true)
+                }
+                
+                guard let product = IAPController.sharedInstance.products?.first else { return }
+                product.buy()
+            }
+            <<< ButtonRow("restore") {
+                $0.title = "Restore previous purchase"
+            }.onCellSelection { cell, row in
+                if let indexPath = self.tableView!.indexPathForSelectedRow {
+                    self.tableView!.deselectRowAtIndexPath(indexPath, animated: true)
+                }
+                
+                IAPController.sharedInstance.restore()
             }
     }
     
