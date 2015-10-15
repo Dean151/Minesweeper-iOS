@@ -20,7 +20,7 @@ class SettingsViewController: FormViewController {
         
         setupForm()
         
-        // TODO: Should handle IAP
+        self.preferredContentSize = CGSizeMake(320, 400)
     }
     
     func setupForm() {
@@ -72,27 +72,11 @@ class SettingsViewController: FormViewController {
                 Settings.bottomBarHidden = hideToolbar
             }
         
-            // TODO add back button to purchase the app
-        /*
-        if !Settings.isCompleteVersionPurchased {
-            section = XLFormSectionDescriptor()
-            section.title = "Purchase complete version"
-            section.footerTitle = "Complete version gives you access to Hard and Insane levels of difficulty"
-            form.addFormSection(section)
-            
-            hideAdsRow = XLFormRowDescriptor(tag: "fullVersion", rowType: XLFormRowDescriptorTypeButton, title: "Purchase complete version")
-            hideAdsRow!.action.formSelector = Selector("purchaseFullVersion")
-            hideAdsRow!.disabled = true
-            section.addFormRow(hideAdsRow!)
-            
-            restoreRow = XLFormRowDescriptor(tag: "restorePurchase", rowType: XLFormRowDescriptorTypeButton, title: "Restore purchases")
-            restoreRow!.action.formSelector = Selector("restoreInAppPurchase")
-            hideAdsRow!.disabled = true
-            section.addFormRow(restoreRow!)
-        }
-        
-        self.form = form
-        */
+            +++ Section("Gameplay")
+            <<< ButtonRow("Unlock all features").onCellSelection { cell, row in
+                print("Button Tapped")
+                // TODO add presentation of full app
+            }
     }
     
     func donePressed(sender: AnyObject) {

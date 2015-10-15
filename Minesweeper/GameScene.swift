@@ -214,9 +214,9 @@ class GameScene: SKScene {
         runAction(SKAction.waitForDuration(0.5)) {
             Void in
             if self.board.isGameWon {
-                // TODO Add game over screen
+                // TODO Add game won screen
             } else {
-                
+                // TODO Add game over screen ?
             }
         }
     }
