@@ -15,6 +15,7 @@
 		E949E1801B66CD30002E154A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */; };
 		E958B74F1BCE67560021502A /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958B74E1BCE67560021502A /* BoardTests.swift */; settings = {ASSET_TAGS = (); }; };
 		E99BA2AE1BD00B240037D562 /* IAPControllerProductIds.plist in Resources */ = {isa = PBXBuildFile; fileRef = E99BA2AD1BD00B240037D562 /* IAPControllerProductIds.plist */; settings = {ASSET_TAGS = (); }; };
+		E9A023991BD10FE200474D88 /* GameCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A023981BD10FE200474D88 /* GameCounter.swift */; settings = {ASSET_TAGS = (); }; };
 		E9B5BACC1BC8293C007C2C78 /* BannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B5BACB1BC8293C007C2C78 /* BannerViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		E9D3DEB11B6143A700C562E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D3DEB01B6143A700C562E3 /* AppDelegate.swift */; };
 		E9D3DEB81B6143A700C562E3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9D3DEB71B6143A700C562E3 /* Images.xcassets */; };
@@ -65,6 +66,7 @@
 		E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E958B74E1BCE67560021502A /* BoardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		E99BA2AD1BD00B240037D562 /* IAPControllerProductIds.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = IAPControllerProductIds.plist; sourceTree = "<group>"; };
+		E9A023981BD10FE200474D88 /* GameCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCounter.swift; sourceTree = "<group>"; };
 		E9B5BACB1BC8293C007C2C78 /* BannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerViewController.swift; sourceTree = "<group>"; };
 		E9D3DEAB1B6143A700C562E3 /* Minesweeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minesweeper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9D3DEAF1B6143A700C562E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 			children = (
 				E9D3DED11B6143BD00C562E3 /* Board.swift */,
 				E9D3DED31B61448900C562E3 /* Tile.swift */,
+				E9A023981BD10FE200474D88 /* GameCounter.swift */,
 				E9DF513F1B792B5D00C32997 /* Settings.swift */,
 			);
 			name = Core;
@@ -392,6 +395,7 @@
 				E9D3DEDC1B616EFE00C562E3 /* GameScene.swift in Sources */,
 				E9D3DED41B61448900C562E3 /* Tile.swift in Sources */,
 				E9DF51401B792B5D00C32997 /* Settings.swift in Sources */,
+				E9A023991BD10FE200474D88 /* GameCounter.swift in Sources */,
 				E9D3DEB11B6143A700C562E3 /* AppDelegate.swift in Sources */,
 				E914F8F21B62ADEE001AFB80 /* Theme.swift in Sources */,
 				E9D3DEDE1B61785100C562E3 /* GameViewController.swift in Sources */,

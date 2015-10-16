@@ -136,6 +136,9 @@ class Board {
             possibilities.removeAtIndex(index)
         }
         
+        // Counting the start of a game
+        GameCounter.sharedInstance.countGameStarted(self.difficulty)
+        
         minesInitialized = true
     }
     
@@ -193,11 +196,16 @@ class Board {
                 
                 if isGameWon {
                     gameOver = true
+                    // Counting the game as finished and won
+                    GameCounter.sharedInstance.countGameFinished(self.difficulty)
+                    GameCounter.sharedInstance.countGameWon(self.difficulty)
                     return playedTiles
                 }
                 
                 if tile.isMine {
                     gameOver = true
+                    // Counting the game as finished
+                    GameCounter.sharedInstance.countGameFinished(self.difficulty)
                 } else if tile.nbMineAround == 0 {
                     for neighbor in getNeighbors(tile) {
                         let tiles = play(neighbor)
