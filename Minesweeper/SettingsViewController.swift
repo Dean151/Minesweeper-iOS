@@ -7,11 +7,11 @@
 //
 
 import UIKit
-import EasyGameCenter
+import GameKit
 import Eureka
 import IAPController
 
-class SettingsViewController: FormViewController {
+class SettingsViewController: FormViewController, GKGameCenterControllerDelegate {
     
     var parentVC: GameViewController?
     
@@ -29,6 +29,15 @@ class SettingsViewController: FormViewController {
         
         // Fetching iAP
         IAPController.sharedInstance.fetchProducts()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if let parent = parentVC {
+            parent.performSettingsChanges()
+            parent.performDifficultyChanges()
+        }
     }
     
     func setupForm() {
@@ -64,10 +73,7 @@ class SettingsViewController: FormViewController {
                     return true
                 })
             }.onCellSelection { cell, row in
-                    if let indexPath = self.tableView!.indexPathForSelectedRow {
-                        self.tableView!.deselectRowAtIndexPath(indexPath, animated: true)
-                    }
-                    
+                    self.deselectRows()
                     guard let product = IAPController.sharedInstance.products?.first else { return }
                     product.buy()
             }.cellUpdate { cell, row in
@@ -84,10 +90,7 @@ class SettingsViewController: FormViewController {
                     return true
                 })
             }.onCellSelection { cell, row in
-                    if let indexPath = self.tableView!.indexPathForSelectedRow {
-                        self.tableView!.deselectRowAtIndexPath(indexPath, animated: true)
-                    }
-                    
+                    self.deselectRows()
                     IAPController.sharedInstance.restore()
             }
             
@@ -124,6 +127,26 @@ class SettingsViewController: FormViewController {
                     guard let hideToolbar = row.value else { return }
                     Settings.sharedInstance.bottomBarHidden = hideToolbar
             }
+            
+            +++ Section("Game Center")
+            <<< ButtonRow("leaderboards") {
+                $0.title = "Leaderboards"
+                }.onCellSelection({ cell, row in
+                    self.deselectRows()
+                    let gcvc = GKGameCenterViewController()
+                    gcvc.viewState = .Leaderboards
+                    gcvc.gameCenterDelegate = self
+                    self.presentViewController(gcvc, animated: true, completion: nil)
+                })
+            <<< ButtonRow("achievements") {
+                $0.title = "Achievements"
+            }.onCellSelection({ cell, row in
+                self.deselectRows()
+                let gcvc = GKGameCenterViewController()
+                gcvc.viewState = .Achievements
+                gcvc.gameCenterDelegate = self
+                self.presentViewController(gcvc, animated: true, completion: nil)
+            })
     }
     
     func updateForm() {
@@ -134,24 +157,27 @@ class SettingsViewController: FormViewController {
         }
     }
     
-    func donePressed(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func deselectRows() {
+        if let indexPath = self.tableView!.indexPathForSelectedRow {
+            self.tableView!.deselectRowAtIndexPath(indexPath, animated: true)
+        }
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        if let parent = parentVC {
-            parent.performSettingsChanges()
-            parent.performDifficultyChanges()
-        }
+    func donePressed(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func presentAvantagesOfFullVersion() {
         // TODO present avantages of Full Version
     }
     
-    // MARK: Purchases
+    // MARK : GameCenterControllerDelegate
+    
+    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
+        gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // MARK: In-App Purchases
     
     func didFetchedProducts(sender: AnyObject) {
         self.updateForm()
