@@ -51,7 +51,7 @@ class GameViewController: UIViewController {
     }
     
     func performSettingsChanges() {
-        if Settings.markWithLongPressEnabled && Settings.bottomBarHidden {
+        if Settings.sharedInstance.markWithLongPressEnabled && Settings.sharedInstance.bottomBarHidden {
             self.playOrFlagControl.selectedSegmentIndex = 0
             self.navigationController!.toolbarHidden = true
         } else {
@@ -61,7 +61,7 @@ class GameViewController: UIViewController {
     
     func performDifficultyChanges() {
         if (scene != nil) {
-            if (Settings.difficulty != self.scene!.board.difficulty) {
+            if (Settings.sharedInstance.difficulty != self.scene!.board.difficulty) {
                 startGame()
             }
         } else {
@@ -70,10 +70,10 @@ class GameViewController: UIViewController {
     }
     
     func startGame() {
-        if (!Settings.difficulty.difficultyAvailable) {
-            Settings.difficulty = .Easy
+        if (!Settings.sharedInstance.difficulty.difficultyAvailable) {
+            Settings.sharedInstance.difficulty = .Easy
         }
-        newGame( Settings.difficulty )
+        newGame( Settings.sharedInstance.difficulty )
     }
     
     func newGame(difficulty: GameDifficulty) {

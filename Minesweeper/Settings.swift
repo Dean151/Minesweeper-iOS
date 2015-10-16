@@ -9,21 +9,24 @@
 import Foundation
 
 class Settings {
-    private static let difficultyString = "difficulty"
-    private static let vibrationString = "vibration"
-    private static let markWithLongPressString = "markWithLongPress"
-    private static let bottomBarHiddenString = "bottomBarHidden"
-    private static let completeVersionString = "completeVersion"
+    private let difficultyString = "difficulty"
+    private let vibrationString = "vibration"
+    private let markWithLongPressString = "markWithLongPress"
+    private let bottomBarHiddenString = "bottomBarHidden"
+    private let completeVersionString = "completeVersion"
     
-    private static let userDefault = NSUserDefaults.standardUserDefaults()
+    private let userDefault = NSUserDefaults.standardUserDefaults()
     
-    class var difficulty: GameDifficulty {
+    // Singleton
+    static let sharedInstance = Settings()
+    
+    var difficulty: GameDifficulty {
         get {
             if let difficulty = userDefault.stringForKey(difficultyString) {
                 if let gameDifficulty = GameDifficulty(rawValue: difficulty) {
                     return gameDifficulty
                 } else {
-                    Settings.difficulty = .Easy
+                    self.difficulty = .Easy
                     return .Easy
                 }
             } else {
@@ -36,7 +39,7 @@ class Settings {
     }
     
     // Vibrations
-    class var vibrationEnabled: Bool {
+    var vibrationEnabled: Bool {
         get {
             return userDefault.boolForKey(vibrationString)
         }
@@ -46,7 +49,7 @@ class Settings {
     }
     
     // Mark with long press
-    class var markWithLongPressEnabled: Bool {
+    var markWithLongPressEnabled: Bool {
         get {
             return userDefault.boolForKey(markWithLongPressString)
         }
@@ -55,8 +58,8 @@ class Settings {
         }
     }
     
-    // Bottom Bar Hidden
-    class var bottomBarHidden: Bool {
+    // Bottom Bar 
+    var bottomBarHidden: Bool {
         get {
             return userDefault.boolForKey(bottomBarHiddenString)
         }
@@ -65,8 +68,8 @@ class Settings {
         }
     }
     
-    // Complete version
-    class var completeVersionPurchased: Bool {
+    // Complete 
+    var completeVersionPurchased: Bool {
         get {
             return userDefault.boolForKey(completeVersionString)
         }

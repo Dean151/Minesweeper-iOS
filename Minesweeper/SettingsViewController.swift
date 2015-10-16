@@ -38,20 +38,20 @@ class SettingsViewController: FormViewController {
             <<< PushRow<GameDifficulty>("difficulty") {
                 $0.title = "Difficulty"
                 $0.options = GameDifficulty.allValues
-                $0.value = Settings.difficulty
+                $0.value = Settings.sharedInstance.difficulty
             }.onChange { row in
                 guard let difficulty = row.value else { return }
                 if difficulty.difficultyAvailable {
-                    Settings.difficulty = difficulty
+                    Settings.sharedInstance.difficulty = difficulty
                 } else {
-                    row.value = Settings.difficulty
+                    row.value = Settings.sharedInstance.difficulty
                     self.presentAvantagesOfFullVersion()
                 }
             }
                 
             +++ Section(header: "Premium Features", footer: "") {
                 $0.hidden = .Function(["Premium Features"], { form -> Bool in
-                    return Settings.completeVersionPurchased
+                    return Settings.sharedInstance.completeVersionPurchased
                 })
             }
             <<< ButtonRow("buy") {
@@ -93,26 +93,26 @@ class SettingsViewController: FormViewController {
             +++ Section("Gameplay")
             <<< SwitchRow("vibrate") {
                 $0.title = "Vibrations"
-                $0.value = Settings.vibrationEnabled
+                $0.value = Settings.sharedInstance.vibrationEnabled
                 $0.hidden = .Function(["vibrate"], { form in
                     return UIDevice.currentDevice().model != "iPhone"
                 })
             }.onChange{ row in
                 guard let vibrate = row.value else { return }
-                Settings.vibrationEnabled = vibrate
+                Settings.sharedInstance.vibrationEnabled = vibrate
             }
             
             <<< SwitchRow("longPress") {
                 $0.title = "Mark with long press"
-                $0.value = Settings.markWithLongPressEnabled
+                $0.value = Settings.sharedInstance.markWithLongPressEnabled
             }.onChange{ row in
                 guard let longPress = row.value else { return }
-                Settings.markWithLongPressEnabled = longPress
+                Settings.sharedInstance.markWithLongPressEnabled = longPress
             }
             
             <<< SwitchRow("hiddenToolbar") {
                 $0.title = "Hide toolbar"
-                $0.value = Settings.bottomBarHidden
+                $0.value = Settings.sharedInstance.bottomBarHidden
                 $0.hidden = .Function(["longPress"], { form in
                     if let r1 : SwitchRow = form.rowByTag("longPress") {
                         return r1.value == false
@@ -121,7 +121,7 @@ class SettingsViewController: FormViewController {
                 })
             }.onChange{ row in
                 guard let hideToolbar = row.value else { return }
-                Settings.bottomBarHidden = hideToolbar
+                Settings.sharedInstance.bottomBarHidden = hideToolbar
             }
     }
     
@@ -158,7 +158,7 @@ class SettingsViewController: FormViewController {
     
     func didPurchasedProduct(sender: AnyObject) {
         self.updateForm()
-        Settings.completeVersionPurchased = true
+        Settings.sharedInstance.completeVersionPurchased = true
         
         NSNotificationCenter.defaultCenter().postNotificationName(BannerShouldBeHiddenByIAP, object: nil)
         

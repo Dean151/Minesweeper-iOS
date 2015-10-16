@@ -20,7 +20,7 @@ class BoardTests: XCTestCase {
         board = Board(difficulty: difficulty)
         
         // To test also hard and insane difficulty modes
-        Settings.completeVersionPurchased = true
+        Settings.sharedInstance.completeVersionPurchased = true
     }
     
     override func tearDown() {

@@ -35,7 +35,7 @@ class GameScene: SKScene {
             }
             
             if newValue != nil {
-                if Settings.markWithLongPressEnabled {
+                if Settings.sharedInstance.markWithLongPressEnabled {
                     timerForMarking = NSTimer.scheduledTimerWithTimeInterval(0.7, target: self, selector: Selector("markSelectedTileWithAnimation"), userInfo: nil, repeats: false)
                 }
                 
@@ -283,7 +283,7 @@ class GameScene: SKScene {
                 tile.sprite.runAction(SKAction.group([SKAction.scaleTo(1.0, duration: 0.1), SKAction.fadeAlphaTo(1, duration: 0.1)])) {
                     if self.board.gameOver {
                         if !self.board.isGameWon {
-                            if Settings.vibrationEnabled {
+                            if Settings.sharedInstance.vibrationEnabled {
                                 AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
                             }
                         }

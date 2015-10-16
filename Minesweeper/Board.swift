@@ -50,7 +50,7 @@ enum GameDifficulty: String, CustomStringConvertible {
         case .Easy, .Medium:
             return true
         case .Hard, .Insane:
-            return Settings.completeVersionPurchased
+            return Settings.sharedInstance.completeVersionPurchased
         }
     }
     
