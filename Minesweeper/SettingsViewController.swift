@@ -134,12 +134,16 @@ class SettingsViewController: FormViewController {
     }
     
     func donePressed(sender: AnyObject) {
-        if let parent = parentVC {
-                parent.performSettingsChanges()
-                parent.performDifficultyChanges()
-        }
-        
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if let parent = parentVC {
+            parent.performSettingsChanges()
+            parent.performDifficultyChanges()
+        }
     }
     
     func presentAvantagesOfFullVersion() {
