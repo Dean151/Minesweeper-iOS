@@ -5,6 +5,7 @@ use_frameworks!
 target 'Minesweeper' do
     pod 'Crashlytics'
     pod 'Eureka'
+    pod 'EasyGameCenter', :git => 'https://github.com/DaRkD0G/Easy-Game-Center-Swift.git'
     pod 'Fabric'
     pod 'HexColors'
     pod 'IAPController', :git => "https://github.com/materik/IAPController.git", :tag => "0.2.0"

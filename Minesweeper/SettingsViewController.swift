@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EasyGameCenter
 import Eureka
 import IAPController
 
@@ -33,22 +34,22 @@ class SettingsViewController: FormViewController {
     func setupForm() {
         form.removeAll()
         
-            form
+        form
             +++ Section("Difficulty")
             <<< PushRow<GameDifficulty>("difficulty") {
                 $0.title = "Difficulty"
                 $0.options = GameDifficulty.allValues
                 $0.value = Settings.sharedInstance.difficulty
             }.onChange { row in
-                guard let difficulty = row.value else { return }
-                if difficulty.difficultyAvailable {
-                    Settings.sharedInstance.difficulty = difficulty
-                } else {
-                    row.value = Settings.sharedInstance.difficulty
-                    self.presentAvantagesOfFullVersion()
-                }
+                    guard let difficulty = row.value else { return }
+                    if difficulty.difficultyAvailable {
+                        Settings.sharedInstance.difficulty = difficulty
+                    } else {
+                        row.value = Settings.sharedInstance.difficulty
+                        self.presentAvantagesOfFullVersion()
+                    }
             }
-                
+            
             +++ Section(header: "Premium Features", footer: "") {
                 $0.hidden = .Function(["Premium Features"], { form -> Bool in
                     return Settings.sharedInstance.completeVersionPurchased
@@ -62,7 +63,7 @@ class SettingsViewController: FormViewController {
                     }
                     return true
                 })
-                }.onCellSelection { cell, row in
+            }.onCellSelection { cell, row in
                     if let indexPath = self.tableView!.indexPathForSelectedRow {
                         self.tableView!.deselectRowAtIndexPath(indexPath, animated: true)
                     }
@@ -70,9 +71,9 @@ class SettingsViewController: FormViewController {
                     guard let product = IAPController.sharedInstance.products?.first else { return }
                     product.buy()
             }.cellUpdate { cell, row in
-                if let product = IAPController.sharedInstance.products?.first {
-                    row.title = "Unlock all features (\(product.priceFormatted!))"
-                }
+                    if let product = IAPController.sharedInstance.products?.first {
+                        row.title = "Unlock all features (\(product.priceFormatted!))"
+                    }
             }
             <<< ButtonRow("restore") {
                 $0.title = "Restore previous purchase"
@@ -98,16 +99,16 @@ class SettingsViewController: FormViewController {
                     return UIDevice.currentDevice().model != "iPhone"
                 })
             }.onChange{ row in
-                guard let vibrate = row.value else { return }
-                Settings.sharedInstance.vibrationEnabled = vibrate
+                    guard let vibrate = row.value else { return }
+                    Settings.sharedInstance.vibrationEnabled = vibrate
             }
             
             <<< SwitchRow("longPress") {
                 $0.title = "Mark with long press"
                 $0.value = Settings.sharedInstance.markWithLongPressEnabled
             }.onChange{ row in
-                guard let longPress = row.value else { return }
-                Settings.sharedInstance.markWithLongPressEnabled = longPress
+                    guard let longPress = row.value else { return }
+                    Settings.sharedInstance.markWithLongPressEnabled = longPress
             }
             
             <<< SwitchRow("hiddenToolbar") {
@@ -120,8 +121,8 @@ class SettingsViewController: FormViewController {
                     return true
                 })
             }.onChange{ row in
-                guard let hideToolbar = row.value else { return }
-                Settings.sharedInstance.bottomBarHidden = hideToolbar
+                    guard let hideToolbar = row.value else { return }
+                    Settings.sharedInstance.bottomBarHidden = hideToolbar
             }
     }
     

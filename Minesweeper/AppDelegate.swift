@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import iRate
-import Fabric
 import Crashlytics
+import Fabric
+import iRate
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,9 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().translucent = false
         UIToolbar.appearance().translucent = false
         
+        // Ask user for rating
         iRate.sharedInstance().appStoreID = 1029488767
         iRate.sharedInstance().verboseLogging = false
         
+        // Fabric tracking
+        Fabric.with([Crashlytics.self()])
+        
+        // Creating window
         let GVC = GameViewController()
         let navC = UINavigationController(rootViewController: GVC)
         let bannerVC = BannerViewController(contentController: navC)
@@ -32,8 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window!.rootViewController = bannerVC
         window!.makeKeyAndVisible()
-        
-        Fabric.with([Crashlytics.self()])
         
         return true
     }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import EasyGameCenter
 
 class GameCounter {
     private let nbGameWonString = "won"
@@ -60,18 +61,21 @@ class GameCounter {
     func countGameWon(difficulty: GameDifficulty) {
         let nb = getNbGameWon(difficulty)
         userDefault.setInteger(nb+1, forKey: difficulty.rawValue + nbGameWonString)
-        print("Games won: \(nb+1)")
+        
+        // Achievement
+        let achievementIdentifier = "fr.Dean.Minesweeper.\(difficulty.rawValue)GameWon"
+        if !EGC.isAchievementCompleted(achievementIdentifier: achievementIdentifier) {
+            EGC.reportAchievement(progress: 100, achievementIdentifier: achievementIdentifier)
+        }
     }
     
     func countGameStarted(difficulty: GameDifficulty) {
         let nb = getNbGameStarted(difficulty)
         userDefault.setInteger(nb+1, forKey: difficulty.rawValue + nbGameStartedString)
-        print("Games started: \(nb+1)")
     }
     
     func countGameFinished(difficulty: GameDifficulty) {
         let nb = getNbGameFinished(difficulty)
         userDefault.setInteger(nb+1, forKey: difficulty.rawValue + nbGameFinishedString)
-        print("Games finished: \(nb+1)")
     }
 }
