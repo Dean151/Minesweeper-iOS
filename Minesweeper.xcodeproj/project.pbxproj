@@ -126,6 +126,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		E9A023971BD10A8400474D88 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */,
+				E9B5BACB1BC8293C007C2C78 /* BannerViewController.swift */,
+				E9D3DEDD1B61785100C562E3 /* GameViewController.swift */,
+				E9DF513D1B79299500C32997 /* SettingsViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		E9D3DEA21B6143A700C562E3 = {
 			isa = PBXGroup;
 			children = (
@@ -150,7 +161,8 @@
 			isa = PBXGroup;
 			children = (
 				E9D3DED01B6143B100C562E3 /* Core */,
-				E9D3DED51B61627700C562E3 /* UI */,
+				E9D3DED51B61627700C562E3 /* Game UI */,
+				E9A023971BD10A8400474D88 /* ViewControllers */,
 				E9D3DEB01B6143A700C562E3 /* AppDelegate.swift */,
 				E9482CCC1BD034BF00B3DAF6 /* minesweeper.debug.xcconfig */,
 				E9482CCD1BD034BF00B3DAF6 /* minesweeper.release.xcconfig */,
@@ -197,17 +209,13 @@
 			name = Core;
 			sourceTree = "<group>";
 		};
-		E9D3DED51B61627700C562E3 /* UI */ = {
+		E9D3DED51B61627700C562E3 /* Game UI */ = {
 			isa = PBXGroup;
 			children = (
-				E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */,
 				E914F8F11B62ADEE001AFB80 /* Theme.swift */,
-				E9B5BACB1BC8293C007C2C78 /* BannerViewController.swift */,
 				E9D3DEDB1B616EFE00C562E3 /* GameScene.swift */,
-				E9D3DEDD1B61785100C562E3 /* GameViewController.swift */,
-				E9DF513D1B79299500C32997 /* SettingsViewController.swift */,
 			);
-			name = UI;
+			name = "Game UI";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

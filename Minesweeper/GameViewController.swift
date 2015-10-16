@@ -71,7 +71,6 @@ class GameViewController: UIViewController {
     
     func startGame() {
         if (!Settings.difficulty.difficultyAvailable) {
-            // TODO: should present avantages of paid version :-)
             Settings.difficulty = .Easy
         }
         newGame( Settings.difficulty )
