@@ -72,6 +72,7 @@
 		E9A0239A1BD18B9400474D88 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		E9A023A01BD43C7A00474D88 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E9A023A21BD4495800474D88 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E9A023A31BD44C0200474D88 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E9B5BACB1BC8293C007C2C78 /* BannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerViewController.swift; sourceTree = "<group>"; };
 		E9D3DEAB1B6143A700C562E3 /* Minesweeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minesweeper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9D3DEAF1B6143A700C562E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -305,6 +306,7 @@
 				en,
 				Base,
 				fr,
+				es,
 			);
 			mainGroup = E9D3DEA21B6143A700C562E3;
 			productRefGroup = E9D3DEAC1B6143A700C562E3 /* Products */;
@@ -443,6 +445,7 @@
 			children = (
 				E9A023A01BD43C7A00474D88 /* en */,
 				E9A023A21BD4495800474D88 /* fr */,
+				E9A023A31BD44C0200474D88 /* es */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
