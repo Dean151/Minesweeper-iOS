@@ -12,10 +12,11 @@ enum GameDifficulty: String, CustomStringConvertible {
     case Easy = "Easy", Medium = "Medium", Hard = "Hard", Insane = "Insane"
     
     var description: String {
+        let difficulty = NSLocalizedString(rawValue.uppercaseString, comment: "")
         if difficultyAvailable {
-            return rawValue
+            return difficulty
         } else {
-            return "\(rawValue) (Premium feature)"
+            return "\(difficulty) (Premium)"
         }
     }
     
