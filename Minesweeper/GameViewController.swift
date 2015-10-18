@@ -27,12 +27,14 @@ class GameViewController: UIViewController {
             make.edges.equalTo(self.view).inset(UIEdgeInsetsMake(0, 0, 0, 0))
         })
         
+        self.navigationItem.title = NSLocalizedString("MINESWEEPER", comment: "")
+        
         // Creating Top bar buttons
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "New Game", style: .Plain, target: self, action: "gameButtonPressed:")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("NEW_GAME", comment: ""), style: .Plain, target: self, action: "gameButtonPressed:")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "showSettings:")
         
         // Creating segmented toolbar
-        playOrFlagControl = UISegmentedControl(items: ["Dig", "Flag"])
+        playOrFlagControl = UISegmentedControl(items: [NSLocalizedString("DIG", comment: ""), NSLocalizedString("MARK", comment: "")])
         playOrFlagControl.setWidth(100, forSegmentAtIndex: 0)
         playOrFlagControl.setWidth(100, forSegmentAtIndex: 1)
         let space = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)

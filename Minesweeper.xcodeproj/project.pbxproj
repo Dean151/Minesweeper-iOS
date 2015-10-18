@@ -17,6 +17,7 @@
 		E99BA2AE1BD00B240037D562 /* IAPControllerProductIds.plist in Resources */ = {isa = PBXBuildFile; fileRef = E99BA2AD1BD00B240037D562 /* IAPControllerProductIds.plist */; settings = {ASSET_TAGS = (); }; };
 		E9A023991BD10FE200474D88 /* GameCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A023981BD10FE200474D88 /* GameCounter.swift */; settings = {ASSET_TAGS = (); }; };
 		E9A0239B1BD18B9500474D88 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A0239A1BD18B9400474D88 /* GameKit.framework */; };
+		E9A0239F1BD43C7A00474D88 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9A023A11BD43C7A00474D88 /* Localizable.strings */; };
 		E9B5BACC1BC8293C007C2C78 /* BannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B5BACB1BC8293C007C2C78 /* BannerViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		E9D3DEB11B6143A700C562E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D3DEB01B6143A700C562E3 /* AppDelegate.swift */; };
 		E9D3DEB81B6143A700C562E3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9D3DEB71B6143A700C562E3 /* Images.xcassets */; };
@@ -69,6 +70,7 @@
 		E99BA2AD1BD00B240037D562 /* IAPControllerProductIds.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = IAPControllerProductIds.plist; sourceTree = "<group>"; };
 		E9A023981BD10FE200474D88 /* GameCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCounter.swift; sourceTree = "<group>"; };
 		E9A0239A1BD18B9400474D88 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		E9A023A01BD43C7A00474D88 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E9B5BACB1BC8293C007C2C78 /* BannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerViewController.swift; sourceTree = "<group>"; };
 		E9D3DEAB1B6143A700C562E3 /* Minesweeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minesweeper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9D3DEAF1B6143A700C562E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				E9A023971BD10A8400474D88 /* ViewControllers */,
 				E9D3DEB01B6143A700C562E3 /* AppDelegate.swift */,
 				E9482CCC1BD034BF00B3DAF6 /* minesweeper.debug.xcconfig */,
+				E9A023A11BD43C7A00474D88 /* Localizable.strings */,
 				E9482CCD1BD034BF00B3DAF6 /* minesweeper.release.xcconfig */,
 				E9482CD01BD034D900B3DAF6 /* Keys.xcconfig */,
 				E9D3DEB71B6143A700C562E3 /* Images.xcassets */,
@@ -318,6 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E949E1801B66CD30002E154A /* LaunchScreen.storyboard in Resources */,
+				E9A0239F1BD43C7A00474D88 /* Localizable.strings in Resources */,
 				E9D3DEB81B6143A700C562E3 /* Images.xcassets in Resources */,
 				E9482CCE1BD034BF00B3DAF6 /* minesweeper.debug.xcconfig in Resources */,
 				E99BA2AE1BD00B240037D562 /* IAPControllerProductIds.plist in Resources */,
@@ -430,6 +434,17 @@
 			targetProxy = E9D3DEC11B6143A700C562E3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E9A023A11BD43C7A00474D88 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9A023A01BD43C7A00474D88 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		E9D3DEC81B6143A700C562E3 /* Debug */ = {

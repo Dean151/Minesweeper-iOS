@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  Minesweeper
+
+  Created by Thomas Durand on 18/10/2015.
+  Copyright © 2015 Thomas Durand. All rights reserved.
+*/
+
+"ACHIEVEMENTS" = "Achievements";
+"BUY_PREMIUM" = "Unlock all features";
+"DIFFICULTY" = "Difficulty";
+"DIG" = "Dig";
+"DISMISS" = "Dismiss";
+"GAME_CENTER" = "Game Center";
+"GAMEPLAY" = "Gameplay";
+"HIDE_TOOLBAR" = "Hide toolbar";
+"IAP_SUCCESS" = "You know have an unlimited access to all features of the app. Thanks !";
+"LEADERBOARDS" = "Leaderboards";
+"MARK" = "Mark";
+"MARK_WITH_LONG_PRESS" = "Mark with long press";
+"MINESWEEPER" = "Minesweeper";
+"NEW_GAME" = "New Game";
+"PREMIUM_FEATURES" = "Premium features";
+"RESTORE" = "Restore previous purchase";
+"THANK_YOU" = "Thank You";
+"VIBRATIONS" = "Vibrations";

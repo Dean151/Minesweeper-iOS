@@ -44,9 +44,11 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
         form.removeAll()
         
         form
-            +++ Section("Difficulty")
+            +++ Section() {
+                $0.header = HeaderFooterView<UIView>(stringLiteral: NSLocalizedString("DIFFICULTY", comment: ""))
+            }
             <<< PushRow<GameDifficulty>("difficulty") {
-                $0.title = "Difficulty"
+                $0.title = NSLocalizedString("DIFFICULTY", comment: "")
                 $0.options = GameDifficulty.allValues
                 $0.value = Settings.sharedInstance.difficulty
             }.onChange { row in
@@ -59,13 +61,14 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
                     }
             }
             
-            +++ Section(header: "Premium Features", footer: "") {
+            +++ Section() {
+                $0.header = HeaderFooterView<UIView>(stringLiteral: NSLocalizedString("PREMIUM_FEATURES", comment: ""))
                 $0.hidden = .Function(["Premium Features"], { form -> Bool in
                     return Settings.sharedInstance.completeVersionPurchased
                 })
             }
             <<< ButtonRow("buy") {
-                $0.title = "Unlock all features"
+                $0.title = NSLocalizedString("BUY_PREMIUM", comment: "")
                 $0.disabled = .Function([], { form -> Bool in
                     if let _ = IAPController.sharedInstance.products?.first {
                         return false
@@ -82,7 +85,7 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
                     }
             }
             <<< ButtonRow("restore") {
-                $0.title = "Restore previous purchase"
+                $0.title = NSLocalizedString("RESTORE", comment: "")
                 $0.disabled = .Function([], { form -> Bool in
                     if let _ = IAPController.sharedInstance.products?.first {
                         return false
@@ -94,9 +97,11 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
                     IAPController.sharedInstance.restore()
             }
             
-            +++ Section("Gameplay")
+            +++ Section() {
+                $0.header = HeaderFooterView<UIView>(stringLiteral: NSLocalizedString("GAMEPLAY", comment: ""))
+            }
             <<< SwitchRow("vibrate") {
-                $0.title = "Vibrations"
+                $0.title = NSLocalizedString("VIBRATIONS", comment: "")
                 $0.value = Settings.sharedInstance.vibrationEnabled
                 $0.hidden = .Function(["vibrate"], { form in
                     return UIDevice.currentDevice().model != "iPhone"
@@ -107,7 +112,7 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
             }
             
             <<< SwitchRow("longPress") {
-                $0.title = "Mark with long press"
+                $0.title = NSLocalizedString("MARK_WITH_LONG_PRESS", comment: "")
                 $0.value = Settings.sharedInstance.markWithLongPressEnabled
             }.onChange{ row in
                     guard let longPress = row.value else { return }
@@ -115,7 +120,7 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
             }
             
             <<< SwitchRow("hiddenToolbar") {
-                $0.title = "Hide toolbar"
+                $0.title = NSLocalizedString("HIDE_TOOLBAR", comment: "")
                 $0.value = Settings.sharedInstance.bottomBarHidden
                 $0.hidden = .Function(["longPress"], { form in
                     if let r1 : SwitchRow = form.rowByTag("longPress") {
@@ -128,9 +133,11 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
                     Settings.sharedInstance.bottomBarHidden = hideToolbar
             }
             
-            +++ Section("Game Center")
+            +++ Section() {
+                $0.header = HeaderFooterView<UIView>(stringLiteral: NSLocalizedString("GAME_CENTER", comment: ""))
+            }
             <<< ButtonRow("leaderboards") {
-                $0.title = "Leaderboards"
+                $0.title = NSLocalizedString("LEADERBOARDS", comment: "")
                 }.onCellSelection({ cell, row in
                     self.deselectRows()
                     let gcvc = GKGameCenterViewController()
@@ -139,7 +146,7 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
                     self.presentViewController(gcvc, animated: true, completion: nil)
                 })
             <<< ButtonRow("achievements") {
-                $0.title = "Achievements"
+                $0.title = NSLocalizedString("ACHIEVEMENTS", comment: "")
             }.onCellSelection({ cell, row in
                 self.deselectRows()
                 let gcvc = GKGameCenterViewController()
