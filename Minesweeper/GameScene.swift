@@ -254,15 +254,15 @@ class GameScene: SKScene {
         
         let (success, column, row) = convertPoint(location)
         if success {
-            if selectedTile != nil {
-                if let tile = board.getTile(column, y: row) {
-                    if tile != selectedTile {
-                        selectedTile = tile
-                    }
-                } else {
-                    selectedTile = nil
+            if let tile = board.getTile(column, y: row) {
+                if tile != selectedTile {
+                    selectedTile = tile
                 }
+            } else {
+                selectedTile = nil
             }
+        } else {
+            selectedTile = nil
         }
     }
     
