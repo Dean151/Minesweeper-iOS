@@ -98,6 +98,12 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
                     self.deselectRows()
                     IAPController.sharedInstance.restore()
             }
+            <<< ButtonRow("about") {
+                $0.title = NSLocalizedString("ABOUT_PREMIUM", comment: "")
+                }.onCellSelection { cell, row in
+                    self.deselectRows()
+                    self.presentAvantagesOfFullVersion()
+            }
             
             +++ Section() {
                 $0.header = HeaderFooterView<UIView>(stringLiteral: NSLocalizedString("GAMEPLAY", comment: ""))

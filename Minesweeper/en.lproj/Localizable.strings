@@ -6,6 +6,7 @@
   Copyright © 2015 Thomas Durand. All rights reserved.
 */
 
+"ABOUT_PREMIUM" = "About premium features";
 "ACHIEVEMENTS" = "Achievements";
 "BUY_PREMIUM" = "Unlock all features";
 "DIFFICULTY" = "Difficulty";
