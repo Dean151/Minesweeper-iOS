@@ -21,6 +21,7 @@
 "INSANE" = "Insane";
 "LEADERBOARDS" = "Leaderboards";
 "MARK" = "Mark";
+"MARK_WITH_DEEP_PRESS" = "Mark with deep press";
 "MARK_WITH_LONG_PRESS" = "Mark with long press";
 "MEDIUM" = "Medium";
 "MINESWEEPER" = "Minesweeper";

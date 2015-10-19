@@ -21,6 +21,7 @@
 "INSANE" = "Impossible";
 "LEADERBOARDS" = "Classements";
 "MARK" = "Marquer";
+"MARK_WITH_DEEP_PRESS" = "Forte pression pour marquer";
 "MARK_WITH_LONG_PRESS" = "Maintenir pour marquer";
 "MEDIUM" = "Intermédiaire";
 "MINESWEEPER" = "Démineur";

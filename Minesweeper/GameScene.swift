@@ -178,29 +178,28 @@ class GameScene: SKScene {
     }
     
     func markSelectedTileWithAnimation() {
-        if selectedTile != nil {
-            let tiles = board.mark(selectedTile!)
-            selectedTile = nil
-            
-            for tile in tiles {
-                let actions = SKAction.sequence([
-                    SKAction.runBlock({
-                        (tile.sprite as! SKSpriteNode).texture = self.textureForTile(tile)
-                        tile.sprite.zPosition = 10
-                        tile.sprite.setScale(Theme.scaleForMarkingTile)
-                        tile.sprite.alpha = Theme.alphaForOveredTile
-                    }),
-                    SKAction.group([
-                        SKAction.scaleTo(1, duration: 0.2),
-                        SKAction.fadeAlphaTo(1, duration: 0.2)
+        guard let selectedTile = self.selectedTile else { return }
+        self.selectedTile = nil
+        
+        let tiles = board.mark(selectedTile)
+        for tile in tiles {
+            let actions = SKAction.sequence([
+                SKAction.runBlock({
+                    (tile.sprite as! SKSpriteNode).texture = self.textureForTile(tile)
+                    tile.sprite.zPosition = 10
+                    tile.sprite.setScale(Theme.scaleForMarkingTile)
+                    tile.sprite.alpha = Theme.alphaForOveredTile
+                }),
+                SKAction.group([
+                    SKAction.scaleTo(1, duration: 0.2),
+                    SKAction.fadeAlphaTo(1, duration: 0.2)
                     ]),
-                    SKAction.runBlock({
-                        tile.sprite.zPosition = 0
-                    })
+                SKAction.runBlock({
+                    tile.sprite.zPosition = 0
+                })
                 ])
-                    
-                tile.sprite.runAction(actions)
-            }
+            
+            tile.sprite.runAction(actions)
         }
     }
     
@@ -253,10 +252,30 @@ class GameScene: SKScene {
         let location = touch.locationInNode(tileLayer)
         
         let (success, column, row) = convertPoint(location)
-        if success {
+        if success && selectedTile != nil {
             if let tile = board.getTile(column, y: row) {
                 if tile != selectedTile {
                     selectedTile = tile
+                } else {
+                    if Settings.sharedInstance.markWithDeepPressEnabled {
+                        // Deep Press Handling
+                        // If 3DTouch not available, we use majorRadius to simulate it !
+                        if #available(iOS 9.0, *) {
+                            if self.controller.traitCollection.forceTouchCapability == .Available {
+                                if touch.force > 0.8*touch.maximumPossibleForce {
+                                    self.markSelectedTileWithAnimation()
+                                }
+                            } else {
+                                if touch.majorRadius > 38 {
+                                    self.markSelectedTileWithAnimation()
+                                }
+                            }
+                        } else {
+                            if touch.majorRadius > 38 {
+                                self.markSelectedTileWithAnimation()
+                            }
+                        }
+                    }
                 }
             } else {
                 selectedTile = nil

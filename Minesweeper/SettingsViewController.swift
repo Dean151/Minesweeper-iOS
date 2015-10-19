@@ -127,12 +127,20 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
                     Settings.sharedInstance.markWithLongPressEnabled = longPress
             }
             
+            <<< SwitchRow("deepPress") {
+                $0.title = NSLocalizedString("MARK_WITH_DEEP_PRESS", comment: "")
+                $0.value = Settings.sharedInstance.markWithDeepPressEnabled
+                }.onChange{ row in
+                    guard let deepPress = row.value else { return }
+                    Settings.sharedInstance.markWithDeepPressEnabled = deepPress
+            }
+            
             <<< SwitchRow("hiddenToolbar") {
                 $0.title = NSLocalizedString("HIDE_TOOLBAR", comment: "")
                 $0.value = Settings.sharedInstance.bottomBarHidden
-                $0.hidden = .Function(["longPress"], { form in
-                    if let r1 : SwitchRow = form.rowByTag("longPress") {
-                        return r1.value == false
+                $0.hidden = .Function(["longPress", "deepPress"], { form in
+                    if let r1 : SwitchRow = form.rowByTag("longPress"), r2: SwitchRow = form.rowByTag("deepPress") {
+                        return r1.value == false && r2.value == false
                     }
                     return true
                 })

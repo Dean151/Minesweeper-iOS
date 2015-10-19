@@ -12,6 +12,7 @@ class Settings {
     private let difficultyString = "difficulty"
     private let vibrationString = "vibration"
     private let markWithLongPressString = "markWithLongPress"
+    private let markWithDeepPressString = "markWithDeepPress"
     private let bottomBarHiddenString = "bottomBarHidden"
     private let completeVersionString = "completeVersion"
     
@@ -55,6 +56,16 @@ class Settings {
         }
         set {
             userDefault.setBool(newValue, forKey: markWithLongPressString)
+        }
+    }
+    
+    // Mark with deep press
+    var markWithDeepPressEnabled: Bool {
+        get {
+            return userDefault.boolForKey(markWithDeepPressString)
+        }
+        set {
+            userDefault.setBool(newValue, forKey: markWithDeepPressString)
         }
     }
     

@@ -58,7 +58,7 @@ class GameViewController: UIViewController {
     }
     
     func performSettingsChanges() {
-        if Settings.sharedInstance.markWithLongPressEnabled && Settings.sharedInstance.bottomBarHidden {
+        if (Settings.sharedInstance.markWithLongPressEnabled || Settings.sharedInstance.markWithDeepPressEnabled) && Settings.sharedInstance.bottomBarHidden {
             self.playOrFlagControl.selectedSegmentIndex = 0
             self.navigationController!.toolbarHidden = true
         } else {

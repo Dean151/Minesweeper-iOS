@@ -21,6 +21,7 @@
 "INSANE" = "Demente";
 "LEADERBOARDS" = "Clasificación";
 "MARK" = "Marcar";
+"MARK_WITH_DEEP_PRESS" = "Pulse profondo para marcar";
 "MARK_WITH_LONG_PRESS" = "Mantenga para marcar";
 "MEDIUM" = "Intermedio";
 "MINESWEEPER" = "Buscaminas";
