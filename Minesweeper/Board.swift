@@ -76,6 +76,8 @@ class Board {
     var minesInitialized: Bool
     var gameOver: Bool
     
+    var startDate: NSDate?
+    
     var tiles: [Tile]
     
     var height: Int {
@@ -141,6 +143,8 @@ class Board {
         GameCounter.sharedInstance.countGameStarted(self.difficulty)
         
         minesInitialized = true
+        
+        startDate = NSDate()
     }
     
     func isInBoard(x: Int, y: Int) -> Bool {
@@ -200,11 +204,18 @@ class Board {
                     // Counting the game as finished and won
                     GameCounter.sharedInstance.countGameFinished(self.difficulty)
                     GameCounter.sharedInstance.countGameWon(self.difficulty)
+                    
+                    if let start = startDate {
+                        GameCounter.sharedInstance.reportScore(start.timeIntervalSinceNow, forDifficulty: self.difficulty)
+                    }
+                    startDate = nil
+                    
                     return playedTiles
                 }
                 
                 if tile.isMine {
                     gameOver = true
+                    startDate = nil
                     // Counting the game as finished
                     GameCounter.sharedInstance.countGameFinished(self.difficulty)
                 } else if tile.nbMineAround == 0 {

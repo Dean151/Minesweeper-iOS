@@ -78,4 +78,11 @@ class GameCounter {
         let nb = getNbGameFinished(difficulty)
         userDefault.setInteger(nb+1, forKey: difficulty.rawValue + nbGameFinishedString)
     }
+    
+    func reportScore(score: NSTimeInterval, forDifficulty: GameDifficulty) {
+        let leaderboardIdentifier = "fr.Dean.Minesweeper.\(forDifficulty.rawValue)"
+        let score2submit = Int(-100 * Double(score))
+        print("Reporting score : \(score2submit)")
+        EGC.reportScoreLeaderboard(leaderboardIdentifier: leaderboardIdentifier, score: score2submit)
+    }
 }
