@@ -77,6 +77,7 @@ class Board {
     var gameOver: Bool
     
     var startDate: NSDate?
+    var score: NSTimeInterval?
     
     var tiles: [Tile]
     
@@ -104,6 +105,10 @@ class Board {
     
     init(difficulty: GameDifficulty) {
         self.difficulty = difficulty
+        
+        // Score purpose
+        self.score = nil
+        self.startDate = nil
         
         minesInitialized = false
         gameOver = false
@@ -206,7 +211,8 @@ class Board {
                     GameCounter.sharedInstance.countGameWon(self.difficulty)
                     
                     if let start = startDate {
-                        GameCounter.sharedInstance.reportScore(start.timeIntervalSinceNow, forDifficulty: self.difficulty)
+                        self.score = start.timeIntervalSinceNow
+                        GameCounter.sharedInstance.reportScore(self.score!, forDifficulty: self.difficulty)
                     }
                     startDate = nil
                     

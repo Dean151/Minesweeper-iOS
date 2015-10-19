@@ -7,8 +7,10 @@
 //
 
 import UIKit
-import GameKit
+
+import EasyGameCenter
 import Eureka
+import GameKit
 import IAPController
 
 class SettingsViewController: FormViewController, GKGameCenterControllerDelegate {
@@ -135,6 +137,9 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
             
             +++ Section() {
                 $0.header = HeaderFooterView<UIView>(stringLiteral: NSLocalizedString("GAME_CENTER", comment: ""))
+                $0.hidden = .Function(["gamecenter"], { form -> Bool in
+                    return !EGC.isPlayerIdentified
+                })
             }
             <<< ButtonRow("leaderboards") {
                 $0.title = NSLocalizedString("LEADERBOARDS", comment: "")
