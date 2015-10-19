@@ -266,12 +266,12 @@ class GameScene: SKScene {
                                     self.markSelectedTileWithAnimation()
                                 }
                             } else {
-                                if touch.majorRadius > 38 {
+                                if touch.majorRadius - touch.majorRadiusTolerance > 30 {
                                     self.markSelectedTileWithAnimation()
                                 }
                             }
                         } else {
-                            if touch.majorRadius > 38 {
+                            if touch.majorRadius - touch.majorRadiusTolerance > 30 {
                                 self.markSelectedTileWithAnimation()
                             }
                         }

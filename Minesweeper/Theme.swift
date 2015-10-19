@@ -68,7 +68,7 @@ class Theme {
     }
     
     static var scaleForMarkingTile: CGFloat {
-        return 4
+        return 6
     }
     
     static var alphaForOveredTile: CGFloat {
