@@ -62,10 +62,27 @@ class GameCounter {
         let nb = getNbGameWon(difficulty)
         userDefault.setInteger(nb+1, forKey: difficulty.rawValue + nbGameWonString)
         
-        // Achievement
+        // Achievement for One game
         let achievementIdentifier = "fr.Dean.Minesweeper.\(difficulty.rawValue)GameWon"
         if !EGC.isAchievementCompleted(achievementIdentifier: achievementIdentifier) {
-            EGC.reportAchievement(progress: 100, achievementIdentifier: achievementIdentifier)
+            print(achievementIdentifier + " finished")
+            EGC.reportAchievement(progress: 100.0, achievementIdentifier: achievementIdentifier)
+        }
+        
+        // Achievement for Ten games
+        let achievementIdentifierTen = "fr.Dean.Minesweeper.Ten\(difficulty.rawValue)GameWon"
+        if !EGC.isAchievementCompleted(achievementIdentifier: achievementIdentifierTen) {
+            let progress = min(Double((nb+1)*10), 100)
+            print(achievementIdentifierTen + " completed at \(progress)%")
+            EGC.reportAchievement(progress: progress, achievementIdentifier: achievementIdentifierTen)
+        }
+        
+        // Achievement for Hundred games
+        let achievementIdentifierHundred = "fr.Dean.Minesweeper.HundredGamesWon"
+        if !EGC.isAchievementCompleted(achievementIdentifier: achievementIdentifierHundred) {
+            let progress = min(Double((self.nbGameWon)), 100)
+            print(achievementIdentifierHundred + " completed at \(progress)%")
+            EGC.reportAchievement(progress: progress, achievementIdentifier: achievementIdentifierHundred)
         }
     }
     
