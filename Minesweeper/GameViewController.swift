@@ -103,9 +103,14 @@ class GameViewController: UIViewController {
         startGame()
     }
     
-    func shareGame() {
+    func shareGame(sender: SKNode) {
         let shareText: String = "" // TODO: write share text
         let shareView = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+        if let popover = shareView.popoverPresentationController {
+            // FIXME: fix source frame to present popover on iPad
+            popover.sourceView = skView
+            popover.sourceRect = sender.frame
+        }
         self.presentViewController(shareView, animated: true, completion: nil)
     }
     
@@ -121,12 +126,12 @@ class GameViewController: UIViewController {
         let viewController = SettingsViewController()
         viewController.parentVC = self
         let navController = UINavigationController(rootViewController: viewController)
+        navController.modalPresentationStyle = .Popover
         
-        if (UI_USER_INTERFACE_IDIOM() == .Pad) {
-            let popover = UIPopoverController(contentViewController: navController)
-            popover.presentPopoverFromBarButtonItem(sender, permittedArrowDirections: .Any, animated: true)
-        } else {
-            self.presentViewController(navController, animated: true, completion: nil)
+        if let popover = navController.popoverPresentationController {
+            popover.barButtonItem = sender
         }
+        
+        self.presentViewController(navController, animated: true, completion: nil)
     }
 }

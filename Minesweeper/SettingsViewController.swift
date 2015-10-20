@@ -27,8 +27,6 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
         
         setupForm()
         
-        self.preferredContentSize = CGSizeMake(320, 400)
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchedProducts:", name: IAPControllerFetchedNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didPurchasedProduct:", name: IAPControllerPurchasedNotification, object: nil)
         

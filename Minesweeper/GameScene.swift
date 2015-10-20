@@ -369,13 +369,14 @@ class GameScene: SKScene {
         
         if board.gameOver {
             let location = touch.locationInNode(scoreLayer)
-            guard let name = scoreLayer.nodeAtPoint(location).name else { return }
+            let node = scoreLayer.nodeAtPoint(location)
+            guard let name = node.name else { return }
             
             switch name {
             case "play":
                 controller.startGame()
             case "share":
-                controller.shareGame()
+                controller.shareGame(node)
             default:
                 break
             }
