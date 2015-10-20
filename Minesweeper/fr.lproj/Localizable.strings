@@ -16,7 +16,7 @@
 "DISMISS" = "OK";
 "EASY" = "Facile";
 "GAME_CENTER" = "Game Center";
-"GAMEPLAY" = "Gameplay";
+"GAMEPLAY" = "Jouabilité";
 "HARD" = "Difficile";
 "HIDE_TOOLBAR" = "Cacher la barre d'outils";
 "IAP_SUCCESS" = "Vous avez maintenant accès à toutes les fonctionnalités premium. Merci !";
@@ -32,6 +32,8 @@
 "PLAY_AGAIN" = "Rejouer";
 "RESTORE" = "Restaurer l'achat";
 "SCORE" = "Score ";
+"SETTINGS" = "Paramètres";
 "SHARE" = "Partager";
 "THANK_YOU" = "Merci";
+"TOO_BAD!" = "Dommage !";
 "VIBRATIONS" = "Vibrations";

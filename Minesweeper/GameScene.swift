@@ -199,7 +199,7 @@ class GameScene: SKScene {
                 SKAction.runBlock({
                     tile.sprite.zPosition = 0
                 })
-                ])
+            ])
             
             tile.sprite.runAction(actions)
         }
@@ -217,7 +217,7 @@ class GameScene: SKScene {
         runAction(SKAction.waitForDuration(0.1)) {
             Void in
             if self.board.isGameWon {
-                let width: CGFloat = 250
+                let width: CGFloat = 300
                 let height: CGFloat = 170
                 let rect = CGRectMake(-width/2, -height/2, width, height)
                 
@@ -227,7 +227,7 @@ class GameScene: SKScene {
                 scoreNode.alpha = 0
                 
                 let gameWonLabel = SKLabelNode(fontNamed: "Noteworthy")
-                gameWonLabel.text = NSLocalizedString("CONGRATULATIONS!", comment: "")
+                gameWonLabel.text = NSLocalizedString("CONGRATULATIONS!", comment: "").uppercaseString
                 gameWonLabel.fontColor = Theme.solvedMineTileColor
                 gameWonLabel.position = CGPointMake(0, 30)
                 scoreNode.addChild(gameWonLabel)
@@ -256,6 +256,34 @@ class GameScene: SKScene {
                 scoreNode.addChild(shareLabel)
                 
                 // Make the game won layout appears
+                self.scoreLayer.addChild(scoreNode)
+                let fadeIn = SKAction.fadeInWithDuration(0.3)
+                scoreNode.runAction(fadeIn)
+            } else {
+                let width: CGFloat = 250
+                let height: CGFloat = 100
+                let rect = CGRectMake(-width/2, -height/2, width, height)
+                
+                let scoreNode = SKShapeNode(rect: rect, cornerRadius: 10)
+                scoreNode.fillColor = Theme.gameOverBackgroundColor
+                scoreNode.strokeColor = Theme.gameOverBorderColor
+                scoreNode.alpha = 0
+                
+                let gameLostLabel = SKLabelNode(fontNamed: "Noteworthy")
+                gameLostLabel.text = NSLocalizedString("TOO_BAD!", comment: "").uppercaseString
+                gameLostLabel.fontColor = Theme.explodedMineTileColor
+                gameLostLabel.position = CGPointMake(0, 5)
+                scoreNode.addChild(gameLostLabel)
+                
+                let playLabel = SKLabelNode(fontNamed: "Noteworthy-Light")
+                playLabel.name = "play"
+                playLabel.text = NSLocalizedString("PLAY_AGAIN", comment: "").uppercaseString
+                playLabel.fontColor = Theme.unrevealedTileColor
+                playLabel.fontSize = 18
+                playLabel.position = CGPointMake(0, -30)
+                scoreNode.addChild(playLabel)
+                
+                // Make the game over layout appears
                 self.scoreLayer.addChild(scoreNode)
                 let fadeIn = SKAction.fadeInWithDuration(0.3)
                 scoreNode.runAction(fadeIn)

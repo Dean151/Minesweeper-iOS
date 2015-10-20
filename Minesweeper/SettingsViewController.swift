@@ -22,7 +22,8 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "donePressed:")
+        self.navigationItem.title = NSLocalizedString("SETTINGS", comment: "")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "donePressed:")
         
         setupForm()
         

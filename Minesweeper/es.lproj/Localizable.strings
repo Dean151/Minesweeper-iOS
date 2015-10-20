@@ -27,11 +27,13 @@
 "MARK_WITH_LONG_PRESS" = "Mantenga para marcar";
 "MEDIUM" = "Intermedio";
 "MINESWEEPER" = "Buscaminas";
-"NEW_GAME" = "Nuevo";
+"NEW_GAME" = "Nuevo juego";
 "PREMIUM_FEATURES" = "Características premium";
 "PLAY_AGAIN" = "Nuevo";
 "RESTORE" = "Restaurar compra anterior";
 "SCORE" = "Score";
+"SETTINGS" = "Parámetros";
 "SHARE" = "Compartir";
 "THANK_YOU" = "Muchas gracias";
+"TOO_BAD!" = "Que lástima!";
 "VIBRATIONS" = "Vibraciones";
