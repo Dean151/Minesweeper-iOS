@@ -64,26 +64,15 @@ class GameCounter {
         
         // Achievement for One game
         let achievementIdentifier = "fr.Dean.Minesweeper.\(difficulty.rawValue)GameWon"
-        if !EGC.isAchievementCompleted(achievementIdentifier: achievementIdentifier) {
-            print(achievementIdentifier + " finished")
-            EGC.reportAchievement(progress: 100.0, achievementIdentifier: achievementIdentifier)
-        }
+        EGC.reportAchievement(progress: 100.0, achievementIdentifier: achievementIdentifier)
         
         // Achievement for Ten games
         let achievementIdentifierTen = "fr.Dean.Minesweeper.Ten\(difficulty.rawValue)GameWon"
-        if !EGC.isAchievementCompleted(achievementIdentifier: achievementIdentifierTen) {
-            let progress = min(Double((nb+1)*10), 100)
-            print(achievementIdentifierTen + " completed at \(progress)%")
-            EGC.reportAchievement(progress: progress, achievementIdentifier: achievementIdentifierTen)
-        }
+        EGC.reportAchievement(progress: 10.0, achievementIdentifier: achievementIdentifierTen, showBannnerIfCompleted: true, addToExisting: true)
         
         // Achievement for Hundred games
         let achievementIdentifierHundred = "fr.Dean.Minesweeper.HundredGamesWon"
-        if !EGC.isAchievementCompleted(achievementIdentifier: achievementIdentifierHundred) {
-            let progress = min(Double((self.nbGameWon)), 100)
-            print(achievementIdentifierHundred + " completed at \(progress)%")
-            EGC.reportAchievement(progress: progress, achievementIdentifier: achievementIdentifierHundred)
-        }
+        EGC.reportAchievement(progress: 1.0, achievementIdentifier: achievementIdentifierHundred, showBannnerIfCompleted: true, addToExisting: true)
     }
     
     func countGameStarted(difficulty: GameDifficulty) {
@@ -101,5 +90,13 @@ class GameCounter {
         let score2submit = Int(-100 * Double(score))
         print("Reporting score : \(score2submit)")
         EGC.reportScoreLeaderboard(leaderboardIdentifier: leaderboardIdentifier, score: score2submit)
+    }
+    
+    func resetAllStats() {
+        for difficulty in GameDifficulty.allValues {
+            userDefault.setInteger(0, forKey: difficulty.rawValue + nbGameWonString)
+            userDefault.setInteger(0, forKey: difficulty.rawValue + nbGameStartedString)
+            userDefault.setInteger(0, forKey: difficulty.rawValue + nbGameFinishedString)
+        }
     }
 }
