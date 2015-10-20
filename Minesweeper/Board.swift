@@ -23,13 +23,13 @@ enum GameDifficulty: String, CustomStringConvertible {
     var size: (width: Int, height: Int) {
         switch self {
         case .Easy:
-            return (8, 8)
+            return (9, 9)
         case .Medium:
-            return (8, 10)
+            return (9, 11)
         case .Hard:
-            return (9, 12)
+            return (10, 14)
         case .Insane:
-            return (9, 14)
+            return (11, 15)
         }
     }
     
@@ -38,11 +38,11 @@ enum GameDifficulty: String, CustomStringConvertible {
         case .Easy:
             return 10
         case .Medium:
-            return 20
+            return 16
         case .Hard:
-            return 35
+            return 26
         case .Insane:
-            return 50
+            return 35
         }
     }
     
