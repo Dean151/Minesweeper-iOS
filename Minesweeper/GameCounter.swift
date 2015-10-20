@@ -6,13 +6,14 @@
 //  Copyright © 2015 Thomas Durand. All rights reserved.
 //
 
+import Crashlytics
 import Foundation
 import EasyGameCenter
 
 class GameCounter {
     private let nbGameWonString = "won"
+    private let nbGameLostString = "lost"
     private let nbGameStartedString = "started"
-    private let nbGameFinishedString = "finished"
     
     private let userDefault = NSUserDefaults.standardUserDefaults()
     
@@ -27,18 +28,18 @@ class GameCounter {
         return nb
     }
     
-    var nbGameStarted: Int {
+    var nbGameLost: Int {
         var nb = 0
         for difficulty in GameDifficulty.allValues {
-            nb += getNbGameStarted(difficulty)
+            nb += getNbGameLost(difficulty)
         }
         return nb
     }
     
-    var nbGameFinished: Int {
+    var nbGameStarted: Int {
         var nb = 0
         for difficulty in GameDifficulty.allValues {
-            nb += getNbGameFinished(difficulty)
+            nb += getNbGameStarted(difficulty)
         }
         return nb
     }
@@ -54,13 +55,15 @@ class GameCounter {
     }
     
     // Number of game concluded for a difficulty
-    func getNbGameFinished(difficulty: GameDifficulty) -> Int {
-        return userDefault.integerForKey(difficulty.rawValue + nbGameFinishedString)
+    func getNbGameLost(difficulty: GameDifficulty) -> Int {
+        return userDefault.integerForKey(difficulty.rawValue + nbGameLostString)
     }
     
     func countGameWon(difficulty: GameDifficulty) {
         let nb = getNbGameWon(difficulty)
         userDefault.setInteger(nb+1, forKey: difficulty.rawValue + nbGameWonString)
+        
+        Answers.logCustomEventWithName("GameWon", customAttributes: ["Difficulty": difficulty.rawValue])
         
         // Achievement for One game
         let achievementIdentifier = "fr.Dean.Minesweeper.\(difficulty.rawValue)GameWon"
@@ -78,11 +81,15 @@ class GameCounter {
     func countGameStarted(difficulty: GameDifficulty) {
         let nb = getNbGameStarted(difficulty)
         userDefault.setInteger(nb+1, forKey: difficulty.rawValue + nbGameStartedString)
+        
+        Answers.logCustomEventWithName("GameStarted", customAttributes: ["Difficulty": difficulty.rawValue])
     }
     
-    func countGameFinished(difficulty: GameDifficulty) {
-        let nb = getNbGameFinished(difficulty)
-        userDefault.setInteger(nb+1, forKey: difficulty.rawValue + nbGameFinishedString)
+    func countGameLost(difficulty: GameDifficulty) {
+        let nb = getNbGameLost(difficulty)
+        userDefault.setInteger(nb+1, forKey: difficulty.rawValue + nbGameLostString)
+        
+        Answers.logCustomEventWithName("GameLost", customAttributes: ["Difficulty": difficulty.rawValue])
     }
     
     func reportScore(score: NSTimeInterval, forDifficulty: GameDifficulty) {
@@ -94,9 +101,9 @@ class GameCounter {
     
     func resetAllStats() {
         for difficulty in GameDifficulty.allValues {
-            userDefault.setInteger(0, forKey: difficulty.rawValue + nbGameWonString)
             userDefault.setInteger(0, forKey: difficulty.rawValue + nbGameStartedString)
-            userDefault.setInteger(0, forKey: difficulty.rawValue + nbGameFinishedString)
+            userDefault.setInteger(0, forKey: difficulty.rawValue + nbGameWonString)
+            userDefault.setInteger(0, forKey: difficulty.rawValue + nbGameLostString)
         }
     }
 }

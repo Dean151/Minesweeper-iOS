@@ -13,6 +13,8 @@ import Eureka
 import GameKit
 import IAPController
 
+import Crashlytics
+
 class SettingsViewController: FormViewController, GKGameCenterControllerDelegate {
     
     var parentVC: GameViewController?
@@ -213,6 +215,8 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
     func didPurchasedProduct(sender: AnyObject) {
         self.updateForm()
         Settings.sharedInstance.completeVersionPurchased = true
+        
+        Answers.logPurchaseWithPrice(1.99, currency: "USD", success: true, itemName: "Premium Buyed", itemType: nil, itemId: nil, customAttributes: nil)
         
         NSNotificationCenter.defaultCenter().postNotificationName(BannerShouldBeHiddenByIAP, object: nil)
         

@@ -207,7 +207,6 @@ class Board {
                 if isGameWon {
                     gameOver = true
                     // Counting the game as finished and won
-                    GameCounter.sharedInstance.countGameFinished(self.difficulty)
                     GameCounter.sharedInstance.countGameWon(self.difficulty)
                     
                     if let start = startDate {
@@ -223,7 +222,7 @@ class Board {
                     gameOver = true
                     startDate = nil
                     // Counting the game as finished
-                    GameCounter.sharedInstance.countGameFinished(self.difficulty)
+                    GameCounter.sharedInstance.countGameLost(self.difficulty)
                 } else if tile.nbMineAround == 0 {
                     for neighbor in getNeighbors(tile) {
                         let tiles = play(neighbor)
