@@ -376,7 +376,11 @@ class GameScene: SKScene {
             case "play":
                 controller.startGame()
             case "share":
-                controller.shareGame(node)
+                let pos = convertPointToView(node.position)
+                let size = node.frame
+                let rect = CGRectMake(pos.x - size.width/2, pos.y - size.height, size.width, size.height)
+                
+                controller.shareGame(rect)
             default:
                 break
             }
