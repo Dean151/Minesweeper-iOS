@@ -413,7 +413,6 @@ class GameScene: SKScene {
                     } else {
                         self.changeTilesWithAnimation(tiles)
                     }
-                    
                 }
             }
         }

@@ -25,11 +25,11 @@ enum GameDifficulty: String, CustomStringConvertible {
         case .Easy:
             return (8, 8)
         case .Medium:
-            return (8, 12)
+            return (8, 10)
         case .Hard:
-            return (10, 14)
+            return (9, 12)
         case .Insane:
-            return (12, 16)
+            return (9, 14)
         }
     }
     
