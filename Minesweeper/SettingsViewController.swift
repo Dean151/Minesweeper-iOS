@@ -69,6 +69,12 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
                     return Settings.sharedInstance.completeVersionPurchased
                 })
             }
+            <<< ButtonRow("about") {
+                $0.title = NSLocalizedString("ABOUT_PREMIUM", comment: "")
+                }.onCellSelection { cell, row in
+                    self.deselectRows()
+                    self.presentAvantagesOfFullVersion()
+            }
             <<< ButtonRow("buy") {
                 $0.title = NSLocalizedString("BUY_PREMIUM", comment: "")
                 $0.disabled = .Function([], { form -> Bool in
@@ -83,7 +89,8 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
                     product.buy()
             }.cellUpdate { cell, row in
                     if let product = IAPController.sharedInstance.products?.first {
-                        row.title = "Unlock all features (\(product.priceFormatted!))"
+                        row.title = String.localizedStringWithFormat(NSLocalizedString("BUY_PREMIUM_WITH_PRICE", comment: ""),
+                            product.priceFormatted!);
                     }
             }
             <<< ButtonRow("restore") {
@@ -97,12 +104,6 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
             }.onCellSelection { cell, row in
                     self.deselectRows()
                     IAPController.sharedInstance.restore()
-            }
-            <<< ButtonRow("about") {
-                $0.title = NSLocalizedString("ABOUT_PREMIUM", comment: "")
-                }.onCellSelection { cell, row in
-                    self.deselectRows()
-                    self.presentAvantagesOfFullVersion()
             }
             
             +++ Section() {

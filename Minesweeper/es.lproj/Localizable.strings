@@ -8,7 +8,8 @@
 
 "ABOUT_PREMIUM" = "Acerca de las características premium";
 "ACHIEVEMENTS" = "Logros";
-"BUY_PREMIUM" = "Comprar juego";
+"BUY_PREMIUM" = "Comprar el juego";
+"BUY_PREMIUM_WITH_PRICE" = "Comprar el juego (%@)";
 "DIFFICULTY" = "Dificultad";
 "DIG" = "Revelar";
 "DISMISS" = "Descartar";

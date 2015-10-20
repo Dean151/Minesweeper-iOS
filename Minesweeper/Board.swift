@@ -211,7 +211,7 @@ class Board {
                     GameCounter.sharedInstance.countGameWon(self.difficulty)
                     
                     if let start = startDate {
-                        self.score = start.timeIntervalSinceNow
+                        self.score = -start.timeIntervalSinceNow
                         GameCounter.sharedInstance.reportScore(self.score!, forDifficulty: self.difficulty)
                     }
                     startDate = nil
