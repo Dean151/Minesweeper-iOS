@@ -10,6 +10,7 @@
 "ACHIEVEMENTS" = "Achievements";
 "BUY_PREMIUM" = "Unlock all features";
 "BUY_PREMIUM_WITH_PRICE" = "Unlock all features (%@)";
+"CONGRATULATIONS!" = "Congratulations!";
 "DIFFICULTY" = "Difficulty";
 "DIG" = "Reveal";
 "DISMISS" = "Dismiss";
@@ -28,6 +29,9 @@
 "MINESWEEPER" = "Minesweeper";
 "NEW_GAME" = "New Game";
 "PREMIUM_FEATURES" = "Premium features";
+"PLAY_AGAIN" = "Play again";
 "RESTORE" = "Restore previous purchase";
+"SCORE" = "Score";
+"SHARE" = "Share";
 "THANK_YOU" = "Thank You";
 "VIBRATIONS" = "Vibrations";

@@ -103,6 +103,12 @@ class GameViewController: UIViewController {
         startGame()
     }
     
+    func shareGame() {
+        let shareText: String = "" // TODO: write share text
+        let shareView = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+        self.presentViewController(shareView, animated: true, completion: nil)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         

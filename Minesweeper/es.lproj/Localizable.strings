@@ -10,6 +10,7 @@
 "ACHIEVEMENTS" = "Logros";
 "BUY_PREMIUM" = "Comprar el juego";
 "BUY_PREMIUM_WITH_PRICE" = "Comprar el juego (%@)";
+"CONGRATULATIONS!" = "¡Felicidades!";
 "DIFFICULTY" = "Dificultad";
 "DIG" = "Revelar";
 "DISMISS" = "Descartar";
@@ -28,6 +29,9 @@
 "MINESWEEPER" = "Buscaminas";
 "NEW_GAME" = "Nuevo";
 "PREMIUM_FEATURES" = "Características premium";
+"PLAY_AGAIN" = "Nuevo";
 "RESTORE" = "Restaurar compra anterior";
+"SCORE" = "Score";
+"SHARE" = "Compartir";
 "THANK_YOU" = "Muchas gracias";
 "VIBRATIONS" = "Vibraciones";

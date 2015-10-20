@@ -14,6 +14,14 @@ class Theme {
         return UIColor(hexString: "#ECF0F1")
     }
     
+    static var gameOverBackgroundColor: UIColor {
+        return UIColor(hexString: "#FAFAFA")
+    }
+    
+    static var gameOverBorderColor: UIColor {
+        return UIColor(hexString: "#DDDDDD")
+    }
+    
     static var unrevealedTileColor: UIColor {
         return UIColor(hexString: "#337AB7")
     }

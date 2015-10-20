@@ -19,6 +19,7 @@ class GameScene: SKScene {
     
     let gameLayer = SKNode()
     let tileLayer = SKNode()
+    let scoreLayer = SKNode()
     
     var textures = [SKTexture?](count: 14, repeatedValue: nil)
     
@@ -73,6 +74,7 @@ class GameScene: SKScene {
         addChild(gameLayer)
         
         gameLayer.addChild(tileLayer)
+        gameLayer.addChild(scoreLayer)
     }
     
     override func didMoveToView(view: SKView) {
@@ -212,12 +214,51 @@ class GameScene: SKScene {
     }
     
     func showGameOverScreen() {
-        runAction(SKAction.waitForDuration(0.5)) {
+        runAction(SKAction.waitForDuration(0.1)) {
             Void in
             if self.board.isGameWon {
-                // TODO Add game won screen
-            } else {
-                // TODO Add game over screen ?
+                let width: CGFloat = 250
+                let height: CGFloat = 170
+                let rect = CGRectMake(-width/2, -height/2, width, height)
+                
+                let scoreNode = SKShapeNode(rect: rect, cornerRadius: 10)
+                scoreNode.fillColor = Theme.gameOverBackgroundColor
+                scoreNode.strokeColor = Theme.gameOverBorderColor
+                scoreNode.alpha = 0
+                
+                let gameWonLabel = SKLabelNode(fontNamed: "Noteworthy")
+                gameWonLabel.text = NSLocalizedString("CONGRATULATIONS!", comment: "")
+                gameWonLabel.fontColor = Theme.solvedMineTileColor
+                gameWonLabel.position = CGPointMake(0, 30)
+                scoreNode.addChild(gameWonLabel)
+                
+                let scoreLabel = SKLabelNode(fontNamed: "Noteworthy-Light")
+                scoreLabel.text = NSLocalizedString("SCORE", comment: "") + ": \(self.board.score!.formattedHoursMinutesSecondsMilliseconds)"
+                scoreLabel.fontColor = UIColor.blackColor()
+                scoreLabel.fontSize = 16
+                scoreLabel.position = CGPointMake(0, -10)
+                scoreNode.addChild(scoreLabel)
+                
+                let playLabel = SKLabelNode(fontNamed: "Noteworthy-Light")
+                playLabel.name = "play"
+                playLabel.text = NSLocalizedString("PLAY_AGAIN", comment: "").uppercaseString
+                playLabel.fontColor = Theme.unrevealedTileColor
+                playLabel.fontSize = 18
+                playLabel.position = CGPointMake(-50, -50)
+                scoreNode.addChild(playLabel)
+                
+                let shareLabel = SKLabelNode(fontNamed: "Noteworthy-Light")
+                shareLabel.name = "share"
+                shareLabel.text = NSLocalizedString("SHARE", comment: "").uppercaseString
+                shareLabel.fontColor = Theme.unrevealedTileColor
+                shareLabel.fontSize = 18
+                shareLabel.position = CGPointMake(50, -50)
+                scoreNode.addChild(shareLabel)
+                
+                // Make the game won layout appears
+                self.scoreLayer.addChild(scoreNode)
+                let fadeIn = SKAction.fadeInWithDuration(0.3)
+                scoreNode.runAction(fadeIn)
             }
         }
     }
@@ -241,6 +282,10 @@ class GameScene: SKScene {
         let touch = touches.first!
         let location = touch.locationInNode(tileLayer)
         
+        if board.gameOver {
+            return
+        }
+        
         let (success, column, row) = convertPoint(location)
         if success {
             if let tile = board.getTile(column, y: row) {
@@ -252,6 +297,10 @@ class GameScene: SKScene {
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches.first!
         let location = touch.locationInNode(tileLayer)
+        
+        if board.gameOver {
+            return
+        }
         
         let (success, column, row) = convertPoint(location)
         if success && selectedTile != nil {
@@ -289,6 +338,23 @@ class GameScene: SKScene {
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches.first!
+        
+        if board.gameOver {
+            let location = touch.locationInNode(scoreLayer)
+            guard let name = scoreLayer.nodeAtPoint(location).name else { return }
+            
+            switch name {
+            case "play":
+                controller.startGame()
+            case "share":
+                controller.shareGame()
+            default:
+                break
+            }
+            
+            return
+        }
+        
         let location = touch.locationInNode(tileLayer)
         
         let (success, _, _) = convertPoint(location)
@@ -378,5 +444,24 @@ class GameScene: SKScene {
         
         // Returning the texture
         return texture!
+    }
+}
+
+extension NSTimeInterval {
+    var formattedHoursMinutesSecondsMilliseconds: String {
+        if Int(self) > 59 {
+            return String(format:"%dmin %02ds %03dms", minute , second, millisecond)
+        } else {
+            return String(format:"%02ds %03dms", second, millisecond)
+        }
+    }
+    var minute: Int {
+        return Int((self/60.0)%60)
+    }
+    var second: Int {
+        return Int(self % 60)
+    }
+    var millisecond: Int {
+        return Int(self*1000 % 1000 )
     }
 }
