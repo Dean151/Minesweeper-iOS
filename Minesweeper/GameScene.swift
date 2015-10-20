@@ -11,7 +11,7 @@ import SpriteKit
 import HexColors
 
 class GameScene: SKScene {
-    let maxTileSize: CGFloat = 65
+    
     
     let board: Board
     unowned let controller: GameViewController
@@ -82,9 +82,9 @@ class GameScene: SKScene {
     }
     
     func resizeBoard(animated animated: Bool) {
-        let size = self.size
+        let size = CGSizeMake(self.size.width - Theme.minSideBorder, self.size.height - Theme.minSideBorder)
             
-        self.tileSize = min(size.width / CGFloat(board.width), size.height / CGFloat(board.height), maxTileSize)
+        self.tileSize = min(size.width / CGFloat(board.width), size.height / CGFloat(board.height), Theme.maxTileSize)
         tileLayer.position = CGPoint(
             x: -tileSize * CGFloat(board.width) / 2,
             y: -tileSize * CGFloat(board.height) / 2)
@@ -206,7 +206,9 @@ class GameScene: SKScene {
     func presentMinesWithAnimation(cliquedTile: Tile) {
         let minesTiles = board.tiles.filter({ (tile: Tile) in return tile.isMine })
         
-        changeTilesWithAnimation(minesTiles, cliquedTile: cliquedTile, randomDelay: !board.isGameWon) { Void in self.showGameOverScreen() }
+        changeTilesWithAnimation(minesTiles, cliquedTile: cliquedTile, randomDelay: !board.isGameWon) { Void in
+            self.showGameOverScreen()
+        }
     }
     
     func showGameOverScreen() {

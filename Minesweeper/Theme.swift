@@ -74,4 +74,12 @@ class Theme {
     static var alphaForOveredTile: CGFloat {
         return 0.8
     }
+    
+    static var maxTileSize: CGFloat {
+        return 65
+    }
+    
+    static var minSideBorder: CGFloat {
+        return 10
+    }
 }
