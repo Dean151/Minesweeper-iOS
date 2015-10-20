@@ -19,9 +19,11 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = Theme.backgroundColor
         
         // Creating SKView
         skView = SKView(frame: self.view.frame)
+        skView.backgroundColor = Theme.backgroundColor
         self.view.addSubview(skView)
         skView.snp_makeConstraints(closure: { (make) -> Void in
             make.edges.equalTo(self.view).inset(UIEdgeInsetsMake(0, 0, 0, 0))

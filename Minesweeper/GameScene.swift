@@ -11,8 +11,6 @@ import SpriteKit
 import HexColors
 
 class GameScene: SKScene {
-    
-    
     let board: Board
     unowned let controller: GameViewController
     var tileSize: CGFloat
@@ -21,7 +19,7 @@ class GameScene: SKScene {
     let tileLayer = SKNode()
     let scoreLayer = SKNode()
     
-    var textures = [SKTexture?](count: 14, repeatedValue: nil)
+    var textures = [SKTexture?](count: 16, repeatedValue: nil)
     
     var timerForMarking: NSTimer!
     
@@ -208,6 +206,12 @@ class GameScene: SKScene {
     func presentMinesWithAnimation(cliquedTile: Tile) {
         let minesTiles = board.tiles.filter({ (tile: Tile) in return tile.isMine })
         
+        // Creating textures for win and lost
+        if textures[14] == nil || textures[15] == nil {
+            textureForGameOver(true)
+            textureForGameOver(false)
+        }
+        
         changeTilesWithAnimation(minesTiles, cliquedTile: cliquedTile, randomDelay: !board.isGameWon) { Void in
             self.showGameOverScreen()
         }
@@ -217,13 +221,7 @@ class GameScene: SKScene {
         runAction(SKAction.waitForDuration(0.1)) {
             Void in
             if self.board.isGameWon {
-                let width: CGFloat = 300
-                let height: CGFloat = 170
-                let rect = CGRectMake(-width/2, -height/2, width, height)
-                
-                let scoreNode = SKShapeNode(rect: rect, cornerRadius: 10)
-                scoreNode.fillColor = Theme.gameOverBackgroundColor
-                scoreNode.strokeColor = Theme.gameOverBorderColor
+                let scoreNode = SKSpriteNode(texture: self.textureForGameOver(true))
                 scoreNode.alpha = 0
                 
                 let gameWonLabel = SKLabelNode(fontNamed: "Noteworthy")
@@ -256,17 +254,12 @@ class GameScene: SKScene {
                 scoreNode.addChild(shareLabel)
                 
                 // Make the game won layout appears
+                scoreNode.setScale(0.7)
                 self.scoreLayer.addChild(scoreNode)
-                let fadeIn = SKAction.fadeInWithDuration(0.3)
+                let fadeIn = SKAction.group([SKAction.fadeInWithDuration(0.3), SKAction.scaleTo(1, duration: 0.3)])
                 scoreNode.runAction(fadeIn)
             } else {
-                let width: CGFloat = 250
-                let height: CGFloat = 100
-                let rect = CGRectMake(-width/2, -height/2, width, height)
-                
-                let scoreNode = SKShapeNode(rect: rect, cornerRadius: 10)
-                scoreNode.fillColor = Theme.gameOverBackgroundColor
-                scoreNode.strokeColor = Theme.gameOverBorderColor
+                let scoreNode = SKSpriteNode(texture: self.textureForGameOver(false))
                 scoreNode.alpha = 0
                 
                 let gameLostLabel = SKLabelNode(fontNamed: "Noteworthy")
@@ -284,8 +277,9 @@ class GameScene: SKScene {
                 scoreNode.addChild(playLabel)
                 
                 // Make the game over layout appears
+                scoreNode.setScale(0.7)
                 self.scoreLayer.addChild(scoreNode)
-                let fadeIn = SKAction.fadeInWithDuration(0.3)
+                let fadeIn = SKAction.group([SKAction.fadeInWithDuration(0.3), SKAction.scaleTo(1, duration: 0.3)])
                 scoreNode.runAction(fadeIn)
             }
         }
@@ -475,6 +469,19 @@ class GameScene: SKScene {
         textures[mineType] = texture
         
         // Returning the texture
+        return texture!
+    }
+    
+    func textureForGameOver(winned: Bool) -> SKTexture {
+        if let tex = textures[winned ? 14 : 15] {
+            return tex
+        }
+        
+        let node = SKShapeNode(rect: winned ? Theme.gameWonSize : Theme.gameLostSize, cornerRadius: 10)
+        node.fillColor = Theme.gameOverBackgroundColor
+        node.strokeColor = Theme.gameOverBorderColor
+        let texture = self.view!.textureFromNode(node)
+        textures[winned ? 14 : 15] = texture
         return texture!
     }
 }

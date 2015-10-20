@@ -90,4 +90,14 @@ class Theme {
     static var minSideBorder: CGFloat {
         return 10
     }
+    
+    static var gameWonSize: CGRect {
+        let size: CGSize = CGSizeMake(300, 170)
+        return CGRectMake(-size.width/2, -size.height/2, size.width, size.height)
+    }
+    
+    static var gameLostSize: CGRect {
+        let size: CGSize = CGSizeMake(250, 100)
+        return CGRectMake(-size.width/2, -size.height/2, size.width, size.height)
+    }
 }
