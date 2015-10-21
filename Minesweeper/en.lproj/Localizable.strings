@@ -35,12 +35,14 @@
 "MINESWEEPER" = "Minesweeper";
 "NEW_GAME" = "New Game";
 "PREMIUM_FEATURES" = "Premium features";
+"PREMIUM_FEATURES_TEXT" = "With a single purchase, get two new levels of difficutly: hard and insane; and play without any ads!";
 "PLAY_AGAIN" = "Play again";
 "RESET_ALL_STATISTICS" = "Reset all statistics";
 "RESTORE" = "Restore previous purchase";
 "SCORE" = "Score";
 "SETTINGS" = "Settings";
 "SHARE" = "Share";
+"SHARE_TEXT" = "I just made %@ on %@ level on iOS Minimal Minesweeper : http://apple.co/1W5Xw2K";
 "STATISTICS" = "Statistics";
 "THANK_YOU" = "Thank You";
 "TOO_BAD!" = "Too bad!";

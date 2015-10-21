@@ -35,12 +35,14 @@
 "MINESWEEPER" = "Démineur";
 "NEW_GAME" = "Nouveau";
 "PREMIUM_FEATURES" = "Fonctionnalités payantes";
+"PREMIUM_FEATURES_TEXT" = "Pour un achat unique, disposez de deux niveaux de difficultés supplémentaires : difficile et impossible ; et jouez sans aucune publicité !";
 "PLAY_AGAIN" = "Rejouer";
 "RESET_ALL_STATISTICS" = "Réinitialiser les statistiques";
 "RESTORE" = "Restaurer l'achat";
 "SCORE" = "Score ";
 "SETTINGS" = "Paramètres";
 "SHARE" = "Partager";
+"SHARE_TEXT" = "Je viens de faire %@ au niveau %@ sur iOS Minimal Minesweeper : http://apple.co/1W5Xw2K";
 "STATISTICS" = "Statistiques";
 "THANK_YOU" = "Merci";
 "TOO_BAD!" = "Dommage !";

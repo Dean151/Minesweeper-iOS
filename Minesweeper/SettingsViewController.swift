@@ -201,7 +201,6 @@ class SettingsViewController: FormViewController {
     
     func presentAvantagesOfFullVersion() {
         let alertView = UIAlertController(title: NSLocalizedString("PREMIUM_FEATURES", comment: ""), message: NSLocalizedString("PREMIUM_FEATURES_TEXT", comment: ""), preferredStyle: .Alert)
-        // TODO present Full Version text
         
         let dismissAction = UIAlertAction(title: NSLocalizedString("DISMISS", comment: ""), style: .Cancel, handler: nil)
         alertView.addAction(dismissAction)

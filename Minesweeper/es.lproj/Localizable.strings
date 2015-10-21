@@ -35,12 +35,14 @@
 "MINESWEEPER" = "Buscaminas";
 "NEW_GAME" = "Nuevo juego";
 "PREMIUM_FEATURES" = "Características premium";
+"PREMIUM_FEATURES_TEXT" = "Con una sola compra, obtener dos nuevos niveles de dificultad: difícil y demente; y jugar sin ningún anuncio!";
 "PLAY_AGAIN" = "Nuevo";
 "RESET_ALL_STATISTICS" = "Reinicializar las estadísticas";
 "RESTORE" = "Restaurar compra anterior";
 "SCORE" = "Score";
 "SETTINGS" = "Parámetros";
 "SHARE" = "Compartir";
+"SHARE_TEXT" = "Tengo sólo %@ de nivel %@ con iOS Minimal Minesweeper : http://apple.co/1W5Xw2K";
 "STATISTICS" = "Estadística";
 "THANK_YOU" = "Muchas gracias";
 "TOO_BAD!" = "Que lástima!";

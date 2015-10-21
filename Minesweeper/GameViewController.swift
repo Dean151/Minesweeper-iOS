@@ -101,13 +101,15 @@ class GameViewController: UIViewController {
     }
     
     func shareGame(rect: CGRect) {
-        let shareText: String = "" // TODO: write share text
-        let shareView = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
-        if let popover = shareView.popoverPresentationController {
-            popover.sourceView = skView
-            popover.sourceRect = skView.convertRect(rect, fromView: self.view)
+        if let board = scene?.board {
+            let shareText: String = String.localizedStringWithFormat(NSLocalizedString("SHARE_TEXT", comment: ""), board.score!.formattedHoursMinutesSecondsMilliseconds, board.difficulty.shortDescription)
+            let shareView = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+            if let popover = shareView.popoverPresentationController {
+                popover.sourceView = skView
+                popover.sourceRect = skView.convertRect(rect, fromView: self.view)
+            }
+            self.presentViewController(shareView, animated: true, completion: nil)
         }
-        self.presentViewController(shareView, animated: true, completion: nil)
     }
     
     override func viewDidLayoutSubviews() {
