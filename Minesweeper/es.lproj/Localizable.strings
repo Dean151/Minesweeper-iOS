@@ -8,8 +8,10 @@
 
 "ABOUT_PREMIUM" = "Acerca de las características premium";
 "ACHIEVEMENTS" = "Logros";
+"ALL_DIFFICULTIES" = "Todas las dificultades";
 "BUY_PREMIUM" = "Comprar el juego";
 "BUY_PREMIUM_WITH_PRICE" = "Comprar el juego (%@)";
+"CANCEL" = "Cancelar";
 "CONGRATULATIONS!" = "¡Felicidades!";
 "DIFFICULTY" = "Dificultad";
 "DIG" = "Revelar";
@@ -17,11 +19,14 @@
 "EASY" = "Fácil";
 "GAME_CENTER" = "Game Center";
 "GAMEPLAY" = "Gameplay";
+"GAMES_FINISHED" = "Juegos terminaron";
+"GAMES_STARTED" = "Juegos comenzaron";
 "HARD" = "Difícil";
 "HIDE_TOOLBAR" = "Ocultar la barra";
 "IAP_SUCCESS" = "Ahora tiene un acceso ilimitado a todas las funciones de la aplicación. Gracias !";
 "INSANE" = "Demente";
 "LEADERBOARDS" = "Clasificación";
+"LOST_GAMES" = "Juegos perdidos";
 "MARK" = "Marcar";
 "MARK_WITH_DEEP_PRESS" = "Pulse profondo para marcar";
 "MARK_WITH_LONG_PRESS" = "Mantenga para marcar";
@@ -30,10 +35,15 @@
 "NEW_GAME" = "Nuevo juego";
 "PREMIUM_FEATURES" = "Características premium";
 "PLAY_AGAIN" = "Nuevo";
+"RESET_ALL_STATISTICS" = "Reinicializar las estadísticas";
 "RESTORE" = "Restaurar compra anterior";
 "SCORE" = "Score";
 "SETTINGS" = "Parámetros";
 "SHARE" = "Compartir";
+"STATISTICS" = "Estadística";
 "THANK_YOU" = "Muchas gracias";
 "TOO_BAD!" = "Que lástima!";
+"UNKNOWN" = "Desconocido";
 "VIBRATIONS" = "Vibraciones";
+"WIN_RATE" = "Tasa de victoria";
+"WON_GAMES" = "Juegos ganados";

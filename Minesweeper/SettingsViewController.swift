@@ -63,6 +63,14 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
                         self.presentAvantagesOfFullVersion()
                     }
             }
+            <<< ButtonRow("stats") {
+                $0.title = NSLocalizedString("STATISTICS", comment: "")
+            }.onCellSelection { form in
+                self.deselectRows()
+                
+                let statsVC = StatsTableViewController(style: .Grouped)
+                self.navigationController!.pushViewController(statsVC, animated: true)
+            }
             
             +++ Section() {
                 $0.header = HeaderFooterView<UIView>(stringLiteral: NSLocalizedString("PREMIUM_FEATURES", comment: ""))

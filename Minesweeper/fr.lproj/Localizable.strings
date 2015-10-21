@@ -8,8 +8,10 @@
 
 "ABOUT_PREMIUM" = "À propos de la version payante";
 "ACHIEVEMENTS" = "Réalisations";
+"ALL_DIFFICULTIES" = "Toutes difficultés";
 "BUY_PREMIUM" = "Acheter le jeu";
 "BUY_PREMIUM_WITH_PRICE" = "Acheter le jeu (%@)";
+"CANCEL" = "Annuler";
 "CONGRATULATIONS!" = "Félicitations !";
 "DIFFICULTY" = "Difficulté";
 "DIG" = "Révéler";
@@ -17,11 +19,14 @@
 "EASY" = "Facile";
 "GAME_CENTER" = "Game Center";
 "GAMEPLAY" = "Jouabilité";
+"GAMES_FINISHED" = "Parties terminées";
+"GAMES_STARTED" = "Parties commencées";
 "HARD" = "Difficile";
 "HIDE_TOOLBAR" = "Cacher la barre d'outils";
 "IAP_SUCCESS" = "Vous avez maintenant accès à toutes les fonctionnalités premium. Merci !";
 "INSANE" = "Impossible";
 "LEADERBOARDS" = "Classements";
+"LOST_GAMES" = "Parties perdues";
 "MARK" = "Marquer";
 "MARK_WITH_DEEP_PRESS" = "Forte pression pour marquer";
 "MARK_WITH_LONG_PRESS" = "Maintenir pour marquer";
@@ -30,10 +35,15 @@
 "NEW_GAME" = "Nouveau";
 "PREMIUM_FEATURES" = "Fonctionnalités payantes";
 "PLAY_AGAIN" = "Rejouer";
+"RESET_ALL_STATISTICS" = "Réinitialiser les statistiques";
 "RESTORE" = "Restaurer l'achat";
 "SCORE" = "Score ";
 "SETTINGS" = "Paramètres";
 "SHARE" = "Partager";
+"STATISTICS" = "Statistiques";
 "THANK_YOU" = "Merci";
 "TOO_BAD!" = "Dommage !";
+"UNKNOWN" = "Inconnu";
 "VIBRATIONS" = "Vibrations";
+"WIN_RATE" = "Taux de victoire";
+"WON_GAMES" = "Parties gagnées";

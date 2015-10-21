@@ -8,8 +8,10 @@
 
 "ABOUT_PREMIUM" = "About premium features";
 "ACHIEVEMENTS" = "Achievements";
+"ALL_DIFFICULTIES" = "All difficulties";
 "BUY_PREMIUM" = "Unlock all features";
 "BUY_PREMIUM_WITH_PRICE" = "Unlock all features (%@)";
+"CANCEL" = "Cancel";
 "CONGRATULATIONS!" = "Congratulations!";
 "DIFFICULTY" = "Difficulty";
 "DIG" = "Reveal";
@@ -17,11 +19,14 @@
 "EASY" = "Easy";
 "GAME_CENTER" = "Game Center";
 "GAMEPLAY" = "Gameplay";
+"GAMES_FINISHED" = "Games finished";
+"GAMES_STARTED" = "Games started";
 "HARD" = "Hard";
 "HIDE_TOOLBAR" = "Hide toolbar";
 "IAP_SUCCESS" = "You now have an unlimited access to all features of the app. Thanks !";
 "INSANE" = "Insane";
 "LEADERBOARDS" = "Leaderboards";
+"LOST_GAMES" = "Lost games";
 "MARK" = "Mark";
 "MARK_WITH_DEEP_PRESS" = "Mark with deep press";
 "MARK_WITH_LONG_PRESS" = "Mark with long press";
@@ -30,10 +35,15 @@
 "NEW_GAME" = "New Game";
 "PREMIUM_FEATURES" = "Premium features";
 "PLAY_AGAIN" = "Play again";
+"RESET_ALL_STATISTICS" = "Reset all statistics";
 "RESTORE" = "Restore previous purchase";
 "SCORE" = "Score";
 "SETTINGS" = "Settings";
 "SHARE" = "Share";
+"STATISTICS" = "Statistics";
 "THANK_YOU" = "Thank You";
 "TOO_BAD!" = "Too bad!";
+"UNKNOWN" = "Unknown";
 "VIBRATIONS" = "Vibrations";
+"WIN_RATE" = "Win rate";
+"WON_GAMES" = "Won games";
