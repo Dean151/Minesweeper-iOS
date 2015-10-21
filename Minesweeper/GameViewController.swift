@@ -109,7 +109,6 @@ class GameViewController: UIViewController {
         let shareText: String = "" // TODO: write share text
         let shareView = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
         if let popover = shareView.popoverPresentationController {
-            // FIXME: fix source frame to present popover on iPad
             popover.sourceView = skView
             popover.sourceRect = skView.convertRect(rect, fromView: self.view)
         }

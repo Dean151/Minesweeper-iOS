@@ -65,11 +65,9 @@ class StatsTableViewController: UITableViewController, UIActionSheetDelegate {
     
     // MARK: UIActionSheetDelegate
     
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
-        if buttonIndex == 0 {
-            GameCounter.sharedInstance.resetAllStats()
-            tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
-        }
+    func confirmReset(sender: UIAlertAction) {
+        GameCounter.sharedInstance.resetAllStats()
+        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
     }
     
     // MARK: TableViewDelegate
@@ -77,9 +75,15 @@ class StatsTableViewController: UITableViewController, UIActionSheetDelegate {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         if indexPath.section == 1 {
-            let actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: NSLocalizedString("CANCEL", comment: ""), destructiveButtonTitle: NSLocalizedString("RESET_ALL_STATISTICS", comment: ""))
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
             
-            actionSheet.showInView(self.view)
+            let actionConfirm = UIAlertAction(title: NSLocalizedString("RESET_ALL_STATISTICS", comment: ""), style: .Destructive, handler: confirmReset)
+            let actionCancel = UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: .Cancel, handler: nil)
+            
+            alertController.addAction(actionConfirm)
+            alertController.addAction(actionCancel)
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
         }
     }
     
