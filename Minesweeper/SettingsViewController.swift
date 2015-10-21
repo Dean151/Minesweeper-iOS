@@ -8,14 +8,14 @@
 
 import UIKit
 
-import EasyGameCenter
 import Eureka
 import GameKit
+import GCHelper
 import IAPController
 
 import Crashlytics
 
-class SettingsViewController: FormViewController, GKGameCenterControllerDelegate {
+class SettingsViewController: FormViewController {
     
     var parentVC: GameViewController?
     
@@ -72,9 +72,9 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
                 self.navigationController!.pushViewController(statsVC, animated: true)
             }
             
-            +++ Section() {
+            +++ Section("Premium") {
                 $0.header = HeaderFooterView<UIView>(stringLiteral: NSLocalizedString("PREMIUM_FEATURES", comment: ""))
-                $0.hidden = .Function(["Premium Features"], { form -> Bool in
+                $0.hidden = .Function(["Premium"], { form -> Bool in
                     return Settings.sharedInstance.completeVersionPurchased
                 })
             }
@@ -162,26 +162,22 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
             +++ Section() {
                 $0.header = HeaderFooterView<UIView>(stringLiteral: NSLocalizedString("GAME_CENTER", comment: ""))
                 $0.hidden = .Function(["gamecenter"], { form -> Bool in
-                    return !EGC.isPlayerIdentified
+                    return !GCHelper.sharedInstance.isUserAuthenticated
                 })
             }
             <<< ButtonRow("leaderboards") {
                 $0.title = NSLocalizedString("LEADERBOARDS", comment: "")
                 }.onCellSelection({ cell, row in
                     self.deselectRows()
-                    let gcvc = GKGameCenterViewController()
-                    gcvc.viewState = .Leaderboards
-                    gcvc.gameCenterDelegate = self
-                    self.presentViewController(gcvc, animated: true, completion: nil)
+                    
+                    GCHelper.sharedInstance.showGameCenter(self, viewState: .Leaderboards)
                 })
             <<< ButtonRow("achievements") {
                 $0.title = NSLocalizedString("ACHIEVEMENTS", comment: "")
             }.onCellSelection({ cell, row in
                 self.deselectRows()
-                let gcvc = GKGameCenterViewController()
-                gcvc.viewState = .Achievements
-                gcvc.gameCenterDelegate = self
-                self.presentViewController(gcvc, animated: true, completion: nil)
+                
+                GCHelper.sharedInstance.showGameCenter(self, viewState: .Achievements)
             })
     }
     
@@ -204,13 +200,13 @@ class SettingsViewController: FormViewController, GKGameCenterControllerDelegate
     }
     
     func presentAvantagesOfFullVersion() {
-        // TODO present avantages of Full Version
-    }
-    
-    // MARK : GameCenterControllerDelegate
-    
-    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
-        gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+        let alertView = UIAlertController(title: NSLocalizedString("PREMIUM_FEATURES", comment: ""), message: NSLocalizedString("PREMIUM_FEATURES_TEXT", comment: ""), preferredStyle: .Alert)
+        // TODO present Full Version text
+        
+        let dismissAction = UIAlertAction(title: NSLocalizedString("DISMISS", comment: ""), style: .Cancel, handler: nil)
+        alertView.addAction(dismissAction)
+        
+        self.presentViewController(alertView, animated: true, completion: nil)
     }
     
     // MARK: In-App Purchases

@@ -8,7 +8,7 @@
 
 import Crashlytics
 import Foundation
-import EasyGameCenter
+import GCHelper
 
 class GameCounter {
     private let nbGameWonString = "won"
@@ -67,15 +67,15 @@ class GameCounter {
         
         // Achievement for One game
         let achievementIdentifier = "fr.Dean.Minesweeper.\(difficulty.rawValue)GameWon"
-        EGC.reportAchievement(progress: 100.0, achievementIdentifier: achievementIdentifier)
+        GCHelper.sharedInstance.reportAchievementIdentifier(achievementIdentifier, percent: 100.0)
         
         // Achievement for Ten games
         let achievementIdentifierTen = "fr.Dean.Minesweeper.Ten\(difficulty.rawValue)GameWon"
-        EGC.reportAchievement(progress: 10.0, achievementIdentifier: achievementIdentifierTen, showBannnerIfCompleted: true, addToExisting: true)
+        GCHelper.sharedInstance.reportAchievementIdentifier(achievementIdentifierTen, percent: 10, showCompletionBanner: true, addToExistingAvancement: true)
         
         // Achievement for Hundred games
         let achievementIdentifierHundred = "fr.Dean.Minesweeper.HundredGamesWon"
-        EGC.reportAchievement(progress: 1.0, achievementIdentifier: achievementIdentifierHundred, showBannnerIfCompleted: true, addToExisting: true)
+        GCHelper.sharedInstance.reportAchievementIdentifier(achievementIdentifierHundred, percent: 1, showCompletionBanner: true, addToExistingAvancement: true)
     }
     
     func countGameStarted(difficulty: GameDifficulty) {
@@ -95,8 +95,7 @@ class GameCounter {
     func reportScore(score: NSTimeInterval, forDifficulty: GameDifficulty) {
         let leaderboardIdentifier = "fr.Dean.Minesweeper.\(forDifficulty.rawValue)"
         let score2submit = Int(100 * Double(score))
-        print("Reporting score : \(score2submit)")
-        EGC.reportScoreLeaderboard(leaderboardIdentifier: leaderboardIdentifier, score: score2submit)
+        GCHelper.sharedInstance.reportLeaderboardIdentifier(leaderboardIdentifier, score: score2submit)
     }
     
     func resetAllStats() {

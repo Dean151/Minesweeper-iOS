@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Thomas Durand. All rights reserved.
 //
 
-import EasyGameCenter
 import Foundation
 import SnapKit
 import SpriteKit
@@ -43,10 +42,6 @@ class GameViewController: UIViewController {
         let segmItem = UIBarButtonItem(customView: playOrFlagControl)
         
         self.toolbarItems = [space, segmItem, space]
-        
-        // GameCenter initialiser
-        EGC.sharedInstance(self)
-        EGC.debugMode = true
     }
     
     override func viewWillAppear(animated: Bool) {

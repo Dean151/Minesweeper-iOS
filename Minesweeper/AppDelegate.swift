@@ -10,6 +10,7 @@ import UIKit
 import Crashlytics
 import Fabric
 import iRate
+import GCHelper
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,6 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Ask user for rating
         iRate.sharedInstance().appStoreID = 1029488767
         iRate.sharedInstance().verboseLogging = false
+        
+        // Game Center
+        GCHelper.sharedInstance.authenticateLocalUser()
         
         // Fabric tracking
         Fabric.with([Crashlytics.self()])
