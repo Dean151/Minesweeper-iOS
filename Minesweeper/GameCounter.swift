@@ -71,11 +71,13 @@ class GameCounter {
         
         // Achievement for Ten games
         let achievementIdentifierTen = "fr.Dean.Minesweeper.Ten\(difficulty.rawValue)GameWon"
-        GCHelper.sharedInstance.reportAchievementIdentifier(achievementIdentifierTen, percent: 10, showCompletionBanner: true, addToExistingAvancement: true)
+        let progressTen = min(Double((nb+1)*10), 100)
+        GCHelper.sharedInstance.reportAchievementIdentifier(achievementIdentifierTen, percent: progressTen)
         
         // Achievement for Hundred games
         let achievementIdentifierHundred = "fr.Dean.Minesweeper.HundredGamesWon"
-        GCHelper.sharedInstance.reportAchievementIdentifier(achievementIdentifierHundred, percent: 1, showCompletionBanner: true, addToExistingAvancement: true)
+        let progressHundred = min(Double((self.nbGameWon)), 100)
+        GCHelper.sharedInstance.reportAchievementIdentifier(achievementIdentifierHundred, percent: progressHundred)
     }
     
     func countGameStarted(difficulty: GameDifficulty) {
