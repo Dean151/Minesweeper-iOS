@@ -9,6 +9,7 @@
 import Crashlytics
 import Foundation
 import GCHelper
+import SecureNSUserDefaults
 
 class GameCounter {
     private let nbGameWonString = "won"
@@ -19,6 +20,13 @@ class GameCounter {
     
     // Singleton
     static let sharedInstance = GameCounter()
+    
+    init() {
+        guard let key = NSBundle.mainBundle().objectForInfoDictionaryKey("SecureNSUserDefaultKey") as? String else {
+            fatalError("Could access encryption key")
+        }
+        userDefault.setSecret(key)
+    }
     
     var nbGameWon: Int {
         var nb = 0
@@ -46,22 +54,22 @@ class GameCounter {
     
     // Number of game won for a difficulty
     func getNbGameWon(difficulty: GameDifficulty) -> Int {
-        return userDefault.integerForKey(difficulty.rawValue + nbGameWonString)
+        return userDefault.secretIntegerForKey(difficulty.rawValue + nbGameWonString)
     }
     
     // Number of game initiated for a difficulty
     func getNbGameStarted(difficulty: GameDifficulty) -> Int {
-        return userDefault.integerForKey(difficulty.rawValue + nbGameStartedString)
+        return userDefault.secretIntegerForKey(difficulty.rawValue + nbGameStartedString)
     }
     
     // Number of game concluded for a difficulty
     func getNbGameLost(difficulty: GameDifficulty) -> Int {
-        return userDefault.integerForKey(difficulty.rawValue + nbGameLostString)
+        return userDefault.secretIntegerForKey(difficulty.rawValue + nbGameLostString)
     }
     
     func countGameWon(difficulty: GameDifficulty) {
         let nb = getNbGameWon(difficulty)
-        userDefault.setInteger(nb+1, forKey: difficulty.rawValue + nbGameWonString)
+        userDefault.setSecretInteger(nb+1, forKey: difficulty.rawValue + nbGameWonString)
         
         Answers.logCustomEventWithName("GameWon", customAttributes: ["Difficulty": difficulty.rawValue])
         
@@ -82,14 +90,14 @@ class GameCounter {
     
     func countGameStarted(difficulty: GameDifficulty) {
         let nb = getNbGameStarted(difficulty)
-        userDefault.setInteger(nb+1, forKey: difficulty.rawValue + nbGameStartedString)
+        userDefault.setSecretInteger(nb+1, forKey: difficulty.rawValue + nbGameStartedString)
         
         Answers.logCustomEventWithName("GameStarted", customAttributes: ["Difficulty": difficulty.rawValue])
     }
     
     func countGameLost(difficulty: GameDifficulty) {
         let nb = getNbGameLost(difficulty)
-        userDefault.setInteger(nb+1, forKey: difficulty.rawValue + nbGameLostString)
+        userDefault.setSecretInteger(nb+1, forKey: difficulty.rawValue + nbGameLostString)
         
         Answers.logCustomEventWithName("GameLost", customAttributes: ["Difficulty": difficulty.rawValue])
     }
@@ -102,9 +110,9 @@ class GameCounter {
     
     func resetAllStats() {
         for difficulty in GameDifficulty.allValues {
-            userDefault.setInteger(0, forKey: difficulty.rawValue + nbGameStartedString)
-            userDefault.setInteger(0, forKey: difficulty.rawValue + nbGameWonString)
-            userDefault.setInteger(0, forKey: difficulty.rawValue + nbGameLostString)
+            userDefault.setSecretInteger(0, forKey: difficulty.rawValue + nbGameStartedString)
+            userDefault.setSecretInteger(0, forKey: difficulty.rawValue + nbGameWonString)
+            userDefault.setSecretInteger(0, forKey: difficulty.rawValue + nbGameLostString)
         }
     }
 }

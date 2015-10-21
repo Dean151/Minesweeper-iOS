@@ -25,7 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Ask user for rating
         iRate.sharedInstance().appStoreID = 1029488767
-        iRate.sharedInstance().verboseLogging = false
         
         // Game Center
         GCHelper.sharedInstance.authenticateLocalUser()

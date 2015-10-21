@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SecureNSUserDefaults
 
 class Settings {
     private let difficultyString = "difficulty"
@@ -20,6 +21,13 @@ class Settings {
     
     // Singleton
     static let sharedInstance = Settings()
+    
+    init() {
+        guard let key = NSBundle.mainBundle().objectForInfoDictionaryKey("SecureNSUserDefaultKey") as? String else {
+            fatalError("Could access encryption key")
+        }
+        userDefault.setSecret(key)
+    }
     
     var difficulty: GameDifficulty {
         get {
@@ -82,10 +90,10 @@ class Settings {
     // Complete 
     var completeVersionPurchased: Bool {
         get {
-            return userDefault.boolForKey(completeVersionString)
+            return userDefault.secretBoolForKey(completeVersionString)
         }
         set {
-            userDefault.setBool(newValue, forKey: completeVersionString)
+            userDefault.setSecretBool(newValue, forKey: completeVersionString)
         }
     }
 }
