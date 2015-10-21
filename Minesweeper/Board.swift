@@ -12,12 +12,16 @@ enum GameDifficulty: String, CustomStringConvertible {
     case Easy = "Easy", Medium = "Medium", Hard = "Hard", Insane = "Insane"
     
     var description: String {
-        let difficulty = NSLocalizedString(rawValue.uppercaseString, comment: "")
+        let difficulty = self.shortDescription
         if difficultyAvailable {
             return difficulty
         } else {
             return "\(difficulty) (Premium)"
         }
+    }
+    
+    var shortDescription: String {
+        return NSLocalizedString(rawValue.uppercaseString, comment: "")
     }
     
     var size: (width: Int, height: Int) {
@@ -61,12 +65,40 @@ enum GameDifficulty: String, CustomStringConvertible {
         return values[rand]
     }
     
+    static func fromInt(value: Int) -> GameDifficulty? {
+        switch value {
+        case 1:
+            return .Easy
+        case 2:
+            return .Medium
+        case 3:
+            return .Hard
+        case 4:
+            return .Insane
+        default:
+            return nil
+        }
+    }
+    
+    var toInt: Int {
+        switch self {
+        case .Easy:
+            return 1
+        case .Medium:
+            return 2
+        case .Hard:
+            return 3
+        case .Insane:
+            return 4
+        }
+    }
+    
     static var allValues: [GameDifficulty] {
         return [.Easy, .Medium, .Hard, .Insane]
     }
     
-    static var allRawValues: [String] {
-        return allValues.map({ $0.rawValue })
+    static var allShortDescValues: [String] {
+        return allValues.map({ $0.shortDescription })
     }
 }
 

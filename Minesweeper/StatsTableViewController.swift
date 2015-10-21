@@ -13,6 +13,7 @@ class StatsTableViewController: UITableViewController, UIActionSheetDelegate {
     let reusableCellIdentifier = "cell"
     
     var difficulty: GameDifficulty?
+    var difficultyControl: UISegmentedControl!
     
     override init(style: UITableViewStyle) {
         super.init(style: style)
@@ -26,6 +27,40 @@ class StatsTableViewController: UITableViewController, UIActionSheetDelegate {
         super.viewDidLoad()
         
         self.navigationItem.title = NSLocalizedString("STATISTICS", comment: "")
+        self.navigationController!.toolbarHidden = false
+        
+        // Creating segmented toolbar
+        let items = [NSLocalizedString("ALL", comment: "")] + GameDifficulty.allShortDescValues
+        difficultyControl = UISegmentedControl(items: items)
+        difficultyControl.apportionsSegmentWidthsByContent = true
+        difficultyControl.selectedSegmentIndex = 0
+        difficultyControl.addTarget(self, action: "segmentedControlChanged:", forControlEvents: .ValueChanged);
+        
+        let frame = difficultyControl.frame
+        let newFrame = CGRectMake(frame.origin.x, frame.origin.y, 300, frame.height)
+        difficultyControl.frame = newFrame
+
+        let space = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
+        let segmItem = UIBarButtonItem(customView: difficultyControl)
+        
+        self.toolbarItems = [space, segmItem, space]
+    }
+    
+    func segmentedControlChanged(sender: UISegmentedControl) {
+        var animation = UITableViewRowAnimation.Automatic
+        
+        if sender.selectedSegmentIndex == 0 {
+            self.difficulty = nil
+            animation = .Right
+        } else {
+            if let diff = self.difficulty {
+                animation = (diff.toInt < sender.selectedSegmentIndex) ? .Left : .Right
+            } else {
+                animation = .Left
+            }
+            self.difficulty = GameDifficulty.fromInt(sender.selectedSegmentIndex)
+        }
+        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: animation)
     }
     
     // MARK: UIActionSheetDelegate
@@ -33,7 +68,7 @@ class StatsTableViewController: UITableViewController, UIActionSheetDelegate {
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         if buttonIndex == 0 {
             GameCounter.sharedInstance.resetAllStats()
-            tableView.reloadData()
+            tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
         }
     }
     
