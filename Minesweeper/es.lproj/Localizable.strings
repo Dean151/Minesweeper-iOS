@@ -3,6 +3,7 @@
   Minesweeper
 
   Created by Thomas Durand on 18/10/2015.
+  Corrected by Marta Larrañaga on 22/10/2015
   Copyright © 2015 Thomas Durand. All rights reserved.
 */
 
@@ -20,8 +21,8 @@
 "EASY" = "Fácil";
 "GAME_CENTER" = "Game Center";
 "GAMEPLAY" = "Gameplay";
-"GAMES_FINISHED" = "Juegos terminaron";
-"GAMES_STARTED" = "Juegos comenzaron";
+"GAMES_FINISHED" = "Juegos acabados";
+"GAMES_STARTED" = "Juegos empezados";
 "HARD" = "Difícil";
 "HIDE_TOOLBAR" = "Ocultar la barra";
 "IAP_SUCCESS" = "Ahora tiene un acceso ilimitado a todas las funciones de la aplicación. Gracias !";
@@ -29,7 +30,7 @@
 "LEADERBOARDS" = "Clasificación";
 "LOST_GAMES" = "Juegos perdidos";
 "MARK" = "Marcar";
-"MARK_WITH_DEEP_PRESS" = "Pulse profondo para marcar";
+"MARK_WITH_DEEP_PRESS" = "Pulse profundo para marcar";
 "MARK_WITH_LONG_PRESS" = "Mantenga para marcar";
 "MEDIUM" = "Intermedio";
 "MINESWEEPER" = "Buscaminas";
@@ -39,14 +40,14 @@
 "PLAY_AGAIN" = "Nuevo";
 "RESET_ALL_STATISTICS" = "Reinicializar las estadísticas";
 "RESTORE" = "Restaurar compra anterior";
-"SCORE" = "Score";
+"SCORE" = "Puntuación";
 "SETTINGS" = "Parámetros";
 "SHARE" = "Compartir";
 "SHARE_TEXT" = "Tengo sólo %@ de nivel %@ con iOS Minimal Minesweeper : http://apple.co/1W5Xw2K";
-"STATISTICS" = "Estadística";
+"STATISTICS" = "Estadísticas";
 "THANK_YOU" = "Muchas gracias";
-"TOO_BAD!" = "Que lástima!";
+"TOO_BAD!" = "¡Que lástima!";
 "UNKNOWN" = "Desconocido";
 "VIBRATIONS" = "Vibraciones";
-"WIN_RATE" = "Tasa de victoria";
+"WIN_RATE" = "Porcentaje de victoria";
 "WON_GAMES" = "Juegos ganados";
