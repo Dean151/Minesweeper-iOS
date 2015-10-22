@@ -7,18 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B818D3C81F835249B40D012C /* Pods_Minesweeper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40909C24C87FFE2ECA8FD606 /* Pods_Minesweeper.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		B818D3C81F835249B40D012C /* Pods_Minesweeper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40909C24C87FFE2ECA8FD606 /* Pods_Minesweeper.framework */; };
 		E914F8F21B62ADEE001AFB80 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E914F8F11B62ADEE001AFB80 /* Theme.swift */; };
 		E9307D571B7BC97D006BBEFA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9307D561B7BC97D006BBEFA /* StoreKit.framework */; };
-		E9482CCE1BD034BF00B3DAF6 /* minesweeper.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E9482CCC1BD034BF00B3DAF6 /* minesweeper.debug.xcconfig */; settings = {ASSET_TAGS = (); }; };
-		E9482CCF1BD034BF00B3DAF6 /* minesweeper.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E9482CCD1BD034BF00B3DAF6 /* minesweeper.release.xcconfig */; settings = {ASSET_TAGS = (); }; };
 		E949E1801B66CD30002E154A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */; };
-		E958B74F1BCE67560021502A /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958B74E1BCE67560021502A /* BoardTests.swift */; settings = {ASSET_TAGS = (); }; };
-		E99BA2AE1BD00B240037D562 /* IAPControllerProductIds.plist in Resources */ = {isa = PBXBuildFile; fileRef = E99BA2AD1BD00B240037D562 /* IAPControllerProductIds.plist */; settings = {ASSET_TAGS = (); }; };
-		E9A023991BD10FE200474D88 /* GameCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A023981BD10FE200474D88 /* GameCounter.swift */; settings = {ASSET_TAGS = (); }; };
+		E958B74F1BCE67560021502A /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958B74E1BCE67560021502A /* BoardTests.swift */; };
+		E99BA2AE1BD00B240037D562 /* IAPControllerProductIds.plist in Resources */ = {isa = PBXBuildFile; fileRef = E99BA2AD1BD00B240037D562 /* IAPControllerProductIds.plist */; };
+		E9A023991BD10FE200474D88 /* GameCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A023981BD10FE200474D88 /* GameCounter.swift */; };
 		E9A0239B1BD18B9500474D88 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A0239A1BD18B9400474D88 /* GameKit.framework */; };
 		E9A0239F1BD43C7A00474D88 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9A023A11BD43C7A00474D88 /* Localizable.strings */; };
-		E9B5BACC1BC8293C007C2C78 /* BannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B5BACB1BC8293C007C2C78 /* BannerViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		E9B5BACC1BC8293C007C2C78 /* BannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B5BACB1BC8293C007C2C78 /* BannerViewController.swift */; };
 		E9D3DEB11B6143A700C562E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D3DEB01B6143A700C562E3 /* AppDelegate.swift */; };
 		E9D3DEB81B6143A700C562E3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9D3DEB71B6143A700C562E3 /* Images.xcassets */; };
 		E9D3DED21B6143BD00C562E3 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D3DED11B6143BD00C562E3 /* Board.swift */; };
@@ -29,7 +27,7 @@
 		E9DF513E1B79299500C32997 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF513D1B79299500C32997 /* SettingsViewController.swift */; };
 		E9DF51401B792B5D00C32997 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF513F1B792B5D00C32997 /* Settings.swift */; };
 		E9E693521B680E0600FBB719 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9E693511B680E0600FBB719 /* AudioToolbox.framework */; };
-		E9E74D3E1BD796F50075057E /* StatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E74D3D1BD796F50075057E /* StatsTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		E9E74D3E1BD796F50075057E /* StatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E74D3D1BD796F50075057E /* StatsTableViewController.swift */; };
 		E9EBE86B1B6280AE00EEF1BA /* Pods_Minesweeper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40909C24C87FFE2ECA8FD606 /* Pods_Minesweeper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -283,7 +281,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Thomas Durand";
 				TargetAttributes = {
 					E9D3DEAA1B6143A700C562E3 = {
@@ -330,9 +328,7 @@
 				E949E1801B66CD30002E154A /* LaunchScreen.storyboard in Resources */,
 				E9A0239F1BD43C7A00474D88 /* Localizable.strings in Resources */,
 				E9D3DEB81B6143A700C562E3 /* Images.xcassets in Resources */,
-				E9482CCE1BD034BF00B3DAF6 /* minesweeper.debug.xcconfig in Resources */,
 				E99BA2AE1BD00B240037D562 /* IAPControllerProductIds.plist in Resources */,
-				E9482CCF1BD034BF00B3DAF6 /* minesweeper.release.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,7 +6,7 @@ target 'Minesweeper' do
     pod 'Crashlytics'
     pod 'Eureka'
     pod 'Fabric'
-    pod 'GCHelper', '~> 0.2'
+    pod 'GCHelper', :git => "https://github.com/Dean151/GCHelper"
     pod 'HexColors'
     pod 'IAPController', :git => "https://github.com/materik/IAPController.git", :tag => "0.2.0"
     pod 'iRate'
