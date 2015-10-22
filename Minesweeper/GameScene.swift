@@ -397,7 +397,7 @@ class GameScene: SKScene {
                 tile.sprite.runAction(SKAction.group([SKAction.scaleTo(1.0, duration: 0.1), SKAction.fadeAlphaTo(1, duration: 0.1)])) {
                     if self.board.gameOver {
                         if !self.board.isGameWon {
-                            if Settings.sharedInstance.vibrationEnabled {
+                            if Settings.sharedInstance.vibrationEnabled && UIDevice.currentDevice().model == "iPhone" {
                                 AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
                             }
                         }

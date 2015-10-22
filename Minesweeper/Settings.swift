@@ -11,9 +11,9 @@ import SecureNSUserDefaults
 
 class Settings {
     private let difficultyString = "difficulty"
-    private let vibrationString = "vibration"
-    private let markWithLongPressString = "markWithLongPress"
-    private let markWithDeepPressString = "markWithDeepPress"
+    private let vibrationString = "vibrationDisabled"
+    private let markWithLongPressString = "markWithLongPressDisabled"
+    private let markWithDeepPressString = "markWithDeepPressEnabled"
     private let bottomBarHiddenString = "bottomBarHidden"
     private let completeVersionString = "completeVersion"
     
@@ -50,20 +50,20 @@ class Settings {
     // Vibrations
     var vibrationEnabled: Bool {
         get {
-            return userDefault.boolForKey(vibrationString)
+            return !userDefault.boolForKey(vibrationString)
         }
         set {
-            userDefault.setBool(newValue, forKey: vibrationString)
+            userDefault.setBool(!newValue, forKey: vibrationString)
         }
     }
     
     // Mark with long press
     var markWithLongPressEnabled: Bool {
         get {
-            return userDefault.boolForKey(markWithLongPressString)
+            return !userDefault.boolForKey(markWithLongPressString)
         }
         set {
-            userDefault.setBool(newValue, forKey: markWithLongPressString)
+            userDefault.setBool(!newValue, forKey: markWithLongPressString)
         }
     }
     
