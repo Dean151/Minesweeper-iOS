@@ -27,13 +27,6 @@ In order to build, first you will need to install dependancies with Cocoapods :
 
 ```pod install```
 
-Then, open the project, and create a file `Keys.xcconfig`
-In this file, add a private key for encryption :
-
-```
-SECURE_NS_USER_DEFAULT_KEY = ENTER_A_RANDOM_KEY_HERE
-```
-
 Before building, you'll need to remove Fabrics initialization in `AppDelegate.swift`, and you'll also need to remove the Fabric integration custom script in the Build Phases.
 
 Now, you should be able to build the app and enjoy the app !

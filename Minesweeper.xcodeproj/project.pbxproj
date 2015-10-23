@@ -7,14 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B818D3C81F835249B40D012C /* Pods_Minesweeper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40909C24C87FFE2ECA8FD606 /* Pods_Minesweeper.framework */; };
+		341417392810F91BCA72DD6D /* Pods_Minesweeper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40909C24C87FFE2ECA8FD606 /* Pods_Minesweeper.framework */; };
 		E914F8F21B62ADEE001AFB80 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E914F8F11B62ADEE001AFB80 /* Theme.swift */; };
-		E9307D571B7BC97D006BBEFA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9307D561B7BC97D006BBEFA /* StoreKit.framework */; };
+		E9444D051BDA449F0021ACD7 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9D3DED91B6162C200C562E3 /* iAd.framework */; };
+		E9444D061BDA46340021ACD7 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A0239A1BD18B9400474D88 /* GameKit.framework */; };
+		E9444D071BDA46380021ACD7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9307D561B7BC97D006BBEFA /* StoreKit.framework */; };
 		E949E1801B66CD30002E154A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */; };
 		E958B74F1BCE67560021502A /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958B74E1BCE67560021502A /* BoardTests.swift */; };
 		E99BA2AE1BD00B240037D562 /* IAPControllerProductIds.plist in Resources */ = {isa = PBXBuildFile; fileRef = E99BA2AD1BD00B240037D562 /* IAPControllerProductIds.plist */; };
 		E9A023991BD10FE200474D88 /* GameCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A023981BD10FE200474D88 /* GameCounter.swift */; };
-		E9A0239B1BD18B9500474D88 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A0239A1BD18B9400474D88 /* GameKit.framework */; };
 		E9A0239F1BD43C7A00474D88 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9A023A11BD43C7A00474D88 /* Localizable.strings */; };
 		E9B5BACC1BC8293C007C2C78 /* BannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B5BACB1BC8293C007C2C78 /* BannerViewController.swift */; };
 		E9D3DEB11B6143A700C562E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D3DEB01B6143A700C562E3 /* AppDelegate.swift */; };
@@ -96,11 +97,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9307D571B7BC97D006BBEFA /* StoreKit.framework in Frameworks */,
+				E9444D051BDA449F0021ACD7 /* iAd.framework in Frameworks */,
 				E9E693521B680E0600FBB719 /* AudioToolbox.framework in Frameworks */,
+				E9444D071BDA46380021ACD7 /* StoreKit.framework in Frameworks */,
 				E9D3DED81B6162B900C562E3 /* SpriteKit.framework in Frameworks */,
-				B818D3C81F835249B40D012C /* Pods_Minesweeper.framework in Frameworks */,
-				E9A0239B1BD18B9500474D88 /* GameKit.framework in Frameworks */,
+				E9444D061BDA46340021ACD7 /* GameKit.framework in Frameworks */,
+				341417392810F91BCA72DD6D /* Pods_Minesweeper.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +291,9 @@
 						DevelopmentTeam = 6EL5V5QVB4;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
 						};
