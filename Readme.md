@@ -2,6 +2,8 @@
 This minesweeper game is designed to be the simplest in look and use.
 Test it for free on the App Store (when the app will be approved) : http://apple.co/1W5Xw2K
 
+![Screenshot](./screen.png)
+
 # Licence
 This source code is on Github for consultation purposes only.
 Please do not use or reuse all or fraction of this code in one of your project without receiving an authorization from myself.
