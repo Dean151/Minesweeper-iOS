@@ -245,7 +245,7 @@
 				E5113D96916C76DF2C20D479 /* Copy Pods Resources */,
 				096E6F5B28806DFF9F7F0C39 /* Embed Pods Frameworks */,
 				E9EBE86C1B6280AF00EEF1BA /* Embed Frameworks */,
-				E9482CCB1BD033EF00B3DAF6 /* ShellScript */,
+				E9482CCB1BD033EF00B3DAF6 /* Fabrics integration */,
 			);
 			buildRules = (
 			);
@@ -387,13 +387,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Minesweeper/Pods-Minesweeper-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E9482CCB1BD033EF00B3DAF6 /* ShellScript */ = {
+		E9482CCB1BD033EF00B3DAF6 /* Fabrics integration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Fabrics integration";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

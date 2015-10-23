@@ -34,6 +34,12 @@ class SettingsViewController: FormViewController {
         IAPController.sharedInstance.fetchProducts()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController!.toolbarHidden = true
+    }
+    
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         

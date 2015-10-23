@@ -27,7 +27,6 @@ class StatsTableViewController: UITableViewController, UIActionSheetDelegate {
         super.viewDidLoad()
         
         self.navigationItem.title = NSLocalizedString("STATISTICS", comment: "")
-        self.navigationController!.toolbarHidden = false
         
         // Creating segmented toolbar
         let items = [NSLocalizedString("ALL", comment: "")] + GameDifficulty.allShortDescValues
@@ -44,6 +43,12 @@ class StatsTableViewController: UITableViewController, UIActionSheetDelegate {
         let segmItem = UIBarButtonItem(customView: difficultyControl)
         
         self.toolbarItems = [space, segmItem, space]
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController!.toolbarHidden = false
     }
     
     func segmentedControlChanged(sender: UISegmentedControl) {
