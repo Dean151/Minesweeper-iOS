@@ -10,6 +10,7 @@ target 'Minesweeper' do
     pod 'HexColors'
     pod 'IAPController', :git => "https://github.com/materik/IAPController.git", :tag => "0.2.0"
     pod 'iRate'
+    pod 'SecureNSUserDefaults', '~> 1.0.0'
     pod 'SnapKit'
 end
 
