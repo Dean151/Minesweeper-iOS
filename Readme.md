@@ -1,9 +1,12 @@
 # Minimal Minesweeper for iOS
 This minesweeper game is designed to be the simplest in look and use.
-Test it for free on the App Store (when Apple reviewed it !) : http://apple.co/1W5Xw2K
+Test it for free on the App Store (when the app will be approved) : http://apple.co/1W5Xw2K
 
 # Licence
-This source code is for consulting only. Please do not use or reuse this source code in one of your project without a written authorization from myself.
+This source code is on Github for consultation purposes only.
+Please do not use or reuse all or fraction of this code in one of your project without receiving an authorization from myself.
+
+Feel free to contact me for it anyway !
 
 Nonetheless, you're free to build this app for YOUR PERSONAL USE ONLY.
 
@@ -31,9 +34,9 @@ SECURE_NS_USER_DEFAULT_KEY = ENTER_A_RANDOM_KEY_HERE
 
 Before building, you'll need to remove Fabrics initialization in `AppDelegate.swift`, and you'll also need to remove the Fabric integration custom script in the Build Phases.
 
-Now, you should be able to build the app and enjoy the apps !
+Now, you should be able to build the app and enjoy the app !
 
 # Tests
 The core of the game is tested with units tests, which mean the game itself sould always have a correct behavior.
 
-The UI is not tested automaticaly, but it have been tested manually with a lot of games.
+The UI is not tested automatically, but it have been tested manually with a lot of games.
