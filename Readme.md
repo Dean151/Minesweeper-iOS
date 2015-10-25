@@ -23,7 +23,8 @@ Nonetheless, you're free to build this app for YOUR PERSONAL USE ONLY.
 
 # Dependancies with Cocoapods
 This project use some open source libraries :
-* **Eureka** : TableView form
+* **ChameleonFramework** : Beautiful iOS7 colors packed in a framework
+* **Eureka** : Grouped TableView forms made easy in Swift
 * **GCHelper** : To handle easily Game Center features
 * **HexColors** : UIColor from hexadecimal codes
 * **IAPController** : To handle easily In-App purchases
