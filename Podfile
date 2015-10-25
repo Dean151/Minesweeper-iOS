@@ -4,6 +4,7 @@ use_frameworks!
 
 target 'Minesweeper' do
     pod 'Crashlytics'
+    pod 'ChameleonFramework/Swift'
     pod 'Eureka'
     pod 'Fabric'
     pod 'GCHelper', :git => "https://github.com/Dean151/GCHelper"

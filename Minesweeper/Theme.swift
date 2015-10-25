@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import ChameleonFramework
 import HexColors
 
 class Theme {
     static var backgroundColor: UIColor {
-        return UIColor.hx_colorWithHexString("#ECF0F1")
+        return UIColor.flatWhiteColor()
     }
     
     static var gameOverBackgroundColor: UIColor {
@@ -23,7 +24,7 @@ class Theme {
     }
     
     static var unrevealedTileColor: UIColor {
-        return UIColor.hx_colorWithHexString("#337AB7")
+        return UIColor.flatSkyBlueColorDark()
     }
     
     static var revealedTileColor: UIColor {
@@ -35,11 +36,11 @@ class Theme {
     }
     
     static var unsolvedMineTileColor: UIColor {
-        return UIColor.hx_colorWithHexString("#5BC0dE")
+        return UIColor.flatYellowColor()
     }
     
     static var explodedMineTileColor: UIColor {
-        return UIColor.hx_colorWithHexString("#D9534F")
+        return UIColor.flatRedColor()
     }
     
     static var markedTileColor: UIColor {
