@@ -294,6 +294,9 @@ class Board {
     func mark(tile: Tile) -> [Tile] {
         var markedTiles = [Tile]()
         
+        // Should not mark if mines are not initialized
+        guard self.minesInitialized else { return markedTiles }
+        
         if  !gameOver {
             if !tile.isRevealed {
                 tile.isMarked = !tile.isMarked

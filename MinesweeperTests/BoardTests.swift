@@ -103,12 +103,26 @@ class BoardTests: XCTestCase {
     func testPlayingOrMarkingTile() {
         let tile = self.randomTile
         
-        board.mark(tile)
-        XCTAssertTrue(board.getTile(tile.x, y: tile.y)!.isMarked)
-        board.play(tile)
-        XCTAssertFalse(board.getTile(tile.x, y: tile.y)!.isRevealed)
+        // Should not mark until mines are initialized
         board.mark(tile)
         XCTAssertFalse(board.getTile(tile.x, y: tile.y)!.isMarked)
+        
+        // Initialization of mines in board
+        board.initMines(nil)
+        
+        // Sould mark
+        board.mark(tile)
+        XCTAssertTrue(board.getTile(tile.x, y: tile.y)!.isMarked)
+        
+        // Should not play (marked)
+        board.play(tile)
+        XCTAssertFalse(board.getTile(tile.x, y: tile.y)!.isRevealed)
+        
+        // Should unmark
+        board.mark(tile)
+        XCTAssertFalse(board.getTile(tile.x, y: tile.y)!.isMarked)
+        
+        // Should play
         board.play(tile)
         XCTAssertTrue(board.getTile(tile.x, y: tile.y)!.isRevealed)
     }
