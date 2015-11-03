@@ -222,13 +222,20 @@ class SettingsViewController: FormViewController {
     
     func didPurchasedProduct(sender: AnyObject) {
         self.updateForm()
-        Settings.sharedInstance.completeVersionPurchased = true
         
-        Answers.logPurchaseWithPrice(1.99, currency: "USD", success: true, itemName: "Premium Buyed", itemType: nil, itemId: nil, customAttributes: nil)
+        let price = IAPController.sharedInstance.products?.first?.price
+        let currency = IAPController.sharedInstance.products?.first?.priceLocale.objectForKey(NSLocaleCurrencyCode) as? String
         
-        NSNotificationCenter.defaultCenter().postNotificationName(BannerShouldBeHiddenByIAP, object: nil)
+        Answers.logPurchaseWithPrice(price, currency: currency, success: true, itemName: "Premium Buyed", itemType: nil, itemId: nil, customAttributes: nil)
+        
+        giveFullVersionToUser()
         
         let alertView = UIAlertController(title: NSLocalizedString("THANK_YOU", comment: ""), message: NSLocalizedString("IAP_SUCCESS", comment: ""), preferredStyle: .Alert)
         self.presentViewController(alertView, animated: true, completion: nil)
+    }
+    
+    func giveFullVersionToUser() {
+        Settings.sharedInstance.completeVersionPurchased = true
+        NSNotificationCenter.defaultCenter().postNotificationName(BannerShouldBeHiddenByIAP, object: nil)
     }
 }

@@ -71,7 +71,7 @@ class GameCounter {
         let nb = getNbGameWon(difficulty)
         userDefault.setSecretInteger(nb+1, forKey: difficulty.rawValue + nbGameWonString)
         
-        Answers.logCustomEventWithName("GameWon", customAttributes: ["Difficulty": difficulty.rawValue])
+        Answers.logLevelEnd(difficulty.rawValue, score: nil, success: true, customAttributes: nil)
         
         // Achievement for One game
         let achievementIdentifier = "fr.Dean.Minesweeper.\(difficulty.rawValue)GameWon"
@@ -92,7 +92,7 @@ class GameCounter {
         let nb = getNbGameStarted(difficulty)
         userDefault.setSecretInteger(nb+1, forKey: difficulty.rawValue + nbGameStartedString)
         
-        Answers.logCustomEventWithName("GameStarted", customAttributes: ["Difficulty": difficulty.rawValue])
+        Answers.logLevelStart(difficulty.rawValue, customAttributes: nil)
     }
     
     func countGameLost(difficulty: GameDifficulty) {
@@ -100,6 +100,7 @@ class GameCounter {
         userDefault.setSecretInteger(nb+1, forKey: difficulty.rawValue + nbGameLostString)
         
         Answers.logCustomEventWithName("GameLost", customAttributes: ["Difficulty": difficulty.rawValue])
+        Answers.logLevelEnd(difficulty.rawValue, score: nil, success: false, customAttributes: nil)
     }
     
     func reportScore(score: NSTimeInterval, forDifficulty: GameDifficulty) {
