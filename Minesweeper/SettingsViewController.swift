@@ -214,6 +214,11 @@ class SettingsViewController: FormViewController {
         self.presentViewController(alertView, animated: true, completion: nil)
     }
     
+    func giveFullVersionToUser() {
+        Settings.sharedInstance.completeVersionPurchased = true
+        NSNotificationCenter.defaultCenter().postNotificationName(BannerShouldBeHiddenByIAP, object: nil)
+    }
+    
     // MARK: In-App Purchases
     
     func didFetchedProducts(sender: AnyObject) {
@@ -228,14 +233,9 @@ class SettingsViewController: FormViewController {
         
         Answers.logPurchaseWithPrice(price, currency: currency, success: true, itemName: "Premium Buyed", itemType: nil, itemId: nil, customAttributes: nil)
         
-        giveFullVersionToUser()
+        self.giveFullVersionToUser()
         
         let alertView = UIAlertController(title: NSLocalizedString("THANK_YOU", comment: ""), message: NSLocalizedString("IAP_SUCCESS", comment: ""), preferredStyle: .Alert)
         self.presentViewController(alertView, animated: true, completion: nil)
-    }
-    
-    func giveFullVersionToUser() {
-        Settings.sharedInstance.completeVersionPurchased = true
-        NSNotificationCenter.defaultCenter().postNotificationName(BannerShouldBeHiddenByIAP, object: nil)
     }
 }
