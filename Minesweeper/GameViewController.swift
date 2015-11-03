@@ -115,6 +115,8 @@ class GameViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+        performSettingsChanges()
+        
         if let scene = self.scene {
             scene.size = self.skView.frame.size
         }
