@@ -6,6 +6,6 @@
 //  Copyright © 2015 Thomas Durand. All rights reserved.
 //
 
-#include "Keys.xcconfig"
+#include "Keys.example.xcconfig"
 #include "Pods/Target Support Files/Pods-Minesweeper/Pods-Minesweeper.debug.xcconfig"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited)

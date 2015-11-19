@@ -37,18 +37,12 @@ In order to build, first you will need to install dependancies with Cocoapods :
 
 ```pod install```
 
-Then, open the project, and create a file `Keys.xcconfig`
-In this file, add a private key for encryption :
+For Debug building, a Keys.example.xcconfig will be used.
+It will not be possible to make a Release build without a valid Keys.xcconfig
 
-```
-SECURE_NS_USER_DEFAULT_KEY = ENTER_A_RANDOM_KEY_HERE
-```
-
-Before building, you'll need to remove Fabrics initialization in `AppDelegate.swift`, and you'll also need to remove the Fabric integration custom script in the Build Phases.
-
-Now, you should be able to build the app and enjoy the app !
+Now, you should be able to build a debug version and enjoy the app !
 
 # Tests
-The core of the game is tested with units tests, which mean the game itself sould always have a correct behavior.
+The core of the game is tested with units tests, which mean the game itself should always have a correct behavior.
 
 The UI is not tested automatically, but it have been tested manually with a lot of games.

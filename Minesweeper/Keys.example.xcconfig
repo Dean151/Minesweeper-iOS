@@ -1,0 +1,11 @@
+//
+//  Keys.example.xcconfig
+//  Minesweeper
+//
+//  Created by Thomas Durand on 15/10/2015.
+//  Copyright © 2015 Thomas Durand. All rights reserved.
+//
+
+FABRIC_API_KEY = 123abc
+FABRIC_BUILD_SECRET = 123abc
+SECURE_NS_USER_DEFAULT_KEY = keyForEncryption

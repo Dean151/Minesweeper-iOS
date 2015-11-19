@@ -12,6 +12,7 @@
 		E949E1801B66CD30002E154A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */; };
 		E958B74F1BCE67560021502A /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958B74E1BCE67560021502A /* BoardTests.swift */; };
 		E970B7081BDA53C30064E918 /* Pods_Minesweeper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E970B7071BDA53C30064E918 /* Pods_Minesweeper.framework */; };
+		E9911F9A1BFDE43300716C8E /* Keys.example.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E9911F991BFDE43300716C8E /* Keys.example.xcconfig */; };
 		E99BA2AE1BD00B240037D562 /* IAPControllerProductIds.plist in Resources */ = {isa = PBXBuildFile; fileRef = E99BA2AD1BD00B240037D562 /* IAPControllerProductIds.plist */; };
 		E9A023991BD10FE200474D88 /* GameCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A023981BD10FE200474D88 /* GameCounter.swift */; };
 		E9A0239B1BD18B9500474D88 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A0239A1BD18B9400474D88 /* GameKit.framework */; };
@@ -52,6 +53,7 @@
 		E949E17F1B66CD30002E154A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E958B74E1BCE67560021502A /* BoardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		E970B7071BDA53C30064E918 /* Pods_Minesweeper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_Minesweeper.framework; path = "Pods/../build/Debug-iphoneos/Pods_Minesweeper.framework"; sourceTree = "<group>"; };
+		E9911F991BFDE43300716C8E /* Keys.example.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Keys.example.xcconfig; sourceTree = "<group>"; };
 		E99BA2AD1BD00B240037D562 /* IAPControllerProductIds.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = IAPControllerProductIds.plist; sourceTree = "<group>"; };
 		E9A023981BD10FE200474D88 /* GameCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCounter.swift; sourceTree = "<group>"; };
 		E9A0239A1BD18B9400474D88 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -165,6 +167,7 @@
 				E9A023A11BD43C7A00474D88 /* Localizable.strings */,
 				E9482CCC1BD034BF00B3DAF6 /* minesweeper.debug.xcconfig */,
 				E9482CCD1BD034BF00B3DAF6 /* minesweeper.release.xcconfig */,
+				E9911F991BFDE43300716C8E /* Keys.example.xcconfig */,
 				E9482CD01BD034D900B3DAF6 /* Keys.xcconfig */,
 				E9D3DEB71B6143A700C562E3 /* Images.xcassets */,
 				E9D3DEAE1B6143A700C562E3 /* Supporting Files */,
@@ -315,6 +318,7 @@
 				E9A0239F1BD43C7A00474D88 /* Localizable.strings in Resources */,
 				E9D3DEB81B6143A700C562E3 /* Images.xcassets in Resources */,
 				E99BA2AE1BD00B240037D562 /* IAPControllerProductIds.plist in Resources */,
+				E9911F9A1BFDE43300716C8E /* Keys.example.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,7 +389,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" ${FABRIC_API_KEY} ${FABRIC_BUILD_SECRET}";
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    \"${PODS_ROOT}/Fabric/Fabric.framework/run\" ${FABRIC_API_KEY} ${FABRIC_BUILD_SECRET}\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
