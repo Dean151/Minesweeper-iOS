@@ -99,7 +99,6 @@ class GameCounter {
         let nb = getNbGameLost(difficulty)
         userDefault.setSecretInteger(nb+1, forKey: difficulty.rawValue + nbGameLostString)
         
-        Answers.logCustomEventWithName("GameLost", customAttributes: ["Difficulty": difficulty.rawValue])
         Answers.logLevelEnd(difficulty.rawValue, score: nil, success: false, customAttributes: nil)
     }
     

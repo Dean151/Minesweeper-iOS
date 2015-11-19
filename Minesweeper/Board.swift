@@ -9,7 +9,7 @@
 import Foundation
 
 enum GameDifficulty: String, CustomStringConvertible {
-    case Easy = "Easy", Medium = "Medium", Hard = "Hard", Insane = "Insane"
+    case Easy, Medium, Hard, Insane
     
     var description: String {
         let difficulty = self.shortDescription
@@ -60,7 +60,7 @@ enum GameDifficulty: String, CustomStringConvertible {
     }
     
     static var random: GameDifficulty {
-        let values = allValues
+        let values = allValues.filter({ $0.difficultyAvailable })
         let rand = Int(arc4random_uniform(UInt32(values.count)))
         return values[rand]
     }
