@@ -92,7 +92,7 @@ class BoardTests: XCTestCase {
         var nbMines = 0
         for tile in board.tiles {
             if tile.isMine {
-                nbMines++
+                nbMines += 1
             }
         }
         
@@ -104,36 +104,36 @@ class BoardTests: XCTestCase {
         let tile = self.randomTile
         
         // Should not mark until mines are initialized
-        board.mark(tile)
+        _ = board.mark(tile)
         XCTAssertFalse(board.getTile(tile.x, y: tile.y)!.isMarked)
         
         // Initialization of mines in board
         board.initMines(nil)
         
         // Sould mark
-        board.mark(tile)
+        _ = board.mark(tile)
         XCTAssertTrue(board.getTile(tile.x, y: tile.y)!.isMarked)
         
         // Should not play (marked)
-        board.play(tile)
+        _ = board.play(tile)
         XCTAssertFalse(board.getTile(tile.x, y: tile.y)!.isRevealed)
         
         // Should unmark
-        board.mark(tile)
+        _ = board.mark(tile)
         XCTAssertFalse(board.getTile(tile.x, y: tile.y)!.isMarked)
         
         // Should play
-        board.play(tile)
+        _ = board.play(tile)
         XCTAssertTrue(board.getTile(tile.x, y: tile.y)!.isRevealed)
     }
     
     // Testing game until win !
     func testWinTheGameByReveal() {
-        board.play(0, y: 0) // First move to assign mines
+        _ = board.play(0, y: 0) // First move to assign mines
         
         for tile in board.tiles {
             if !tile.isMine {
-                board.play(tile)
+                _ = board.play(tile)
             }
         }
         
@@ -143,7 +143,7 @@ class BoardTests: XCTestCase {
     
     // Testing if game is lost when we play on a mine !
     func testLooseTheGame() {
-        board.play(0, y: 0) // First move to assign mines
+        _ = board.play(0, y: 0) // First move to assign mines
         
         var tiles = [Tile]()
         
@@ -155,7 +155,7 @@ class BoardTests: XCTestCase {
         
         // Picking a random mine
         let mineTile = tiles[Int(arc4random_uniform(UInt32(tiles.count)))]
-        board.play(mineTile)
+        _ = board.play(mineTile)
         
         XCTAssertTrue(board.gameOver)
         XCTAssertFalse(board.isGameWon)

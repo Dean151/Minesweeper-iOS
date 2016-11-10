@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SnapKit
 import SpriteKit
 
 class GameViewController: UIViewController {
@@ -24,9 +23,6 @@ class GameViewController: UIViewController {
         skView = SKView(frame: self.view.frame)
         skView.backgroundColor = Theme.backgroundColor
         self.view.addSubview(skView)
-        skView.snp_makeConstraints(closure: { (make) -> Void in
-            make.edges.equalTo(self.view).inset(UIEdgeInsetsMake(0, 0, 0, 0))
-        })
         
         self.navigationItem.title = NSLocalizedString("MINESWEEPER", comment: "")
         
@@ -52,6 +48,15 @@ class GameViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.performDifficultyChanges()
+    }
+    
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        
+        view.addConstraint(NSLayoutConstraint(item: skView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: skView, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: skView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: skView, attribute: .right, relatedBy: .equal, toItem: view, attribute: .right, multiplier: 1, constant: 0))
     }
     
     func performSettingsChanges() {
@@ -126,12 +131,12 @@ class GameViewController: UIViewController {
         let viewController = SettingsViewController()
         viewController.parentVC = self
         let navController = UINavigationController(rootViewController: viewController)
-        navController.modalPresentationStyle = .Popover
+        navController.modalPresentationStyle = .popover
         
         if let popover = navController.popoverPresentationController {
             popover.barButtonItem = sender
         }
         
-        self.presentViewController(navController, animated: true, completion: nil)
+        self.present(navController, animated: true, completion: nil)
     }
 }

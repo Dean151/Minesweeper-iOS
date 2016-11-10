@@ -9,7 +9,6 @@
 import UIKit
 import Crashlytics
 import Fabric
-import iRate
 import GCHelper
 
 @UIApplicationMain
@@ -23,9 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().isTranslucent = false
         UIToolbar.appearance().isTranslucent = false
         
-        // Ask user for rating
-        iRate.sharedInstance().appStoreID = 1029488767
-        
         // Game Center
         GCHelper.sharedInstance.authenticateLocalUser()
         
@@ -34,11 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Creating window
         let GVC = GameViewController()
-        let navC = UINavigationController(rootViewController: GVC)
-        let bannerVC = BannerViewController(contentController: navC)
+        let navVc = UINavigationController(rootViewController: GVC)
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        window!.rootViewController = bannerVC
+        window!.rootViewController = navVc
         window!.makeKeyAndVisible()
         
         return true

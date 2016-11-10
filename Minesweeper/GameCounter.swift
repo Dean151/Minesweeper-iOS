@@ -54,17 +54,17 @@ class GameCounter {
     
     // Number of game won for a difficulty
     func getNbGameWon(_ difficulty: GameDifficulty) -> Int {
-        return userDefault.secretIntegerForKey(difficulty.rawValue + nbGameWonString)
+        return userDefault.secretInteger(forKey: difficulty.rawValue + nbGameWonString)
     }
     
     // Number of game initiated for a difficulty
     func getNbGameStarted(_ difficulty: GameDifficulty) -> Int {
-        return userDefault.secretIntegerForKey(difficulty.rawValue + nbGameStartedString)
+        return userDefault.secretInteger(forKey: difficulty.rawValue + nbGameStartedString)
     }
     
     // Number of game concluded for a difficulty
     func getNbGameLost(_ difficulty: GameDifficulty) -> Int {
-        return userDefault.secretIntegerForKey(difficulty.rawValue + nbGameLostString)
+        return userDefault.secretInteger(forKey: difficulty.rawValue + nbGameLostString)
     }
     
     func countGameWon(_ difficulty: GameDifficulty) {

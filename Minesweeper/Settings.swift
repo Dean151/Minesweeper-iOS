@@ -90,7 +90,7 @@ class Settings {
     // Complete 
     var completeVersionPurchased: Bool {
         get {
-            return userDefault.secretBoolForKey(completeVersionString)
+            return userDefault.secretBool(forKey: completeVersionString)
         }
         set {
             userDefault.setSecretBool(newValue, forKey: completeVersionString)

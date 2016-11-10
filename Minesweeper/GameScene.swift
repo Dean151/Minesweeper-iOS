@@ -208,8 +208,8 @@ class GameScene: SKScene {
         
         // Creating textures for win and lost
         if textures[14] == nil || textures[15] == nil {
-            textureForGameOver(true)
-            textureForGameOver(false)
+            _ = textureForGameOver(true)
+            _ = textureForGameOver(false)
         }
         
         changeTilesWithAnimation(minesTiles, cliquedTile: cliquedTile, randomDelay: !board.isGameWon) { Void in

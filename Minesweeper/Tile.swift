@@ -34,7 +34,7 @@ class Tile: Equatable {
             isMine = true
             let adjacents = board.getNeighbors(self)
             for adj in adjacents {
-                adj.nbMineAround++
+                adj.nbMineAround += 1
             }
         }
     }

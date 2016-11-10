@@ -23,12 +23,12 @@ class SettingsViewController: FormViewController {
         super.viewDidLoad()
         
         self.navigationItem.title = NSLocalizedString("SETTINGS", comment: "")
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "donePressed:")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(SettingsViewController.donePressed(_:)))
         
         setupForm()
         
-        NotificationCenter.defaultCenter().addObserver(self, selector: "didFetchedProducts:", name: IAPControllerFetchedNotification, object: nil)
-        NotificationCenter.defaultCenter().addObserver(self, selector: "didPurchasedProduct:", name: IAPControllerPurchasedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SettingsViewController.didFetchedProducts(_:)), name: NSNotification.Name(rawValue: IAPControllerFetchedNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SettingsViewController.didPurchasedProduct(_:)), name: NSNotification.Name(rawValue: IAPControllerPurchasedNotification), object: nil)
         
         // Fetching iAP
         IAPController.sharedInstance.fetchProducts()
@@ -37,7 +37,7 @@ class SettingsViewController: FormViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController!.toolbarHidden = true
+        self.navigationController?.isToolbarHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -74,13 +74,13 @@ class SettingsViewController: FormViewController {
             }.onCellSelection { form in
                 self.deselectRows()
                 
-                let statsVC = StatsTableViewController(style: .Grouped)
+                let statsVC = StatsTableViewController(style: .grouped)
                 self.navigationController!.pushViewController(statsVC, animated: true)
             }
             
             +++ Section("Premium") {
                 $0.header = HeaderFooterView<UIView>(stringLiteral: NSLocalizedString("PREMIUM_FEATURES", comment: ""))
-                $0.hidden = .Function(["Premium"], { form -> Bool in
+                $0.hidden = .function(["Premium"], { form -> Bool in
                     return Settings.sharedInstance.completeVersionPurchased
                 })
             }
@@ -92,7 +92,7 @@ class SettingsViewController: FormViewController {
             }
             <<< ButtonRow("buy") {
                 $0.title = NSLocalizedString("BUY_PREMIUM", comment: "")
-                $0.disabled = .Function([], { form -> Bool in
+                $0.disabled = .function([], { form -> Bool in
                     if let _ = IAPController.sharedInstance.products?.first {
                         return false
                     }
@@ -110,7 +110,7 @@ class SettingsViewController: FormViewController {
             }
             <<< ButtonRow("restore") {
                 $0.title = NSLocalizedString("RESTORE", comment: "")
-                $0.disabled = .Function([], { form -> Bool in
+                $0.disabled = .function([], { form -> Bool in
                     if let _ = IAPController.sharedInstance.products?.first {
                         return false
                     }
@@ -127,8 +127,8 @@ class SettingsViewController: FormViewController {
             <<< SwitchRow("vibrate") {
                 $0.title = NSLocalizedString("VIBRATIONS", comment: "")
                 $0.value = Settings.sharedInstance.vibrationEnabled
-                $0.hidden = .Function(["vibrate"], { form in
-                    return UIDevice.currentDevice().model != "iPhone"
+                $0.hidden = .function(["vibrate"], { form in
+                    return UIDevice.current.model != "iPhone"
                 })
             }.onChange{ row in
                     guard let vibrate = row.value else { return }
@@ -154,8 +154,8 @@ class SettingsViewController: FormViewController {
             <<< SwitchRow("hiddenToolbar") {
                 $0.title = NSLocalizedString("HIDE_TOOLBAR", comment: "")
                 $0.value = Settings.sharedInstance.bottomBarHidden
-                $0.hidden = .Function(["longPress", "deepPress"], { form in
-                    if let r1 : SwitchRow = form.rowByTag("longPress"), let r2: SwitchRow = form.rowByTag("deepPress") {
+                $0.hidden = .function(["longPress", "deepPress"], { form in
+                    if let r1 : SwitchRow = form.rowBy(tag: "longPress"), let r2: SwitchRow = form.rowBy(tag: "deepPress") {
                         return r1.value == false && r2.value == false
                     }
                     return true
@@ -167,7 +167,7 @@ class SettingsViewController: FormViewController {
             
             +++ Section() {
                 $0.header = HeaderFooterView<UIView>(stringLiteral: NSLocalizedString("GAME_CENTER", comment: ""))
-                $0.hidden = .Function(["gamecenter"], { form -> Bool in
+                $0.hidden = .function(["gamecenter"], { form -> Bool in
                     return !GCHelper.sharedInstance.isUserAuthenticated
                 })
             }
@@ -176,14 +176,14 @@ class SettingsViewController: FormViewController {
                 }.onCellSelection({ cell, row in
                     self.deselectRows()
                     
-                    GCHelper.sharedInstance.showGameCenter(self, viewState: .Leaderboards)
+                    GCHelper.sharedInstance.showGameCenter(self, viewState: .leaderboards)
                 })
             <<< ButtonRow("achievements") {
                 $0.title = NSLocalizedString("ACHIEVEMENTS", comment: "")
             }.onCellSelection({ cell, row in
                 self.deselectRows()
                 
-                GCHelper.sharedInstance.showGameCenter(self, viewState: .Achievements)
+                GCHelper.sharedInstance.showGameCenter(self, viewState: .achievements)
             })
     }
     
@@ -197,12 +197,12 @@ class SettingsViewController: FormViewController {
     
     func deselectRows() {
         if let indexPath = self.tableView!.indexPathForSelectedRow {
-            self.tableView!.deselectRowAtIndexPath(indexPath, animated: true)
+            self.tableView!.deselectRow(at: indexPath, animated: true)
         }
     }
     
     func donePressed(_ sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func presentAvantagesOfFullVersion() {
@@ -211,12 +211,11 @@ class SettingsViewController: FormViewController {
         let dismissAction = UIAlertAction(title: NSLocalizedString("DISMISS", comment: ""), style: .cancel, handler: nil)
         alertView.addAction(dismissAction)
         
-        self.presentViewController(alertView, animated: true, completion: nil)
+        self.present(alertView, animated: true, completion: nil)
     }
     
     func giveFullVersionToUser() {
         Settings.sharedInstance.completeVersionPurchased = true
-        NotificationCenter.default.post(name: Notification.Name(rawValue: BannerShouldBeHiddenByIAP), object: nil)
     }
     
     // MARK: In-App Purchases
@@ -229,13 +228,13 @@ class SettingsViewController: FormViewController {
         self.updateForm()
         
         let price = IAPController.sharedInstance.products?.first?.price
-        let currency = IAPController.sharedInstance.products?.first?.priceLocale.objectForKey(NSLocale.Key.currencyCode) as? String
+        let currency = IAPController.sharedInstance.products?.first?.priceLocale.currencyCode
         
-        Answers.logPurchaseWithPrice(price, currency: currency, success: true, itemName: "Premium Buyed", itemType: nil, itemId: nil, customAttributes: nil)
+        Answers.logPurchase(withPrice: price, currency: currency, success: true, itemName: "Premium Buyed", itemType: nil, itemId: nil, customAttributes: nil)
         
         self.giveFullVersionToUser()
         
         let alertView = UIAlertController(title: NSLocalizedString("THANK_YOU", comment: ""), message: NSLocalizedString("IAP_SUCCESS", comment: ""), preferredStyle: .alert)
-        self.presentViewController(alertView, animated: true, completion: nil)
+        self.present(alertView, animated: true, completion: nil)
     }
 }
