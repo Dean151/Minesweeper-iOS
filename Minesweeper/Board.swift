@@ -21,7 +21,7 @@ enum GameDifficulty: String, CustomStringConvertible {
     }
     
     var shortDescription: String {
-        return NSLocalizedString(rawValue.uppercaseString, comment: "")
+        return NSLocalizedString(rawValue.uppercased(), comment: "")
     }
     
     var size: (width: Int, height: Int) {
@@ -65,7 +65,7 @@ enum GameDifficulty: String, CustomStringConvertible {
         return values[rand]
     }
     
-    static func fromInt(value: Int) -> GameDifficulty? {
+    static func fromInt(_ value: Int) -> GameDifficulty? {
         switch value {
         case 1:
             return .Easy
@@ -108,8 +108,8 @@ class Board {
     var minesInitialized: Bool
     var gameOver: Bool
     
-    var startDate: NSDate?
-    var score: NSTimeInterval?
+    var startDate: Date?
+    var score: TimeInterval?
     
     var tiles: [Tile]
     
@@ -155,12 +155,12 @@ class Board {
         assert(nbMines < width * height - 9, "Impossible to have more mines than available cases")
     }
     
-    func initMines(playedTile: Tile?) {
+    func initMines(_ playedTile: Tile?) {
         var possibilities = [Tile]()
         
         var protectedTiles = [Tile]()
         if let playedTile = playedTile {
-            protectedTiles.appendContentsOf(self.getNeighbors(playedTile))
+            protectedTiles.append(contentsOf: self.getNeighbors(playedTile))
             protectedTiles.append(playedTile)
         }
         
@@ -173,7 +173,7 @@ class Board {
         for _ in 0..<nbMines {
             let index = Int(arc4random_uniform(UInt32(possibilities.count)))
             possibilities[index].setMine()
-            possibilities.removeAtIndex(index)
+            possibilities.remove(at: index)
         }
         
         // Counting the start of a game
@@ -181,18 +181,18 @@ class Board {
         
         minesInitialized = true
         
-        startDate = NSDate()
+        startDate = Date()
     }
     
-    func isInBoard(x: Int, y: Int) -> Bool {
+    func isInBoard(_ x: Int, y: Int) -> Bool {
         return x >= 0 && y >= 0 && x < width && y < height
     }
     
-    func getIndex(x: Int, y: Int) -> Int {
+    func getIndex(_ x: Int, y: Int) -> Int {
         return y * width + x
     }
     
-    func getTile(x: Int, y: Int) -> Tile? {
+    func getTile(_ x: Int, y: Int) -> Tile? {
         if isInBoard(x, y: y) {
             return tiles[getIndex(x, y: y)]
         }
@@ -200,7 +200,7 @@ class Board {
         return nil
     }
     
-    func getNeighbors(square: Tile) -> [Tile] {
+    func getNeighbors(_ square: Tile) -> [Tile] {
         var neighbors = [Tile]()
         
         let dx: [Int] = [-1, 0, 1, -1, 1, -1, 0, 1]
@@ -215,7 +215,7 @@ class Board {
         return neighbors
     }
     
-    func play(x: Int, y: Int) -> [Tile] {
+    func play(_ x: Int, y: Int) -> [Tile] {
         if let tile = getTile(x, y: y) {
             return play(tile)
         }
@@ -223,7 +223,7 @@ class Board {
         return [Tile]()
     }
     
-    func play(tile: Tile) -> [Tile] {
+    func play(_ tile: Tile) -> [Tile] {
         var playedTiles = [Tile]()
         
         if !minesInitialized {
@@ -266,7 +266,7 @@ class Board {
                 let neighbors = getNeighbors(tile)
                 for neighbor in neighbors {
                     if neighbor.isMarked {
-                        nbMarked++
+                        nbMarked += 1
                     }
                 }
                 if nbMarked == tile.nbMineAround {
@@ -283,7 +283,7 @@ class Board {
         return playedTiles
     }
     
-    func mark(x: Int, y: Int) -> [Tile] {
+    func mark(_ x: Int, y: Int) -> [Tile] {
         if let tile = getTile(x, y: y) {
             return mark(tile)
         }
@@ -291,7 +291,7 @@ class Board {
         return [Tile]()
     }
     
-    func mark(tile: Tile) -> [Tile] {
+    func mark(_ tile: Tile) -> [Tile] {
         var markedTiles = [Tile]()
         
         // Should not mark if mines are not initialized
@@ -306,7 +306,7 @@ class Board {
                 let neighbors = getNeighbors(tile)
                 for neighbor in neighbors {
                     if !neighbor.isRevealed {
-                        nbUnrevealed++
+                        nbUnrevealed += 1
                     }
                 }
                 if nbUnrevealed == tile.nbMineAround {

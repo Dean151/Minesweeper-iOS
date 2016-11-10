@@ -12,17 +12,17 @@ import GCHelper
 import SecureNSUserDefaults
 
 class GameCounter {
-    private let nbGameWonString = "won"
-    private let nbGameLostString = "lost"
-    private let nbGameStartedString = "started"
+    fileprivate let nbGameWonString = "won"
+    fileprivate let nbGameLostString = "lost"
+    fileprivate let nbGameStartedString = "started"
     
-    private let userDefault = NSUserDefaults.standardUserDefaults()
+    fileprivate let userDefault = UserDefaults.standard
     
     // Singleton
     static let sharedInstance = GameCounter()
     
     init() {
-        guard let key = NSBundle.mainBundle().objectForInfoDictionaryKey("SecureNSUserDefaultKey") as? String else {
+        guard let key = Bundle.main.object(forInfoDictionaryKey: "SecureNSUserDefaultKey") as? String else {
             fatalError("Could access encryption key")
         }
         userDefault.setSecret(key)
@@ -53,21 +53,21 @@ class GameCounter {
     }
     
     // Number of game won for a difficulty
-    func getNbGameWon(difficulty: GameDifficulty) -> Int {
+    func getNbGameWon(_ difficulty: GameDifficulty) -> Int {
         return userDefault.secretIntegerForKey(difficulty.rawValue + nbGameWonString)
     }
     
     // Number of game initiated for a difficulty
-    func getNbGameStarted(difficulty: GameDifficulty) -> Int {
+    func getNbGameStarted(_ difficulty: GameDifficulty) -> Int {
         return userDefault.secretIntegerForKey(difficulty.rawValue + nbGameStartedString)
     }
     
     // Number of game concluded for a difficulty
-    func getNbGameLost(difficulty: GameDifficulty) -> Int {
+    func getNbGameLost(_ difficulty: GameDifficulty) -> Int {
         return userDefault.secretIntegerForKey(difficulty.rawValue + nbGameLostString)
     }
     
-    func countGameWon(difficulty: GameDifficulty) {
+    func countGameWon(_ difficulty: GameDifficulty) {
         let nb = getNbGameWon(difficulty)
         userDefault.setSecretInteger(nb+1, forKey: difficulty.rawValue + nbGameWonString)
         
@@ -88,21 +88,21 @@ class GameCounter {
         GCHelper.sharedInstance.reportAchievementIdentifier(achievementIdentifierHundred, percent: progressHundred)
     }
     
-    func countGameStarted(difficulty: GameDifficulty) {
+    func countGameStarted(_ difficulty: GameDifficulty) {
         let nb = getNbGameStarted(difficulty)
         userDefault.setSecretInteger(nb+1, forKey: difficulty.rawValue + nbGameStartedString)
         
         Answers.logLevelStart(difficulty.rawValue, customAttributes: nil)
     }
     
-    func countGameLost(difficulty: GameDifficulty) {
+    func countGameLost(_ difficulty: GameDifficulty) {
         let nb = getNbGameLost(difficulty)
         userDefault.setSecretInteger(nb+1, forKey: difficulty.rawValue + nbGameLostString)
         
         Answers.logLevelEnd(difficulty.rawValue, score: nil, success: false, customAttributes: nil)
     }
     
-    func reportScore(score: NSTimeInterval, forDifficulty: GameDifficulty) {
+    func reportScore(_ score: TimeInterval, forDifficulty: GameDifficulty) {
         let leaderboardIdentifier = "fr.Dean.Minesweeper.\(forDifficulty.rawValue)"
         let score2submit = Int(100 * Double(score))
         GCHelper.sharedInstance.reportLeaderboardIdentifier(leaderboardIdentifier, score: score2submit)

@@ -29,30 +29,30 @@ class BannerViewController: UIViewController, ADBannerViewDelegate {
     }
     
     override func loadView() {
-        let contentView = UIView(frame: UIScreen.mainScreen().bounds)
+        let contentView = UIView(frame: UIScreen.main.bounds)
         
         self.addChildViewController(contentController)
         contentView.addSubview(contentController.view)
-        contentController.didMoveToParentViewController(self)
+        contentController.didMove(toParentViewController: self)
         
         self.view = contentView
     }
     
-    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        return contentController.preferredInterfaceOrientationForPresentation()
+    override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
+        return contentController.preferredInterfaceOrientationForPresentation
     }
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return contentController.supportedInterfaceOrientations()
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        return contentController.supportedInterfaceOrientations
     }
     
     override func viewDidLayoutSubviews() {
-        var contentFrame = self.view.bounds, bannerFrame = CGRectZero
+        var contentFrame = self.view.bounds, bannerFrame = CGRect.zero
         let bannerView = BannerViewManager.sharedInstance.bannerView
         
         bannerFrame.size = bannerView.sizeThatFits(contentFrame.size)
         
-        if bannerView.bannerLoaded && !Settings.sharedInstance.completeVersionPurchased {
+        if bannerView.isBannerLoaded && !Settings.sharedInstance.completeVersionPurchased {
             contentFrame.size.height -= bannerFrame.size.height
             bannerFrame.origin.y = contentFrame.size.height
         } else {
@@ -61,7 +61,7 @@ class BannerViewController: UIViewController, ADBannerViewDelegate {
         
         contentController.view.frame = contentFrame
         
-        if self.isViewLoaded() && !Settings.sharedInstance.completeVersionPurchased && self.view.window != nil {
+        if self.isViewLoaded && !Settings.sharedInstance.completeVersionPurchased && self.view.window != nil {
             self.view.addSubview(bannerView)
             bannerView.frame = bannerFrame
         } else {
@@ -70,14 +70,14 @@ class BannerViewController: UIViewController, ADBannerViewDelegate {
     }
     
     func updateLayout() {
-        UIView.animateWithDuration(0.25, animations: {
+        UIView.animate(withDuration: 0.25, animations: {
             // These two are equivalent to layoutSubviews
             self.view.setNeedsLayout()
             self.view.layoutIfNeeded()
         })
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.view.addSubview(BannerViewManager.sharedInstance.bannerView)
     }
@@ -105,25 +105,25 @@ class BannerViewManager: NSObject, ADBannerViewDelegate {
     static let sharedInstance = BannerViewManager()
     
     override init() {
-        self.bannerView = ADBannerView(adType: .Banner)
+        self.bannerView = ADBannerView(adType: .banner)
         self.bannerViewControllers = []
         
         super.init()
         bannerView.delegate = self
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateLayouts", name: BannerShouldBeHiddenByIAP, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(BannerViewManager.updateLayouts), name: NSNotification.Name(rawValue: BannerShouldBeHiddenByIAP), object: nil)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    func addBannerViewController(controller: BannerViewController) {
+    func addBannerViewController(_ controller: BannerViewController) {
         self.bannerViewControllers.append(controller)
     }
     
-    func removeBannerViewController(controller: BannerViewController) {
-        if let index = self.bannerViewControllers.indexOf(controller) {
-            self.bannerViewControllers.removeAtIndex(index)
+    func removeBannerViewController(_ controller: BannerViewController) {
+        if let index = self.bannerViewControllers.index(of: controller) {
+            self.bannerViewControllers.remove(at: index)
         }
     }
     
@@ -133,20 +133,20 @@ class BannerViewManager: NSObject, ADBannerViewDelegate {
         }
     }
     
-    func bannerViewDidLoadAd(banner: ADBannerView!) {
+    func bannerViewDidLoadAd(_ banner: ADBannerView!) {
         updateLayouts()
     }
     
-    func bannerView(banner: ADBannerView!, didFailToReceiveAdWithError error: NSError!) {
+    func bannerView(_ banner: ADBannerView!, didFailToReceiveAdWithError error: Error!) {
         updateLayouts()
     }
     
-    func bannerViewActionShouldBegin(banner: ADBannerView!, willLeaveApplication willLeave: Bool) -> Bool {
-         NSNotificationCenter.defaultCenter().postNotificationName(BannerViewActionWillBegin, object: self)
+    func bannerViewActionShouldBegin(_ banner: ADBannerView!, willLeaveApplication willLeave: Bool) -> Bool {
+         NotificationCenter.default.post(name: Notification.Name(rawValue: BannerViewActionWillBegin), object: self)
         return true
     }
     
-    func bannerViewActionDidFinish(banner: ADBannerView!) {
-        NSNotificationCenter.defaultCenter().postNotificationName(BannerViewActionDidFinish, object: self)
+    func bannerViewActionDidFinish(_ banner: ADBannerView!) {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: BannerViewActionDidFinish), object: self)
     }
 }

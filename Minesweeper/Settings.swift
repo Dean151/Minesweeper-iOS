@@ -10,20 +10,20 @@ import Foundation
 import SecureNSUserDefaults
 
 class Settings {
-    private let difficultyString = "difficulty"
-    private let vibrationString = "vibrationDisabled"
-    private let markWithLongPressString = "markWithLongPressDisabled"
-    private let markWithDeepPressString = "markWithDeepPressEnabled"
-    private let bottomBarHiddenString = "bottomBarHidden"
-    private let completeVersionString = "completeVersion"
+    fileprivate let difficultyString = "difficulty"
+    fileprivate let vibrationString = "vibrationDisabled"
+    fileprivate let markWithLongPressString = "markWithLongPressDisabled"
+    fileprivate let markWithDeepPressString = "markWithDeepPressEnabled"
+    fileprivate let bottomBarHiddenString = "bottomBarHidden"
+    fileprivate let completeVersionString = "completeVersion"
     
-    private let userDefault = NSUserDefaults.standardUserDefaults()
+    fileprivate let userDefault = UserDefaults.standard
     
     // Singleton
     static let sharedInstance = Settings()
     
     init() {
-        guard let key = NSBundle.mainBundle().objectForInfoDictionaryKey("SecureNSUserDefaultKey") as? String else {
+        guard let key = Bundle.main.object(forInfoDictionaryKey: "SecureNSUserDefaultKey") as? String else {
             fatalError("Could access encryption key")
         }
         userDefault.setSecret(key)
@@ -31,7 +31,7 @@ class Settings {
     
     var difficulty: GameDifficulty {
         get {
-            if let difficulty = userDefault.stringForKey(difficultyString) {
+            if let difficulty = userDefault.string(forKey: difficultyString) {
                 if let gameDifficulty = GameDifficulty(rawValue: difficulty) {
                     return gameDifficulty
                 } else {
@@ -43,47 +43,47 @@ class Settings {
             }
         }
         set {
-            userDefault.setObject(newValue.rawValue, forKey: difficultyString)
+            userDefault.set(newValue.rawValue, forKey: difficultyString)
         }
     }
     
     // Vibrations
     var vibrationEnabled: Bool {
         get {
-            return !userDefault.boolForKey(vibrationString)
+            return !userDefault.bool(forKey: vibrationString)
         }
         set {
-            userDefault.setBool(!newValue, forKey: vibrationString)
+            userDefault.set(!newValue, forKey: vibrationString)
         }
     }
     
     // Mark with long press
     var markWithLongPressEnabled: Bool {
         get {
-            return !userDefault.boolForKey(markWithLongPressString)
+            return !userDefault.bool(forKey: markWithLongPressString)
         }
         set {
-            userDefault.setBool(!newValue, forKey: markWithLongPressString)
+            userDefault.set(!newValue, forKey: markWithLongPressString)
         }
     }
     
     // Mark with deep press
     var markWithDeepPressEnabled: Bool {
         get {
-            return userDefault.boolForKey(markWithDeepPressString)
+            return userDefault.bool(forKey: markWithDeepPressString)
         }
         set {
-            userDefault.setBool(newValue, forKey: markWithDeepPressString)
+            userDefault.set(newValue, forKey: markWithDeepPressString)
         }
     }
     
     // Bottom Bar 
     var bottomBarHidden: Bool {
         get {
-            return userDefault.boolForKey(bottomBarHiddenString)
+            return userDefault.bool(forKey: bottomBarHiddenString)
         }
         set {
-            userDefault.setBool(newValue, forKey: bottomBarHiddenString)
+            userDefault.set(newValue, forKey: bottomBarHiddenString)
         }
     }
     

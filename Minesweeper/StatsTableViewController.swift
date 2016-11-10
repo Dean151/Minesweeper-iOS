@@ -33,71 +33,71 @@ class StatsTableViewController: UITableViewController, UIActionSheetDelegate {
         difficultyControl = UISegmentedControl(items: items)
         difficultyControl.apportionsSegmentWidthsByContent = true
         difficultyControl.selectedSegmentIndex = 0
-        difficultyControl.addTarget(self, action: "segmentedControlChanged:", forControlEvents: .ValueChanged);
+        difficultyControl.addTarget(self, action: #selector(StatsTableViewController.segmentedControlChanged(_:)), for: .valueChanged);
         
         let frame = difficultyControl.frame
-        let newFrame = CGRectMake(frame.origin.x, frame.origin.y, 300, frame.height)
+        let newFrame = CGRect(x: frame.origin.x, y: frame.origin.y, width: 300, height: frame.height)
         difficultyControl.frame = newFrame
 
-        let space = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let segmItem = UIBarButtonItem(customView: difficultyControl)
         
         self.toolbarItems = [space, segmItem, space]
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController!.toolbarHidden = false
+        self.navigationController!.isToolbarHidden = false
     }
     
-    func segmentedControlChanged(sender: UISegmentedControl) {
-        var animation = UITableViewRowAnimation.Automatic
+    func segmentedControlChanged(_ sender: UISegmentedControl) {
+        var animation = UITableViewRowAnimation.automatic
         
         if sender.selectedSegmentIndex == 0 {
             self.difficulty = nil
-            animation = .Right
+            animation = .right
         } else {
             if let diff = self.difficulty {
-                animation = (diff.toInt < sender.selectedSegmentIndex) ? .Left : .Right
+                animation = (diff.toInt < sender.selectedSegmentIndex) ? .left : .right
             } else {
-                animation = .Left
+                animation = .left
             }
             self.difficulty = GameDifficulty.fromInt(sender.selectedSegmentIndex)
         }
-        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: animation)
+        tableView.reloadSections(IndexSet(integer: 0), with: animation)
     }
     
     // MARK: UIActionSheetDelegate
     
-    func confirmReset(sender: UIAlertAction) {
+    func confirmReset(_ sender: UIAlertAction) {
         GameCounter.sharedInstance.resetAllStats()
-        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+        tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
     }
     
     // MARK: TableViewDelegate
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
         if indexPath.section == 1 {
-            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
-            let actionConfirm = UIAlertAction(title: NSLocalizedString("RESET_ALL_STATISTICS", comment: ""), style: .Destructive, handler: confirmReset)
-            let actionCancel = UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: .Cancel, handler: nil)
+            let actionConfirm = UIAlertAction(title: NSLocalizedString("RESET_ALL_STATISTICS", comment: ""), style: .destructive, handler: confirmReset)
+            let actionCancel = UIAlertAction(title: NSLocalizedString("CANCEL", comment: ""), style: .cancel, handler: nil)
             
             alertController.addAction(actionConfirm)
             alertController.addAction(actionCancel)
             
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
     // MARK: TableViewDataSource
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         guard section == 0 else { return nil }
         
@@ -108,7 +108,7 @@ class StatsTableViewController: UITableViewController, UIActionSheetDelegate {
         }
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 5
         } else {
@@ -116,8 +116,8 @@ class StatsTableViewController: UITableViewController, UIActionSheetDelegate {
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let row = UITableViewCell(style: .Value1, reuseIdentifier: reusableCellIdentifier)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let row = UITableViewCell(style: .value1, reuseIdentifier: reusableCellIdentifier)
         
         if indexPath.section == 0 {
             switch indexPath.row {

@@ -173,7 +173,7 @@ class BoardTests: XCTestCase {
         neighborsTester(board.width-1, y: board.height-1)
     }
     
-    func neighborsTester(x: Int, y: Int) {
+    func neighborsTester(_ x: Int, y: Int) {
         guard let tile = board.getTile(x, y: y) else { return }
         let neighbors = board.getNeighbors(tile)
         

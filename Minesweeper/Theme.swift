@@ -28,7 +28,7 @@ class Theme {
     }
     
     static var revealedTileColor: UIColor {
-        return UIColor.whiteColor()
+        return UIColor.white
     }
     
     static var solvedMineTileColor: UIColor {
@@ -47,7 +47,7 @@ class Theme {
         return UIColor.hx_colorWithHexString("#f0AD4E")
     }
     
-    static func fontColorWithMines(nbMines: Int) -> UIColor {
+    static func fontColorWithMines(_ nbMines: Int) -> UIColor {
         switch nbMines {
         case 1:
             return UIColor.hx_colorWithHexString("#007AFF")
@@ -64,7 +64,7 @@ class Theme {
         case 8:
             return UIColor.hx_colorWithHexString("#C7C7CC")
         default:
-            return UIColor.blackColor()
+            return UIColor.black
         }
     }
     
@@ -93,12 +93,12 @@ class Theme {
     }
     
     static var gameWonSize: CGRect {
-        let size: CGSize = CGSizeMake(300, 170)
-        return CGRectMake(-size.width/2, -size.height/2, size.width, size.height)
+        let size: CGSize = CGSize(width: 300, height: 170)
+        return CGRect(x: -size.width/2, y: -size.height/2, width: size.width, height: size.height)
     }
     
     static var gameLostSize: CGRect {
-        let size: CGSize = CGSizeMake(250, 100)
-        return CGRectMake(-size.width/2, -size.height/2, size.width, size.height)
+        let size: CGSize = CGSize(width: 250, height: 100)
+        return CGRect(x: -size.width/2, y: -size.height/2, width: size.width, height: size.height)
     }
 }

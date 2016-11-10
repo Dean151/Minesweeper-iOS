@@ -27,20 +27,20 @@ class SettingsViewController: FormViewController {
         
         setupForm()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFetchedProducts:", name: IAPControllerFetchedNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didPurchasedProduct:", name: IAPControllerPurchasedNotification, object: nil)
+        NotificationCenter.defaultCenter().addObserver(self, selector: "didFetchedProducts:", name: IAPControllerFetchedNotification, object: nil)
+        NotificationCenter.defaultCenter().addObserver(self, selector: "didPurchasedProduct:", name: IAPControllerPurchasedNotification, object: nil)
         
         // Fetching iAP
         IAPController.sharedInstance.fetchProducts()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.navigationController!.toolbarHidden = true
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         if let parent = parentVC {
@@ -155,7 +155,7 @@ class SettingsViewController: FormViewController {
                 $0.title = NSLocalizedString("HIDE_TOOLBAR", comment: "")
                 $0.value = Settings.sharedInstance.bottomBarHidden
                 $0.hidden = .Function(["longPress", "deepPress"], { form in
-                    if let r1 : SwitchRow = form.rowByTag("longPress"), r2: SwitchRow = form.rowByTag("deepPress") {
+                    if let r1 : SwitchRow = form.rowByTag("longPress"), let r2: SwitchRow = form.rowByTag("deepPress") {
                         return r1.value == false && r2.value == false
                     }
                     return true
@@ -201,14 +201,14 @@ class SettingsViewController: FormViewController {
         }
     }
     
-    func donePressed(sender: AnyObject) {
+    func donePressed(_ sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func presentAvantagesOfFullVersion() {
-        let alertView = UIAlertController(title: NSLocalizedString("PREMIUM_FEATURES", comment: ""), message: NSLocalizedString("PREMIUM_FEATURES_TEXT", comment: ""), preferredStyle: .Alert)
+        let alertView = UIAlertController(title: NSLocalizedString("PREMIUM_FEATURES", comment: ""), message: NSLocalizedString("PREMIUM_FEATURES_TEXT", comment: ""), preferredStyle: .alert)
         
-        let dismissAction = UIAlertAction(title: NSLocalizedString("DISMISS", comment: ""), style: .Cancel, handler: nil)
+        let dismissAction = UIAlertAction(title: NSLocalizedString("DISMISS", comment: ""), style: .cancel, handler: nil)
         alertView.addAction(dismissAction)
         
         self.presentViewController(alertView, animated: true, completion: nil)
@@ -216,26 +216,26 @@ class SettingsViewController: FormViewController {
     
     func giveFullVersionToUser() {
         Settings.sharedInstance.completeVersionPurchased = true
-        NSNotificationCenter.defaultCenter().postNotificationName(BannerShouldBeHiddenByIAP, object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: BannerShouldBeHiddenByIAP), object: nil)
     }
     
     // MARK: In-App Purchases
     
-    func didFetchedProducts(sender: AnyObject) {
+    func didFetchedProducts(_ sender: AnyObject) {
         self.updateForm()
     }
     
-    func didPurchasedProduct(sender: AnyObject) {
+    func didPurchasedProduct(_ sender: AnyObject) {
         self.updateForm()
         
         let price = IAPController.sharedInstance.products?.first?.price
-        let currency = IAPController.sharedInstance.products?.first?.priceLocale.objectForKey(NSLocaleCurrencyCode) as? String
+        let currency = IAPController.sharedInstance.products?.first?.priceLocale.objectForKey(NSLocale.Key.currencyCode) as? String
         
         Answers.logPurchaseWithPrice(price, currency: currency, success: true, itemName: "Premium Buyed", itemType: nil, itemId: nil, customAttributes: nil)
         
         self.giveFullVersionToUser()
         
-        let alertView = UIAlertController(title: NSLocalizedString("THANK_YOU", comment: ""), message: NSLocalizedString("IAP_SUCCESS", comment: ""), preferredStyle: .Alert)
+        let alertView = UIAlertController(title: NSLocalizedString("THANK_YOU", comment: ""), message: NSLocalizedString("IAP_SUCCESS", comment: ""), preferredStyle: .alert)
         self.presentViewController(alertView, animated: true, completion: nil)
     }
 }

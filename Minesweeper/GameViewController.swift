@@ -31,25 +31,25 @@ class GameViewController: UIViewController {
         self.navigationItem.title = NSLocalizedString("MINESWEEPER", comment: "")
         
         // Creating Top bar buttons
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("NEW_GAME", comment: ""), style: .Plain, target: self, action: "gameButtonPressed:")
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "settings"), style: .Plain, target: self, action: "showSettings:")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("NEW_GAME", comment: ""), style: .plain, target: self, action: #selector(GameViewController.gameButtonPressed(_:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "settings"), style: .plain, target: self, action: #selector(GameViewController.showSettings(_:)))
         
         // Creating segmented toolbar
         playOrFlagControl = UISegmentedControl(items: [NSLocalizedString("DIG", comment: ""), NSLocalizedString("MARK", comment: "")])
-        playOrFlagControl.setWidth(100, forSegmentAtIndex: 0)
-        playOrFlagControl.setWidth(100, forSegmentAtIndex: 1)
-        let space = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
+        playOrFlagControl.setWidth(100, forSegmentAt: 0)
+        playOrFlagControl.setWidth(100, forSegmentAt: 1)
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let segmItem = UIBarButtonItem(customView: playOrFlagControl)
         
         self.toolbarItems = [space, segmItem, space]
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.performSettingsChanges()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.performDifficultyChanges()
     }
@@ -57,9 +57,9 @@ class GameViewController: UIViewController {
     func performSettingsChanges() {
         if (Settings.sharedInstance.markWithLongPressEnabled || Settings.sharedInstance.markWithDeepPressEnabled) && Settings.sharedInstance.bottomBarHidden {
             self.playOrFlagControl.selectedSegmentIndex = 0
-            self.navigationController!.toolbarHidden = true
+            self.navigationController!.isToolbarHidden = true
         } else {
-            self.navigationController!.toolbarHidden = false
+            self.navigationController!.isToolbarHidden = false
         }
     }
     
@@ -80,35 +80,35 @@ class GameViewController: UIViewController {
         newGame( Settings.sharedInstance.difficulty )
     }
     
-    func newGame(difficulty: GameDifficulty) {
+    func newGame(_ difficulty: GameDifficulty) {
         // Reinit segmented control
         self.playOrFlagControl.selectedSegmentIndex = 0
         
         // Configure the view.
-        skView.multipleTouchEnabled = false
+        skView.isMultipleTouchEnabled = false
         
         // Create and configure the scene.
         let newScene = GameScene(size: skView.frame.size, controller: self, difficulty: difficulty)
-        newScene.scaleMode = .AspectFill
+        newScene.scaleMode = .aspectFill
         
         // Present the scene.
         skView.presentScene(newScene)
         scene = newScene
     }
     
-    func gameButtonPressed(sender: AnyObject) {
+    func gameButtonPressed(_ sender: AnyObject) {
         startGame()
     }
     
-    func shareGame(rect: CGRect) {
+    func shareGame(_ rect: CGRect) {
         if let board = scene?.board {
             let shareText: String = String.localizedStringWithFormat(NSLocalizedString("SHARE_TEXT", comment: ""), board.score!.formattedHoursMinutesSecondsMilliseconds, board.difficulty.shortDescription)
             let shareView = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
             if let popover = shareView.popoverPresentationController {
                 popover.sourceView = skView
-                popover.sourceRect = skView.convertRect(rect, fromView: self.view)
+                popover.sourceRect = skView.convert(rect, from: self.view)
             }
-            self.presentViewController(shareView, animated: true, completion: nil)
+            self.present(shareView, animated: true, completion: nil)
         }
     }
     
@@ -122,7 +122,7 @@ class GameViewController: UIViewController {
         }
     }
     
-    func showSettings(sender: UIBarButtonItem) {
+    func showSettings(_ sender: UIBarButtonItem) {
         let viewController = SettingsViewController()
         viewController.parentVC = self
         let navController = UINavigationController(rootViewController: viewController)

@@ -19,9 +19,9 @@ class GameScene: SKScene {
     let tileLayer = SKNode()
     let scoreLayer = SKNode()
     
-    var textures = [SKTexture?](count: 16, repeatedValue: nil)
+    var textures = [SKTexture?](repeating: nil, count: 16)
     
-    var timerForMarking: NSTimer!
+    var timerForMarking: Timer!
     
     var _selectedTile: Tile?
     var selectedTile: Tile? {
@@ -35,19 +35,19 @@ class GameScene: SKScene {
             
             if newValue != nil {
                 if Settings.sharedInstance.markWithLongPressEnabled {
-                    timerForMarking = NSTimer.scheduledTimerWithTimeInterval(0.7, target: self, selector: Selector("markSelectedTileWithAnimation"), userInfo: nil, repeats: false)
+                    timerForMarking = Timer.scheduledTimer(timeInterval: 0.7, target: self, selector: #selector(GameScene.markSelectedTileWithAnimation), userInfo: nil, repeats: false)
                 }
                 
-                newValue!.sprite.runAction(SKAction.sequence([
-                SKAction.customActionWithDuration(0, actionBlock: { (node, time) in node.zPosition = 10 }),
-                SKAction.group([SKAction.scaleTo(Theme.scaleForOveredTile, duration: 0.1), SKAction.fadeAlphaTo(Theme.alphaForOveredTile, duration: 0.1)])
+                newValue!.sprite.run(SKAction.sequence([
+                SKAction.customAction(withDuration: 0, actionBlock: { (node, time) in node.zPosition = 10 }),
+                SKAction.group([SKAction.scale(to: Theme.scaleForOveredTile, duration: 0.1), SKAction.fadeAlpha(to: Theme.alphaForOveredTile, duration: 0.1)])
                 ]))
             }
             
             if _selectedTile != nil {
-                _selectedTile!.sprite.runAction(SKAction.sequence([
-                    SKAction.group([SKAction.scaleTo(1, duration: 0.1), SKAction.fadeAlphaTo(1, duration: 0.1)]),
-                    SKAction.customActionWithDuration(0, actionBlock: { (node, time) in node.zPosition = 0 })
+                _selectedTile!.sprite.run(SKAction.sequence([
+                    SKAction.group([SKAction.scale(to: 1, duration: 0.1), SKAction.fadeAlpha(to: 1, duration: 0.1)]),
+                    SKAction.customAction(withDuration: 0, actionBlock: { (node, time) in node.zPosition = 0 })
                     ]))
             }
             
@@ -75,14 +75,14 @@ class GameScene: SKScene {
         gameLayer.addChild(scoreLayer)
     }
     
-    override func didMoveToView(view: SKView) {
-        super.didMoveToView(view)
+    override func didMove(to view: SKView) {
+        super.didMove(to: view)
         
         self.resizeBoard(animated: true)
     }
     
-    func resizeBoard(animated animated: Bool) {
-        let size = CGSizeMake(self.size.width - Theme.minSideBorder, self.size.height - Theme.minSideBorder)
+    func resizeBoard(animated: Bool) {
+        let size = CGSize(width: self.size.width - Theme.minSideBorder, height: self.size.height - Theme.minSideBorder)
             
         self.tileSize = min(size.width / CGFloat(board.width), size.height / CGFloat(board.height), Theme.maxTileSize)
         tileLayer.position = CGPoint(
@@ -92,19 +92,19 @@ class GameScene: SKScene {
         addSpritesForTiles(board.tiles, animated: animated)
     }
     
-    override func didChangeSize(oldSize: CGSize) {
+    override func didChangeSize(_ oldSize: CGSize) {
         super.didChangeSize(oldSize)
         if let _ = self.view {
             self.resizeBoard(animated: false)
         }
     }
     
-    func addSpritesForTiles(tiles: [Tile], animated: Bool) {
+    func addSpritesForTiles(_ tiles: [Tile], animated: Bool) {
         tileLayer.removeAllChildren()
         
         for tile in tiles {
             let sprite = SKSpriteNode(texture: textureForTile(tile))
-            sprite.size = CGSizeMake(tileSize*0.9, tileSize*0.9)
+            sprite.size = CGSize(width: tileSize*0.9, height: tileSize*0.9)
             tile.sprite = sprite
             sprite.position = pointForColumn(tile.x, row: tile.y)
             
@@ -113,12 +113,12 @@ class GameScene: SKScene {
             sprite.xScale = 0.5
             sprite.yScale = 0.5
             
-            sprite.runAction(
+            sprite.run(
                 SKAction.sequence([
-                    SKAction.waitForDuration(0.25, withRange: 0.5),
+                    SKAction.wait(forDuration: 0.25, withRange: 0.5),
                     SKAction.group([
-                        SKAction.fadeInWithDuration(0.25),
-                        SKAction.scaleTo(1.0, duration: 0.25)
+                        SKAction.fadeIn(withDuration: 0.25),
+                        SKAction.scale(to: 1.0, duration: 0.25)
                         ])
                     ]))
             }
@@ -127,11 +127,11 @@ class GameScene: SKScene {
         }
     }
     
-    func changeTilesWithAnimation(tiles: [Tile]) {
+    func changeTilesWithAnimation(_ tiles: [Tile]) {
         changeTilesWithAnimation(tiles, cliquedTile: nil, randomDelay: false, completion: nil)
     }
     
-    func changeTilesWithAnimation(tiles: [Tile], completion: (() -> ())?) {
+    func changeTilesWithAnimation(_ tiles: [Tile], completion: (() -> ())?) {
         changeTilesWithAnimation(tiles, cliquedTile: nil, randomDelay: false) {
             Void in
             if completion != nil {
@@ -140,7 +140,7 @@ class GameScene: SKScene {
         }
     }
     
-    func changeTilesWithAnimation(tiles: [Tile], cliquedTile: Tile?, completion: (() -> ())?) {
+    func changeTilesWithAnimation(_ tiles: [Tile], cliquedTile: Tile?, completion: (() -> ())?) {
         changeTilesWithAnimation(tiles, cliquedTile: cliquedTile, randomDelay: false) {
             Void in
             if completion != nil {
@@ -149,31 +149,31 @@ class GameScene: SKScene {
         }
     }
     
-    func changeTilesWithAnimation(tiles: [Tile], cliquedTile: Tile?, randomDelay: Bool, completion: (() -> ())?) {
-        let sortedTiles = cliquedTile != nil ? tiles.sort({ (a: Tile, b: Tile) in
+    func changeTilesWithAnimation(_ tiles: [Tile], cliquedTile: Tile?, randomDelay: Bool, completion: (() -> ())?) {
+        let sortedTiles = cliquedTile != nil ? tiles.sorted(by: { (a: Tile, b: Tile) in
                 return a.squareDistanceFromTile(cliquedTile!) < b.squareDistanceFromTile(cliquedTile!) }) : tiles
         
-        for (index, tile) in sortedTiles.enumerate() {
+        for (index, tile) in sortedTiles.enumerated() {
             
-            let timeByMine: NSTimeInterval = 0.8/NSTimeInterval(board.nbMines)
+            let timeByMine: TimeInterval = 0.8/TimeInterval(board.nbMines)
             
             let actions = SKAction.sequence([
-                SKAction.customActionWithDuration(0, actionBlock: { (node, time) in node.zPosition = 10 }),
-                SKAction.waitForDuration((randomDelay ? NSTimeInterval(timeByMine * Double(index)) : 0)) ,
-                SKAction.scaleTo(Theme.scaleForModifyingTile, duration: 0.05),
-                SKAction.runBlock({ (tile.sprite as! SKSpriteNode).texture = self.textureForTile(tile) }),
-                SKAction.scaleTo(1, duration: 0.05),
-                SKAction.customActionWithDuration(0, actionBlock: { (node, time) in node.zPosition = 0 })
+                SKAction.customAction(withDuration: 0, actionBlock: { (node, time) in node.zPosition = 10 }),
+                SKAction.wait(forDuration: (randomDelay ? TimeInterval(timeByMine * Double(index)) : 0)) ,
+                SKAction.scale(to: Theme.scaleForModifyingTile, duration: 0.05),
+                SKAction.run({ (tile.sprite as! SKSpriteNode).texture = self.textureForTile(tile) }),
+                SKAction.scale(to: 1, duration: 0.05),
+                SKAction.customAction(withDuration: 0, actionBlock: { (node, time) in node.zPosition = 0 })
                 ])
             
-            tile.sprite.runAction(actions) {
+            tile.sprite.run(actions, completion: {
                 void in
                 if completion != nil {
                     if tile == sortedTiles.last {
                         completion!()
                     }
                 }
-            }
+            }) 
         }
     }
     
@@ -184,26 +184,26 @@ class GameScene: SKScene {
         let tiles = board.mark(selectedTile)
         for tile in tiles {
             let actions = SKAction.sequence([
-                SKAction.runBlock({
+                SKAction.run({
                     (tile.sprite as! SKSpriteNode).texture = self.textureForTile(tile)
                     tile.sprite.zPosition = 10
                     tile.sprite.setScale(Theme.scaleForMarkingTile)
                     tile.sprite.alpha = Theme.alphaForOveredTile
                 }),
                 SKAction.group([
-                    SKAction.scaleTo(1, duration: 0.2),
-                    SKAction.fadeAlphaTo(1, duration: 0.2)
+                    SKAction.scale(to: 1, duration: 0.2),
+                    SKAction.fadeAlpha(to: 1, duration: 0.2)
                     ]),
-                SKAction.runBlock({
+                SKAction.run({
                     tile.sprite.zPosition = 0
                 })
             ])
             
-            tile.sprite.runAction(actions)
+            tile.sprite.run(actions)
         }
     }
     
-    func presentMinesWithAnimation(cliquedTile: Tile) {
+    func presentMinesWithAnimation(_ cliquedTile: Tile) {
         let minesTiles = board.tiles.filter({ (tile: Tile) in return tile.isMine })
         
         // Creating textures for win and lost
@@ -218,80 +218,80 @@ class GameScene: SKScene {
     }
     
     func showGameOverScreen() {
-        runAction(SKAction.waitForDuration(0.1)) {
+        run(SKAction.wait(forDuration: 0.1), completion: {
             Void in
             if self.board.isGameWon {
                 let scoreNode = SKSpriteNode(texture: self.textureForGameOver(true))
                 scoreNode.alpha = 0
                 
                 let gameWonLabel = SKLabelNode(fontNamed: "Noteworthy")
-                gameWonLabel.text = NSLocalizedString("CONGRATULATIONS!", comment: "").uppercaseString
+                gameWonLabel.text = NSLocalizedString("CONGRATULATIONS!", comment: "").uppercased()
                 gameWonLabel.fontColor = Theme.solvedMineTileColor
-                gameWonLabel.position = CGPointMake(0, 30)
+                gameWonLabel.position = CGPoint(x: 0, y: 30)
                 scoreNode.addChild(gameWonLabel)
                 
                 let scoreLabel = SKLabelNode(fontNamed: "Noteworthy-Light")
                 scoreLabel.text = NSLocalizedString("SCORE", comment: "") + ": \(self.board.score!.formattedHoursMinutesSecondsMilliseconds)"
-                scoreLabel.fontColor = UIColor.blackColor()
+                scoreLabel.fontColor = UIColor.black
                 scoreLabel.fontSize = 16
-                scoreLabel.position = CGPointMake(0, -10)
+                scoreLabel.position = CGPoint(x: 0, y: -10)
                 scoreNode.addChild(scoreLabel)
                 
                 let playLabel = SKLabelNode(fontNamed: "Noteworthy-Light")
                 playLabel.name = "play"
-                playLabel.text = NSLocalizedString("PLAY_AGAIN", comment: "").uppercaseString
+                playLabel.text = NSLocalizedString("PLAY_AGAIN", comment: "").uppercased()
                 playLabel.fontColor = Theme.unrevealedTileColor
                 playLabel.fontSize = 18
-                playLabel.position = CGPointMake(-50, -50)
+                playLabel.position = CGPoint(x: -50, y: -50)
                 scoreNode.addChild(playLabel)
                 
                 let shareLabel = SKLabelNode(fontNamed: "Noteworthy-Light")
                 shareLabel.name = "share"
-                shareLabel.text = NSLocalizedString("SHARE", comment: "").uppercaseString
+                shareLabel.text = NSLocalizedString("SHARE", comment: "").uppercased()
                 shareLabel.fontColor = Theme.unrevealedTileColor
                 shareLabel.fontSize = 18
-                shareLabel.position = CGPointMake(50, -50)
+                shareLabel.position = CGPoint(x: 50, y: -50)
                 scoreNode.addChild(shareLabel)
                 
                 // Make the game won layout appears
                 scoreNode.setScale(0.7)
                 self.scoreLayer.addChild(scoreNode)
-                let fadeIn = SKAction.group([SKAction.fadeInWithDuration(0.3), SKAction.scaleTo(1, duration: 0.3)])
-                scoreNode.runAction(fadeIn)
+                let fadeIn = SKAction.group([SKAction.fadeIn(withDuration: 0.3), SKAction.scale(to: 1, duration: 0.3)])
+                scoreNode.run(fadeIn)
             } else {
                 let scoreNode = SKSpriteNode(texture: self.textureForGameOver(false))
                 scoreNode.alpha = 0
                 
                 let gameLostLabel = SKLabelNode(fontNamed: "Noteworthy")
-                gameLostLabel.text = NSLocalizedString("TOO_BAD!", comment: "").uppercaseString
+                gameLostLabel.text = NSLocalizedString("TOO_BAD!", comment: "").uppercased()
                 gameLostLabel.fontColor = Theme.explodedMineTileColor
-                gameLostLabel.position = CGPointMake(0, 5)
+                gameLostLabel.position = CGPoint(x: 0, y: 5)
                 scoreNode.addChild(gameLostLabel)
                 
                 let playLabel = SKLabelNode(fontNamed: "Noteworthy-Light")
                 playLabel.name = "play"
-                playLabel.text = NSLocalizedString("PLAY_AGAIN", comment: "").uppercaseString
+                playLabel.text = NSLocalizedString("PLAY_AGAIN", comment: "").uppercased()
                 playLabel.fontColor = Theme.unrevealedTileColor
                 playLabel.fontSize = 18
-                playLabel.position = CGPointMake(0, -30)
+                playLabel.position = CGPoint(x: 0, y: -30)
                 scoreNode.addChild(playLabel)
                 
                 // Make the game over layout appears
                 scoreNode.setScale(0.7)
                 self.scoreLayer.addChild(scoreNode)
-                let fadeIn = SKAction.group([SKAction.fadeInWithDuration(0.3), SKAction.scaleTo(1, duration: 0.3)])
-                scoreNode.runAction(fadeIn)
+                let fadeIn = SKAction.group([SKAction.fadeIn(withDuration: 0.3), SKAction.scale(to: 1, duration: 0.3)])
+                scoreNode.run(fadeIn)
             }
-        }
+        }) 
     }
     
-    func pointForColumn(column: Int, row: Int) -> CGPoint {
+    func pointForColumn(_ column: Int, row: Int) -> CGPoint {
         return CGPoint(
             x: CGFloat(column)*tileSize + tileSize/2,
             y: CGFloat(row)*tileSize + tileSize/2)
     }
     
-    func convertPoint(point: CGPoint) -> (success: Bool, column: Int, row: Int) {
+    func convertPoint(_ point: CGPoint) -> (success: Bool, column: Int, row: Int) {
         if point.x >= 0 && point.x < CGFloat(board.width)*tileSize &&
             point.y >= 0 && point.y < CGFloat(board.height)*tileSize {
                 return (true, Int(point.x / tileSize), Int(point.y / tileSize))
@@ -300,9 +300,9 @@ class GameScene: SKScene {
         }
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
-        let location = touch.locationInNode(tileLayer)
+        let location = touch.location(in: tileLayer)
         
         if board.gameOver {
             return
@@ -316,9 +316,9 @@ class GameScene: SKScene {
         }
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
-        let location = touch.locationInNode(tileLayer)
+        let location = touch.location(in: tileLayer)
         
         if board.gameOver {
             return
@@ -334,7 +334,7 @@ class GameScene: SKScene {
                         // Deep Press Handling
                         // If 3DTouch not available, we use majorRadius to simulate it !
                         if #available(iOS 9.0, *) {
-                            if self.controller.traitCollection.forceTouchCapability == .Available {
+                            if self.controller.traitCollection.forceTouchCapability == .available {
                                 if touch.force > 0.8*touch.maximumPossibleForce {
                                     self.markSelectedTileWithAnimation()
                                 }
@@ -358,21 +358,21 @@ class GameScene: SKScene {
         }
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
         
         if board.gameOver {
-            let location = touch.locationInNode(scoreLayer)
-            let node = scoreLayer.nodeAtPoint(location)
+            let location = touch.location(in: scoreLayer)
+            let node = scoreLayer.atPoint(location)
             guard let name = node.name else { return }
             
             switch name {
             case "play":
                 controller.startGame()
             case "share":
-                let pos = convertPointToView(node.position)
+                let pos = self.convertPoint(toView: node.position)
                 let size = node.frame
-                let rect = CGRectMake(pos.x - size.width/2, pos.y - size.height, size.width, size.height)
+                let rect = CGRect(x: pos.x - size.width/2, y: pos.y - size.height, width: size.width, height: size.height)
                 
                 controller.shareGame(rect)
             default:
@@ -382,7 +382,7 @@ class GameScene: SKScene {
             return
         }
         
-        let location = touch.locationInNode(tileLayer)
+        let location = touch.location(in: tileLayer)
         
         let (success, _, _) = convertPoint(location)
         if success && !board.gameOver {
@@ -394,10 +394,10 @@ class GameScene: SKScene {
                     tiles = board.mark(tile)
                 }
                 
-                tile.sprite.runAction(SKAction.group([SKAction.scaleTo(1.0, duration: 0.1), SKAction.fadeAlphaTo(1, duration: 0.1)])) {
+                tile.sprite.run(SKAction.group([SKAction.scale(to: 1.0, duration: 0.1), SKAction.fadeAlpha(to: 1, duration: 0.1)]), completion: {
                     if self.board.gameOver {
                         if !self.board.isGameWon {
-                            if Settings.sharedInstance.vibrationEnabled && UIDevice.currentDevice().model == "iPhone" {
+                            if Settings.sharedInstance.vibrationEnabled && UIDevice.current.model == "iPhone" {
                                 AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
                             }
                         }
@@ -407,14 +407,14 @@ class GameScene: SKScene {
                     } else {
                         self.changeTilesWithAnimation(tiles)
                     }
-                }
+                }) 
             }
         }
         
         selectedTile = nil
     }
     
-    func textureForTile(tile: Tile) -> SKTexture {
+    func textureForTile(_ tile: Tile) -> SKTexture {
         var mineType = 13
         
         // Finding witch texture we need
@@ -438,8 +438,8 @@ class GameScene: SKScene {
         }
         
         // Generating texture otherwise
-        let size = tileSize * UIScreen.mainScreen().scale
-        let sprite = SKShapeNode(rectOfSize: CGSizeMake(size*0.9, size*0.9))
+        let size = tileSize * UIScreen.main.scale
+        let sprite = SKShapeNode(rectOf: CGSize(width: size*0.9, height: size*0.9))
         sprite.lineWidth = 0
         
         switch (mineType) {
@@ -450,7 +450,7 @@ class GameScene: SKScene {
             let detail = SKLabelNode(text: "\(tile.nbMineAround)")
             detail.fontColor = Theme.fontColorWithMines(tile.nbMineAround)
             detail.fontSize = size*2/3
-            detail.position = CGPointMake(0, -size/4)
+            detail.position = CGPoint(x: 0, y: -size/4)
             sprite.addChild(detail)
         case 9:
             sprite.fillColor = Theme.markedTileColor
@@ -465,14 +465,14 @@ class GameScene: SKScene {
         }
         
         // Saving the texture
-        let texture = self.view!.textureFromNode(sprite)
+        let texture = self.view!.texture(from: sprite)
         textures[mineType] = texture
         
         // Returning the texture
         return texture!
     }
     
-    func textureForGameOver(winned: Bool) -> SKTexture {
+    func textureForGameOver(_ winned: Bool) -> SKTexture {
         if let tex = textures[winned ? 14 : 15] {
             return tex
         }
@@ -480,13 +480,13 @@ class GameScene: SKScene {
         let node = SKShapeNode(rect: winned ? Theme.gameWonSize : Theme.gameLostSize, cornerRadius: 10)
         node.fillColor = Theme.gameOverBackgroundColor
         node.strokeColor = Theme.gameOverBorderColor
-        let texture = self.view!.textureFromNode(node)
+        let texture = self.view!.texture(from: node)
         textures[winned ? 14 : 15] = texture
         return texture!
     }
 }
 
-extension NSTimeInterval {
+extension TimeInterval {
     var formattedHoursMinutesSecondsMilliseconds: String {
         if Int(self) > 59 {
             return String(format:"%dmin %02ds %03dms", minute , second, millisecond)
@@ -495,12 +495,12 @@ extension NSTimeInterval {
         }
     }
     var minute: Int {
-        return Int((self/60.0)%60)
+        return Int((self/60.0).truncatingRemainder(dividingBy: 60))
     }
     var second: Int {
-        return Int(self % 60)
+        return Int(self.truncatingRemainder(dividingBy: 60))
     }
     var millisecond: Int {
-        return Int(self*1000 % 1000 )
+        return Int((self*1000).truncatingRemainder(dividingBy: 1000) )
     }
 }
