@@ -16,11 +16,11 @@ class Theme {
     }
     
     static var gameOverBackgroundColor: UIColor {
-        return UIColor.hx_color(withHexString: "#FAFAFA")!
+        return UIColor.hx_color(withHexRGBAString: "#FAFAFAFF")!
     }
     
     static var gameOverBorderColor: UIColor {
-        return UIColor.hx_color(withHexString: "#DDDDDD")!
+        return UIColor.hx_color(withHexRGBAString: "#DDDDDDFF")!
     }
     
     static var unrevealedTileColor: UIColor {
@@ -32,7 +32,7 @@ class Theme {
     }
     
     static var solvedMineTileColor: UIColor {
-        return UIColor.hx_color(withHexString: "#5CB85C")!
+        return UIColor.hx_color(withHexRGBAString: "#5CB85CFF")!
     }
     
     static var unsolvedMineTileColor: UIColor {
@@ -44,25 +44,25 @@ class Theme {
     }
     
     static var markedTileColor: UIColor {
-        return UIColor.hx_color(withHexString: "#f0AD4E")!
+        return UIColor.hx_color(withHexRGBAString: "#f0AD4EFF")!
     }
     
     static func fontColorWithMines(_ nbMines: Int) -> UIColor {
         switch nbMines {
         case 1:
-            return UIColor.hx_color(withHexString: "#007AFF")!
+            return UIColor.hx_color(withHexRGBAString: "#007AFFFF")!
         case 2:
-            return UIColor.hx_color(withHexString: "#4CD964")!
+            return UIColor.hx_color(withHexRGBAString: "#4CD964FF")!
         case 3:
-            return UIColor.hx_color(withHexString: "#FF3B30")!
+            return UIColor.hx_color(withHexRGBAString: "#FF3B30FF")!
         case 4:
-            return UIColor.hx_color(withHexString: "#C644FC")!
+            return UIColor.hx_color(withHexRGBAString: "#C644FCFF")!
         case 5:
-            return UIColor.hx_color(withHexString: "#FF9500")!
+            return UIColor.hx_color(withHexRGBAString: "#FF9500FF")!
         case 6:
-            return UIColor.hx_color(withHexString: "#81F3FD")!
+            return UIColor.hx_color(withHexRGBAString: "#81F3FDFF")!
         case 8:
-            return UIColor.hx_color(withHexString: "#C7C7CC")!
+            return UIColor.hx_color(withHexRGBAString: "#C7C7CCFF")!
         default:
             return UIColor.black
         }
