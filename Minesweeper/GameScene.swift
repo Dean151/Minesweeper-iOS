@@ -8,7 +8,6 @@
 
 import AudioToolbox
 import SpriteKit
-import HexColors
 
 class GameScene: SKScene {
     let board: Board
@@ -224,33 +223,33 @@ class GameScene: SKScene {
                 let scoreNode = SKSpriteNode(texture: self.textureForGameOver(true))
                 scoreNode.alpha = 0
                 
-                let gameWonLabel = SKLabelNode(fontNamed: "Noteworthy")
+                let gameWonLabel = SKLabelNode(fontNamed: "Helvetica")
                 gameWonLabel.text = NSLocalizedString("CONGRATULATIONS!", comment: "").uppercased()
                 gameWonLabel.fontColor = Theme.solvedMineTileColor
                 gameWonLabel.position = CGPoint(x: 0, y: 30)
                 scoreNode.addChild(gameWonLabel)
                 
-                let scoreLabel = SKLabelNode(fontNamed: "Noteworthy-Light")
+                let scoreLabel = SKLabelNode(fontNamed: "Helvetica-Light")
                 scoreLabel.text = NSLocalizedString("SCORE", comment: "") + ": \(self.board.score!.formattedHoursMinutesSecondsMilliseconds)"
                 scoreLabel.fontColor = UIColor.black
                 scoreLabel.fontSize = 16
-                scoreLabel.position = CGPoint(x: 0, y: -10)
+                scoreLabel.position = CGPoint(x: 0, y: 0)
                 scoreNode.addChild(scoreLabel)
                 
-                let playLabel = SKLabelNode(fontNamed: "Noteworthy-Light")
+                let playLabel = SKLabelNode(fontNamed: "Helvetica-Light")
                 playLabel.name = "play"
                 playLabel.text = NSLocalizedString("PLAY_AGAIN", comment: "").uppercased()
                 playLabel.fontColor = Theme.unrevealedTileColor
                 playLabel.fontSize = 18
-                playLabel.position = CGPoint(x: -50, y: -50)
+                playLabel.position = CGPoint(x: -60, y: -50)
                 scoreNode.addChild(playLabel)
                 
-                let shareLabel = SKLabelNode(fontNamed: "Noteworthy-Light")
+                let shareLabel = SKLabelNode(fontNamed: "Helvetica-Light")
                 shareLabel.name = "share"
                 shareLabel.text = NSLocalizedString("SHARE", comment: "").uppercased()
                 shareLabel.fontColor = Theme.unrevealedTileColor
                 shareLabel.fontSize = 18
-                shareLabel.position = CGPoint(x: 50, y: -50)
+                shareLabel.position = CGPoint(x: 60, y: -50)
                 scoreNode.addChild(shareLabel)
                 
                 // Make the game won layout appears
@@ -262,13 +261,13 @@ class GameScene: SKScene {
                 let scoreNode = SKSpriteNode(texture: self.textureForGameOver(false))
                 scoreNode.alpha = 0
                 
-                let gameLostLabel = SKLabelNode(fontNamed: "Noteworthy")
+                let gameLostLabel = SKLabelNode(fontNamed: "Helvetica")
                 gameLostLabel.text = NSLocalizedString("TOO_BAD!", comment: "").uppercased()
                 gameLostLabel.fontColor = Theme.explodedMineTileColor
                 gameLostLabel.position = CGPoint(x: 0, y: 5)
                 scoreNode.addChild(gameLostLabel)
                 
-                let playLabel = SKLabelNode(fontNamed: "Noteworthy-Light")
+                let playLabel = SKLabelNode(fontNamed: "Helvetica-Light")
                 playLabel.name = "play"
                 playLabel.text = NSLocalizedString("PLAY_AGAIN", comment: "").uppercased()
                 playLabel.fontColor = Theme.unrevealedTileColor
