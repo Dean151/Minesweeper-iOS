@@ -11,7 +11,6 @@ import UIKit
 import Eureka
 import GameKit
 import GCHelper
-import IAPController
 
 import Crashlytics
 
@@ -26,12 +25,6 @@ class SettingsViewController: FormViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(SettingsViewController.donePressed(_:)))
         
         setupForm()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(SettingsViewController.didFetchedProducts(_:)), name: NSNotification.Name(rawValue: IAPControllerFetchedNotification), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(SettingsViewController.didPurchasedProduct(_:)), name: NSNotification.Name(rawValue: IAPControllerPurchasedNotification), object: nil)
-        
-        // Fetching iAP
-        IAPController.sharedInstance.fetchProducts()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,12 +55,7 @@ class SettingsViewController: FormViewController {
                 $0.value = Settings.sharedInstance.difficulty
             }.onChange { row in
                     guard let difficulty = row.value else { return }
-                    if difficulty.difficultyAvailable {
-                        Settings.sharedInstance.difficulty = difficulty
-                    } else {
-                        row.value = Settings.sharedInstance.difficulty
-                        self.presentAvantagesOfFullVersion()
-                    }
+                    Settings.sharedInstance.difficulty = difficulty
             }
             <<< ButtonRow("stats") {
                 $0.title = NSLocalizedString("STATISTICS", comment: "")
@@ -76,49 +64,6 @@ class SettingsViewController: FormViewController {
                 
                 let statsVC = StatsTableViewController(style: .grouped)
                 self.navigationController!.pushViewController(statsVC, animated: true)
-            }
-            
-            +++ Section("Premium") {
-                $0.header = HeaderFooterView<UIView>(stringLiteral: NSLocalizedString("PREMIUM_FEATURES", comment: ""))
-                $0.hidden = .function(["Premium"], { form -> Bool in
-                    return Settings.sharedInstance.completeVersionPurchased
-                })
-            }
-            <<< ButtonRow("about") {
-                $0.title = NSLocalizedString("ABOUT_PREMIUM", comment: "")
-                }.onCellSelection { cell, row in
-                    self.deselectRows()
-                    self.presentAvantagesOfFullVersion()
-            }
-            <<< ButtonRow("buy") {
-                $0.title = NSLocalizedString("BUY_PREMIUM", comment: "")
-                $0.disabled = .function([], { form -> Bool in
-                    if let _ = IAPController.sharedInstance.products?.first {
-                        return false
-                    }
-                    return true
-                })
-            }.onCellSelection { cell, row in
-                    self.deselectRows()
-                    guard let product = IAPController.sharedInstance.products?.first else { return }
-                    product.buy()
-            }.cellUpdate { cell, row in
-                    if let product = IAPController.sharedInstance.products?.first {
-                        row.title = String.localizedStringWithFormat(NSLocalizedString("BUY_PREMIUM_WITH_PRICE", comment: ""),
-                            product.priceFormatted!);
-                    }
-            }
-            <<< ButtonRow("restore") {
-                $0.title = NSLocalizedString("RESTORE", comment: "")
-                $0.disabled = .function([], { form -> Bool in
-                    if let _ = IAPController.sharedInstance.products?.first {
-                        return false
-                    }
-                    return true
-                })
-            }.onCellSelection { cell, row in
-                    self.deselectRows()
-                    IAPController.sharedInstance.restore()
             }
             
             +++ Section() {
@@ -205,36 +150,4 @@ class SettingsViewController: FormViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func presentAvantagesOfFullVersion() {
-        let alertView = UIAlertController(title: NSLocalizedString("PREMIUM_FEATURES", comment: ""), message: NSLocalizedString("PREMIUM_FEATURES_TEXT", comment: ""), preferredStyle: .alert)
-        
-        let dismissAction = UIAlertAction(title: NSLocalizedString("DISMISS", comment: ""), style: .cancel, handler: nil)
-        alertView.addAction(dismissAction)
-        
-        self.present(alertView, animated: true, completion: nil)
-    }
-    
-    func giveFullVersionToUser() {
-        Settings.sharedInstance.completeVersionPurchased = true
-    }
-    
-    // MARK: In-App Purchases
-    
-    func didFetchedProducts(_ sender: AnyObject) {
-        self.updateForm()
-    }
-    
-    func didPurchasedProduct(_ sender: AnyObject) {
-        self.updateForm()
-        
-        let price = IAPController.sharedInstance.products?.first?.price
-        let currency = IAPController.sharedInstance.products?.first?.priceLocale.currencyCode
-        
-        Answers.logPurchase(withPrice: price, currency: currency, success: true, itemName: "Premium Buyed", itemType: nil, itemId: nil, customAttributes: nil)
-        
-        self.giveFullVersionToUser()
-        
-        let alertView = UIAlertController(title: NSLocalizedString("THANK_YOU", comment: ""), message: NSLocalizedString("IAP_SUCCESS", comment: ""), preferredStyle: .alert)
-        self.present(alertView, animated: true, completion: nil)
-    }
 }

@@ -18,9 +18,6 @@ class BoardTests: XCTestCase {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         difficulty = GameDifficulty.random
         board = Board(difficulty: difficulty)
-        
-        // To test also hard and insane difficulty modes
-        Settings.sharedInstance.completeVersionPurchased = true
     }
     
     override func tearDown() {

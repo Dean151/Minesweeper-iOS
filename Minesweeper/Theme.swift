@@ -16,11 +16,11 @@ class Theme {
     }
     
     static var gameOverBackgroundColor: UIColor {
-        return UIColor.hx_color(withHexRGBAString: "#FAFAFAFF")!
+        return UIColor(hexString: "#FAFAFA")!
     }
     
     static var gameOverBorderColor: UIColor {
-        return UIColor.hx_color(withHexRGBAString: "#DDDDDDFF")!
+        return UIColor(hexString: "#DDDDDD")!
     }
     
     static var unrevealedTileColor: UIColor {
@@ -32,7 +32,7 @@ class Theme {
     }
     
     static var solvedMineTileColor: UIColor {
-        return UIColor.hx_color(withHexRGBAString: "#5CB85CFF")!
+        return UIColor(hexString: "#5CB85C")!
     }
     
     static var unsolvedMineTileColor: UIColor {
@@ -44,25 +44,25 @@ class Theme {
     }
     
     static var markedTileColor: UIColor {
-        return UIColor.hx_color(withHexRGBAString: "#f0AD4EFF")!
+        return UIColor(hexString: "#f0AD4E")!
     }
     
     static func fontColorWithMines(_ nbMines: Int) -> UIColor {
         switch nbMines {
         case 1:
-            return UIColor.hx_color(withHexRGBAString: "#007AFFFF")!
+            return UIColor(hexString: "#007AFF")!
         case 2:
-            return UIColor.hx_color(withHexRGBAString: "#4CD964FF")!
+            return UIColor(hexString: "#4CD964")!
         case 3:
-            return UIColor.hx_color(withHexRGBAString: "#FF3B30FF")!
+            return UIColor(hexString: "#FF3B30")!
         case 4:
-            return UIColor.hx_color(withHexRGBAString: "#C644FCFF")!
+            return UIColor(hexString: "#C644FC")!
         case 5:
-            return UIColor.hx_color(withHexRGBAString: "#FF9500FF")!
+            return UIColor(hexString: "#FF9500")!
         case 6:
-            return UIColor.hx_color(withHexRGBAString: "#81F3FDFF")!
+            return UIColor(hexString: "#81F3FD")!
         case 8:
-            return UIColor.hx_color(withHexRGBAString: "#C7C7CCFF")!
+            return UIColor(hexString: "#C7C7CC")!
         default:
             return UIColor.black
         }

@@ -12,12 +12,7 @@ enum GameDifficulty: String, CustomStringConvertible {
     case Easy, Medium, Hard, Insane
     
     var description: String {
-        let difficulty = self.shortDescription
-        if difficultyAvailable {
-            return difficulty
-        } else {
-            return "\(difficulty) (Premium)"
-        }
+        return self.shortDescription
     }
     
     var shortDescription: String {
@@ -50,19 +45,9 @@ enum GameDifficulty: String, CustomStringConvertible {
         }
     }
     
-    var difficultyAvailable: Bool {
-        switch self {
-        case .Easy, .Medium:
-            return true
-        case .Hard, .Insane:
-            return Settings.sharedInstance.completeVersionPurchased
-        }
-    }
-    
     static var random: GameDifficulty {
-        let values = allValues.filter({ $0.difficultyAvailable })
-        let rand = Int(arc4random_uniform(UInt32(values.count)))
-        return values[rand]
+        let rand = Int(arc4random_uniform(UInt32(allValues.count)))
+        return allValues[rand]
     }
     
     static func fromInt(_ value: Int) -> GameDifficulty? {

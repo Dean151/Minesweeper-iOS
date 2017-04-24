@@ -79,9 +79,6 @@ class GameViewController: UIViewController {
     }
     
     func startGame() {
-        if (!Settings.sharedInstance.difficulty.difficultyAvailable) {
-            Settings.sharedInstance.difficulty = .Easy
-        }
         newGame( Settings.sharedInstance.difficulty )
     }
     
